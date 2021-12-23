@@ -1,0 +1,806 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00E356F31AD99517003FC87E /* osoriClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* osoriClientTests.m */; };
+		0775ACF9DFA9421E830BD081 /* NanumSquareR.otf in Resources */ = {isa = PBXBuildFile; fileRef = 34CAAC6BB5424591BE59F760 /* NanumSquareR.otf */; };
+		08C3D72989F2400FAE05E26B /* NanumSquareL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F4684324CEA4632B828A4BD /* NanumSquareL.ttf */; };
+		0B4341B3327848E1AE52312B /* NanumSquareEB.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4069ADED93594F1AA9EBC85F /* NanumSquareEB.otf */; };
+		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		272200E62764ED7200DD27B6 /* BridgingFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272200E52764ED7200DD27B6 /* BridgingFile.swift */; };
+		277F7523276D8B3D00E56BD7 /* KakaoOpenSDK-1.23.9 in Resources */ = {isa = PBXBuildFile; fileRef = 277F7522276D8B3D00E56BD7 /* KakaoOpenSDK-1.23.9 */; };
+		277F7524276D8B9200E56BD7 /* KakaoOpenSDK-1.23.9 in Frameworks */ = {isa = PBXBuildFile; fileRef = 277F7522276D8B3D00E56BD7 /* KakaoOpenSDK-1.23.9 */; };
+		277F7526276DAC6100E56BD7 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 277F7525276DAC6100E56BD7 /* SplashScreen.storyboard */; };
+		27C39355276CCEC400BEAF7F /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 27C39352276CB41800BEAF7F /* Fonts */; };
+		4C26E7C7E616408DBB3D9B2E /* Oe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8DADE58085144E396BB7C80 /* Oe.ttf */; };
+		50930F0AD99CA280E58CBDDC /* libPods-osoriClient-osoriClientTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EB26BCD4D14B40AE805456 /* libPods-osoriClient-osoriClientTests.a */; };
+		545AEE8EEFDE4967A2D2DDFB /* NanumSquare_acR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CFA52F54F1E428790E2D446 /* NanumSquare_acR.ttf */; };
+		559B008945154D99BB354DBC /* NanumSquare_acEB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CA7759D29A34A899D52B8DB /* NanumSquare_acEB.ttf */; };
+		65350833968F42FBBBAD7924 /* NanumSquare_acB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2DBBAD965EA4476F91340B22 /* NanumSquare_acB.ttf */; };
+		6A30D832387147BB8382DF71 /* NanumSquareR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 468B57E72E424BF28C209F57 /* NanumSquareR.ttf */; };
+		9A633C528D434BBAB4223F82 /* NanumSquareOTF_acR.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9E5E9FBBAF264FB8A1D3CB60 /* NanumSquareOTF_acR.otf */; };
+		B19B29732E734F5B8E41BD01 /* NanumSquareEB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2E10E40FC0941859752F6C0 /* NanumSquareEB.ttf */; };
+		B682BF6746D547C29A62CA09 /* NanumSquareL.otf in Resources */ = {isa = PBXBuildFile; fileRef = 22339D8C367C4F80B7AF2617 /* NanumSquareL.otf */; };
+		BC51A0CF94404B28A2D792C5 /* NanumSquareB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 67EBCAB6C39B48DFB00E2F28 /* NanumSquareB.ttf */; };
+		CBBD7E2494D2471A97C88FCD /* NanumSquare_acL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EFD35B13ABBF4B4D928EEA0F /* NanumSquare_acL.ttf */; };
+		D9822F3207C846EF3E674517 /* libPods-osoriClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A96BB900F888F1B1D6034C0 /* libPods-osoriClient.a */; };
+		E85B84C37BB947659507644E /* NanumSquareOTF_acL.otf in Resources */ = {isa = PBXBuildFile; fileRef = 60F6B2C8AA434C3D986121BB /* NanumSquareOTF_acL.otf */; };
+		EC15EB158769436D93FA9228 /* NanumSquareOTF_acEB.otf in Resources */ = {isa = PBXBuildFile; fileRef = 30A101F5F06840088DB50ED3 /* NanumSquareOTF_acEB.otf */; };
+		F48EB9BEF56C4BBD8D7002F6 /* NanumSquareOTF_acB.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7F568EFEA89F47958B571B0C /* NanumSquareOTF_acB.otf */; };
+		F5198BD9149E4C9BA3BF9A00 /* NanumSquareB.otf in Resources */ = {isa = PBXBuildFile; fileRef = 319EBEEA32D647248EC7E1F0 /* NanumSquareB.otf */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = osoriClient;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00E356EE1AD99517003FC87E /* osoriClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = osoriClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* osoriClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = osoriClientTests.m; sourceTree = "<group>"; };
+		05EB26BCD4D14B40AE805456 /* libPods-osoriClient-osoriClientTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-osoriClient-osoriClientTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CA7759D29A34A899D52B8DB /* NanumSquare_acEB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquare_acEB.ttf; path = ../src/assets/fonts/NanumSquare_acEB.ttf; sourceTree = "<group>"; };
+		0CFA52F54F1E428790E2D446 /* NanumSquare_acR.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquare_acR.ttf; path = ../src/assets/fonts/NanumSquare_acR.ttf; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* osoriClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = osoriClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = osoriClient/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = osoriClient/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = osoriClient/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = osoriClient/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = osoriClient/main.m; sourceTree = "<group>"; };
+		1CAA9EBC04615D5AFDE1A149 /* Pods-osoriClient-osoriClientTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-osoriClient-osoriClientTests.debug.xcconfig"; path = "Target Support Files/Pods-osoriClient-osoriClientTests/Pods-osoriClient-osoriClientTests.debug.xcconfig"; sourceTree = "<group>"; };
+		22339D8C367C4F80B7AF2617 /* NanumSquareL.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareL.otf; path = ../src/assets/fonts/NanumSquareL.otf; sourceTree = "<group>"; };
+		272200E42764ED7200DD27B6 /* osoriClient-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "osoriClient-Bridging-Header.h"; sourceTree = "<group>"; };
+		272200E52764ED7200DD27B6 /* BridgingFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgingFile.swift; sourceTree = "<group>"; };
+		277F7522276D8B3D00E56BD7 /* KakaoOpenSDK-1.23.9 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "KakaoOpenSDK-1.23.9"; sourceTree = "<group>"; };
+		277F7525276DAC6100E56BD7 /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
+		27C39352276CB41800BEAF7F /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
+		2DBBAD965EA4476F91340B22 /* NanumSquare_acB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquare_acB.ttf; path = ../src/assets/fonts/NanumSquare_acB.ttf; sourceTree = "<group>"; };
+		30A101F5F06840088DB50ED3 /* NanumSquareOTF_acEB.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareOTF_acEB.otf; path = ../src/assets/fonts/NanumSquareOTF_acEB.otf; sourceTree = "<group>"; };
+		319EBEEA32D647248EC7E1F0 /* NanumSquareB.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareB.otf; path = ../src/assets/fonts/NanumSquareB.otf; sourceTree = "<group>"; };
+		34CAAC6BB5424591BE59F760 /* NanumSquareR.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareR.otf; path = ../src/assets/fonts/NanumSquareR.otf; sourceTree = "<group>"; };
+		3633483159631BF5F9A27F74 /* Pods-osoriClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-osoriClient.release.xcconfig"; path = "Target Support Files/Pods-osoriClient/Pods-osoriClient.release.xcconfig"; sourceTree = "<group>"; };
+		3A62B6EB4EF94F1D8FDE416D /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		3B15378C908A4CB3B169CB61 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		4069ADED93594F1AA9EBC85F /* NanumSquareEB.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareEB.otf; path = ../src/assets/fonts/NanumSquareEB.otf; sourceTree = "<group>"; };
+		468B57E72E424BF28C209F57 /* NanumSquareR.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareR.ttf; path = ../src/assets/fonts/NanumSquareR.ttf; sourceTree = "<group>"; };
+		563A8202921645589C319982 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		5A96BB900F888F1B1D6034C0 /* libPods-osoriClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-osoriClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		60F6B2C8AA434C3D986121BB /* NanumSquareOTF_acL.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareOTF_acL.otf; path = ../src/assets/fonts/NanumSquareOTF_acL.otf; sourceTree = "<group>"; };
+		67B89532554D47F7B910D81E /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		67EBCAB6C39B48DFB00E2F28 /* NanumSquareB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareB.ttf; path = ../src/assets/fonts/NanumSquareB.ttf; sourceTree = "<group>"; };
+		719CD38FA04642DD8C23DE17 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		7B4976E6CBDB43DD98D3CD7E /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		7D8A36D6ED444839A780CDB9 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		7F4684324CEA4632B828A4BD /* NanumSquareL.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareL.ttf; path = ../src/assets/fonts/NanumSquareL.ttf; sourceTree = "<group>"; };
+		7F568EFEA89F47958B571B0C /* NanumSquareOTF_acB.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareOTF_acB.otf; path = ../src/assets/fonts/NanumSquareOTF_acB.otf; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = osoriClient/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9CE22B512F1D3B331D700A92 /* Pods-osoriClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-osoriClient.debug.xcconfig"; path = "Target Support Files/Pods-osoriClient/Pods-osoriClient.debug.xcconfig"; sourceTree = "<group>"; };
+		9E5E9FBBAF264FB8A1D3CB60 /* NanumSquareOTF_acR.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareOTF_acR.otf; path = ../src/assets/fonts/NanumSquareOTF_acR.otf; sourceTree = "<group>"; };
+		A3AF41357FC24216AEC37C2F /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		AB2E40A527274EB7A1DB2D69 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		B26529D17ABB474BB5606262 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		B2E10E40FC0941859752F6C0 /* NanumSquareEB.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquareEB.ttf; path = ../src/assets/fonts/NanumSquareEB.ttf; sourceTree = "<group>"; };
+		B354B6E7DF644C6E8418E5FF /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		B6F5F0980624421EACFE237B /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		B77645B903C1438995DB2B27 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		B8DADE58085144E396BB7C80 /* Oe.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Oe.ttf; path = ../src/assets/fonts/Oe.ttf; sourceTree = "<group>"; };
+		DD890C55764D4ED18B7351CE /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		DF3A373CF36B425288640E6D /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EFD35B13ABBF4B4D928EEA0F /* NanumSquare_acL.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = NanumSquare_acL.ttf; path = ../src/assets/fonts/NanumSquare_acL.ttf; sourceTree = "<group>"; };
+		F06EEFDCBDFC406FA7856814 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		F680F56BD1921F12AA82C679 /* Pods-osoriClient-osoriClientTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-osoriClient-osoriClientTests.release.xcconfig"; path = "Target Support Files/Pods-osoriClient-osoriClientTests/Pods-osoriClient-osoriClientTests.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00E356EB1AD99517003FC87E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50930F0AD99CA280E58CBDDC /* libPods-osoriClient-osoriClientTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				277F7524276D8B9200E56BD7 /* KakaoOpenSDK-1.23.9 in Frameworks */,
+				D9822F3207C846EF3E674517 /* libPods-osoriClient.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00E356EF1AD99517003FC87E /* osoriClientTests */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F21AD99517003FC87E /* osoriClientTests.m */,
+				00E356F01AD99517003FC87E /* Supporting Files */,
+			);
+			path = osoriClientTests;
+			sourceTree = "<group>";
+		};
+		00E356F01AD99517003FC87E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F11AD99517003FC87E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		13B07FAE1A68108700A75B9A /* osoriClient */ = {
+			isa = PBXGroup;
+			children = (
+				277F7525276DAC6100E56BD7 /* SplashScreen.storyboard */,
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				13B07FB61A68108700A75B9A /* Info.plist */,
+				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
+				13B07FB71A68108700A75B9A /* main.m */,
+			);
+			name = osoriClient;
+			sourceTree = "<group>";
+		};
+		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				5A96BB900F888F1B1D6034C0 /* libPods-osoriClient.a */,
+				05EB26BCD4D14B40AE805456 /* libPods-osoriClient-osoriClientTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4E586B102F204AA48E61882E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				67B89532554D47F7B910D81E /* AntDesign.ttf */,
+				563A8202921645589C319982 /* Entypo.ttf */,
+				AB2E40A527274EB7A1DB2D69 /* EvilIcons.ttf */,
+				3A62B6EB4EF94F1D8FDE416D /* Feather.ttf */,
+				B354B6E7DF644C6E8418E5FF /* FontAwesome.ttf */,
+				F06EEFDCBDFC406FA7856814 /* FontAwesome5_Brands.ttf */,
+				A3AF41357FC24216AEC37C2F /* FontAwesome5_Regular.ttf */,
+				3B15378C908A4CB3B169CB61 /* FontAwesome5_Solid.ttf */,
+				7D8A36D6ED444839A780CDB9 /* Fontisto.ttf */,
+				7B4976E6CBDB43DD98D3CD7E /* Foundation.ttf */,
+				719CD38FA04642DD8C23DE17 /* Ionicons.ttf */,
+				B77645B903C1438995DB2B27 /* MaterialCommunityIcons.ttf */,
+				B6F5F0980624421EACFE237B /* MaterialIcons.ttf */,
+				B26529D17ABB474BB5606262 /* Octicons.ttf */,
+				DF3A373CF36B425288640E6D /* SimpleLineIcons.ttf */,
+				DD890C55764D4ED18B7351CE /* Zocial.ttf */,
+				2DBBAD965EA4476F91340B22 /* NanumSquare_acB.ttf */,
+				0CA7759D29A34A899D52B8DB /* NanumSquare_acEB.ttf */,
+				EFD35B13ABBF4B4D928EEA0F /* NanumSquare_acL.ttf */,
+				0CFA52F54F1E428790E2D446 /* NanumSquare_acR.ttf */,
+				319EBEEA32D647248EC7E1F0 /* NanumSquareB.otf */,
+				67EBCAB6C39B48DFB00E2F28 /* NanumSquareB.ttf */,
+				4069ADED93594F1AA9EBC85F /* NanumSquareEB.otf */,
+				B2E10E40FC0941859752F6C0 /* NanumSquareEB.ttf */,
+				22339D8C367C4F80B7AF2617 /* NanumSquareL.otf */,
+				7F4684324CEA4632B828A4BD /* NanumSquareL.ttf */,
+				7F568EFEA89F47958B571B0C /* NanumSquareOTF_acB.otf */,
+				30A101F5F06840088DB50ED3 /* NanumSquareOTF_acEB.otf */,
+				60F6B2C8AA434C3D986121BB /* NanumSquareOTF_acL.otf */,
+				9E5E9FBBAF264FB8A1D3CB60 /* NanumSquareOTF_acR.otf */,
+				34CAAC6BB5424591BE59F760 /* NanumSquareR.otf */,
+				468B57E72E424BF28C209F57 /* NanumSquareR.ttf */,
+				B8DADE58085144E396BB7C80 /* Oe.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		5E071EF3BD2E924EC31501C4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9CE22B512F1D3B331D700A92 /* Pods-osoriClient.debug.xcconfig */,
+				3633483159631BF5F9A27F74 /* Pods-osoriClient.release.xcconfig */,
+				1CAA9EBC04615D5AFDE1A149 /* Pods-osoriClient-osoriClientTests.debug.xcconfig */,
+				F680F56BD1921F12AA82C679 /* Pods-osoriClient-osoriClientTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		83CBB9F61A601CBA00E9B192 = {
+			isa = PBXGroup;
+			children = (
+				277F7522276D8B3D00E56BD7 /* KakaoOpenSDK-1.23.9 */,
+				27C39352276CB41800BEAF7F /* Fonts */,
+				272200E52764ED7200DD27B6 /* BridgingFile.swift */,
+				13B07FAE1A68108700A75B9A /* osoriClient */,
+				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				00E356EF1AD99517003FC87E /* osoriClientTests */,
+				83CBBA001A601CBA00E9B192 /* Products */,
+				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				5E071EF3BD2E924EC31501C4 /* Pods */,
+				272200E42764ED7200DD27B6 /* osoriClient-Bridging-Header.h */,
+				4E586B102F204AA48E61882E /* Resources */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
+		};
+		83CBBA001A601CBA00E9B192 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13B07F961A680F5B00A75B9A /* osoriClient.app */,
+				00E356EE1AD99517003FC87E /* osoriClientTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00E356ED1AD99517003FC87E /* osoriClientTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "osoriClientTests" */;
+			buildPhases = (
+				30648799A49AE49D1D2EC839 /* [CP] Check Pods Manifest.lock */,
+				00E356EA1AD99517003FC87E /* Sources */,
+				00E356EB1AD99517003FC87E /* Frameworks */,
+				00E356EC1AD99517003FC87E /* Resources */,
+				AB7605AF3FCF7EBB662945E8 /* [CP] Embed Pods Frameworks */,
+				30A3C840D9A6E657433428BB /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00E356F51AD99517003FC87E /* PBXTargetDependency */,
+			);
+			name = osoriClientTests;
+			productName = osoriClientTests;
+			productReference = 00E356EE1AD99517003FC87E /* osoriClientTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		13B07F861A680F5B00A75B9A /* osoriClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "osoriClient" */;
+			buildPhases = (
+				9D1995D4AAAE18DD51BB05CB /* [CP] Check Pods Manifest.lock */,
+				FD10A7F022414F080027D42C /* Start Packager */,
+				13B07F871A680F5B00A75B9A /* Sources */,
+				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				13B07F8E1A680F5B00A75B9A /* Resources */,
+				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				19FB83EEDAE719508EED06AB /* [CP] Embed Pods Frameworks */,
+				2669FC7D9BEF54ACA9523601 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = osoriClient;
+			productName = osoriClient;
+			productReference = 13B07F961A680F5B00A75B9A /* osoriClient.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83CBB9F71A601CBA00E9B192 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1210;
+				TargetAttributes = {
+					00E356ED1AD99517003FC87E = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 1310;
+					};
+				};
+			};
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "osoriClient" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 83CBB9F61A601CBA00E9B192;
+			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				13B07F861A680F5B00A75B9A /* osoriClient */,
+				00E356ED1AD99517003FC87E /* osoriClientTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00E356EC1AD99517003FC87E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8E1A680F5B00A75B9A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27C39355276CCEC400BEAF7F /* Fonts in Resources */,
+				65350833968F42FBBBAD7924 /* NanumSquare_acB.ttf in Resources */,
+				559B008945154D99BB354DBC /* NanumSquare_acEB.ttf in Resources */,
+				CBBD7E2494D2471A97C88FCD /* NanumSquare_acL.ttf in Resources */,
+				545AEE8EEFDE4967A2D2DDFB /* NanumSquare_acR.ttf in Resources */,
+				F5198BD9149E4C9BA3BF9A00 /* NanumSquareB.otf in Resources */,
+				BC51A0CF94404B28A2D792C5 /* NanumSquareB.ttf in Resources */,
+				0B4341B3327848E1AE52312B /* NanumSquareEB.otf in Resources */,
+				B19B29732E734F5B8E41BD01 /* NanumSquareEB.ttf in Resources */,
+				277F7523276D8B3D00E56BD7 /* KakaoOpenSDK-1.23.9 in Resources */,
+				B682BF6746D547C29A62CA09 /* NanumSquareL.otf in Resources */,
+				08C3D72989F2400FAE05E26B /* NanumSquareL.ttf in Resources */,
+				F48EB9BEF56C4BBD8D7002F6 /* NanumSquareOTF_acB.otf in Resources */,
+				277F7526276DAC6100E56BD7 /* SplashScreen.storyboard in Resources */,
+				EC15EB158769436D93FA9228 /* NanumSquareOTF_acEB.otf in Resources */,
+				E85B84C37BB947659507644E /* NanumSquareOTF_acL.otf in Resources */,
+				9A633C528D434BBAB4223F82 /* NanumSquareOTF_acR.otf in Resources */,
+				0775ACF9DFA9421E830BD081 /* NanumSquareR.otf in Resources */,
+				6A30D832387147BB8382DF71 /* NanumSquareR.ttf in Resources */,
+				4C26E7C7E616408DBB3D9B2E /* Oe.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		19FB83EEDAE719508EED06AB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-osoriClient/Pods-osoriClient-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-osoriClient/Pods-osoriClient-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-osoriClient/Pods-osoriClient-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2669FC7D9BEF54ACA9523601 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-osoriClient/Pods-osoriClient-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-osoriClient/Pods-osoriClient-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-osoriClient/Pods-osoriClient-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		30648799A49AE49D1D2EC839 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-osoriClient-osoriClientTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		30A3C840D9A6E657433428BB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-osoriClient-osoriClientTests/Pods-osoriClient-osoriClientTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-osoriClient-osoriClientTests/Pods-osoriClient-osoriClientTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-osoriClient-osoriClientTests/Pods-osoriClient-osoriClientTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D1995D4AAAE18DD51BB05CB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-osoriClient-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AB7605AF3FCF7EBB662945E8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-osoriClient-osoriClientTests/Pods-osoriClient-osoriClientTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-osoriClient-osoriClientTests/Pods-osoriClient-osoriClientTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-osoriClient-osoriClientTests/Pods-osoriClient-osoriClientTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD10A7F022414F080027D42C /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		00E356EA1AD99517003FC87E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00E356F31AD99517003FC87E /* osoriClientTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F871A680F5B00A75B9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				272200E62764ED7200DD27B6 /* BridgingFile.swift in Sources */,
+				13B07FC11A68108700A75B9A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* osoriClient */;
+			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		00E356F61AD99517003FC87E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CAA9EBC04615D5AFDE1A149 /* Pods-osoriClient-osoriClientTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = osoriClientTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/osoriClient.app/osoriClient";
+			};
+			name = Debug;
+		};
+		00E356F71AD99517003FC87E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F680F56BD1921F12AA82C679 /* Pods-osoriClient-osoriClientTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = osoriClientTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/osoriClient.app/osoriClient";
+			};
+			name = Release;
+		};
+		13B07F941A680F5B00A75B9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9CE22B512F1D3B331D700A92 /* Pods-osoriClient.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = osoriClient/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = osoriClient;
+				SWIFT_OBJC_BRIDGING_HEADER = "osoriClient-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		13B07F951A680F5B00A75B9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3633483159631BF5F9A27F74 /* Pods-osoriClient.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = osoriClient/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = osoriClient;
+				SWIFT_OBJC_BRIDGING_HEADER = "osoriClient-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		83CBBA201A601CBA00E9B192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		83CBBA211A601CBA00E9B192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "osoriClientTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00E356F61AD99517003FC87E /* Debug */,
+				00E356F71AD99517003FC87E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "osoriClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13B07F941A680F5B00A75B9A /* Debug */,
+				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "osoriClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83CBBA201A601CBA00E9B192 /* Debug */,
+				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
+}
