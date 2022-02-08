@@ -14,7 +14,7 @@ import SplashScreen from 'react-native-splash-screen';
 import 'moment/locale/ko';
 
 const App = () => {
-    // Hermes
+    // Hermes.
     const isHermes = () => !!global.HermesInternal;
 
     useEffect(() => {
