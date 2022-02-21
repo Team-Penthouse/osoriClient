@@ -5,6 +5,7 @@ import * as eva from '@eva-design/eva';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { QueryClient, QueryClientProvider } from 'react-query'
 import rootReducer from './src/stores/rootStore';
 import Entry from './src/layout/Entry';
 import * as Kakao from '@react-native-seoul/kakao-login';
@@ -12,6 +13,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { KakaoOAuthToken } from '@react-native-seoul/kakao-login';
 import SplashScreen from 'react-native-splash-screen';
 import 'moment/locale/ko';
+
+/** react query 클라이언트를 생성한다. */
+const queryClient = new QueryClient()
 
 const App = () => {
     // Hermes
@@ -33,11 +37,13 @@ const App = () => {
     const store = createStore(rootReducer, composeEnhancers);
 
     return (
-        <ApplicationProvider {...eva} theme={eva.light}>
-            <Provider store={store}>
-                <Entry />
-            </Provider>
-        </ApplicationProvider>
+        <QueryClientProvider client={queryClient}>
+            <ApplicationProvider {...eva} theme={eva.light}>
+                <Provider store={store}>
+                    <Entry />
+                </Provider>
+            </ApplicationProvider>
+        </QueryClientProvider>
     );
 };
 
