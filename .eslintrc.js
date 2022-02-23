@@ -26,6 +26,6 @@ module.exports = {
     'import/no-unresolved': 'off',
     'no-unused-vars': 'warn',
     'no-use-before-define': 'warn',
-
+    'linebreak-style': 'off',
   },
 };
