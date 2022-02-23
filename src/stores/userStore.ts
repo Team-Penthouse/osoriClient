@@ -10,20 +10,20 @@ interface UserReducer {
 }
 
 const initialState: UserReducer = {
-    currentUser: undefined,
-    users: [],
+  currentUser: undefined,
+  users: [],
 };
 
 const userReducer = (state = initialState, action: { type: string; payload: any }) => {
-    switch (action.type) {
-        case SET_CURRENT_USER:
-            return {
-                ...state,
-                currentUser: action.payload,
-            };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
+    default:
+      return state;
+  }
 };
 
 export default userReducer;

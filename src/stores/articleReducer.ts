@@ -9,19 +9,19 @@ interface ArticleReducer {
 }
 
 const initialState: ArticleReducer = {
-    currentArticle: undefined,
+  currentArticle: undefined,
 };
 
 const articleReducer = (state = initialState, action: { type: string; payload: any }) => {
-    switch (action.type) {
-        case SET_CURRENT_ARTICLE:
-            return {
-                ...state,
-                currentArticle: action.payload,
-            };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case SET_CURRENT_ARTICLE:
+      return {
+        ...state,
+        currentArticle: action.payload,
+      };
+    default:
+      return state;
+  }
 };
 
 export default articleReducer;

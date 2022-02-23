@@ -3,12 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import MainRoute from './MainRoute';
 import CustomModal from './CustomModal';
 
-const Entry = () => {
-    return (
-        <NavigationContainer>
-            <MainRoute />
-            <CustomModal />
-        </NavigationContainer>
-    );
-};
+const Entry = () => (
+  <NavigationContainer>
+    <MainRoute />
+    <CustomModal />
+  </NavigationContainer>
+);
 export default Entry;
