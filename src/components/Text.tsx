@@ -23,12 +23,10 @@ interface CustomProps extends RNTextProps, TextStyledProps {
     status?: EvaStatus;
 }
 
-const Text = (props: CustomProps): React.ReactElement => {
-    return (
-        <KittenText {...props} style={[props.style, { fontFamily: Fonts.NANUM_SQUARE_LIGHT }]}>
-            {props.children}
-        </KittenText>
-    );
-};
+const Text = (props: CustomProps): React.ReactElement => (
+  <KittenText {...props} style={[props.style, { fontFamily: Fonts.NANUM_SQUARE_LIGHT }]}>
+    {props.children}
+  </KittenText>
+);
 
 export default Text;

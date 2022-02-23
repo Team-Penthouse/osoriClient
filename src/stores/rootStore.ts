@@ -5,10 +5,10 @@ import userReducer from './userStore';
 import articleReducer from './articleReducer';
 
 const rootReducer = combineReducers({
-    auth: authReducer,
-    ui: uiReducer,
-    user: userReducer,
-    article: articleReducer,
+  auth: authReducer,
+  ui: uiReducer,
+  user: userReducer,
+  article: articleReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
