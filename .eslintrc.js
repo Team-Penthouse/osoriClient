@@ -27,5 +27,8 @@ module.exports = {
     'no-unused-vars': 'warn',
     'no-use-before-define': 'warn',
     'linebreak-style': 'off',
+    'no-console': ['off'],
+    'no-redeclare': 'off',
+    'global-require': 'off',
   },
 };
