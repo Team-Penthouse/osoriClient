@@ -6,16 +6,17 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import * as Kakao from '@react-native-seoul/kakao-login';
-import AsyncStorage from '@react-native-community/async-storage';
-import { KakaoOAuthToken } from '@react-native-seoul/kakao-login';
 import SplashScreen from 'react-native-splash-screen';
+import axios from 'axios';
 import Entry from './src/layout/Entry';
 import rootReducer from './src/stores/rootStore';
 import 'moment/locale/ko';
+import { API_URL } from '@env';
 
 /** react query 클라이언트를 생성한다. */
 const queryClient = new QueryClient();
+
+axios.defaults.baseURL = API_URL;
 
 const App = () => {
   // Hermes
@@ -23,6 +24,7 @@ const App = () => {
   const isHermes = () => !!global.HermesInternal;
 
   useEffect(() => {
+    console.log('HERMES_ENABLED :', isHermes());
     try {
       setTimeout(() => {
         SplashScreen.hide(); /** 추가 * */
