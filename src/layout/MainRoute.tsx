@@ -14,6 +14,7 @@ import ProfileComponent from '../components/ProfileComponent';
 import ProfileViewScreen from './ProfileViewScreen';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import ArticleViewScreen from '../screens/ArticleViewScreen';
+import FeedScreen from './FeedScreen';
 
 const MainRoute = () => {
     const navigation = useNavigation();
@@ -81,7 +82,7 @@ const MainRoute = () => {
             {isLoggedIn ? (
                 <>
                     <Stack.Screen
-                        name="HomeScreen"
+                        name="MainScreen"
                         options={{
                             headerTitle: '',
                             headerShown: true,
@@ -91,15 +92,26 @@ const MainRoute = () => {
                         }}
                         component={MainScreen}
                     />
-                    <Stack.Screen name={'ProfileViewScreen'} component={ProfileViewScreen} />
+                    <Stack.Screen
+                        name={'ProfileViewScreen'}
+                        component={ProfileViewScreen}
+                    />
                     <Stack.Screen
                         name={'ArticleViewScreen'}
                         options={{ headerShown: false }}
                         component={ArticleViewScreen}
                     />
+                    <Stack.Screen
+                        name={'FeedScreen'}
+                        component={FeedScreen}
+                    />
                 </>
             ) : (
-                <Stack.Screen name={'LoginScreen'} options={{ headerShown: false }} component={LoginScreen} />
+                <Stack.Screen
+                    name={'LoginScreen'}
+                    options={{ headerShown: false }}
+                    component={LoginScreen}
+                />
             )}
         </Stack.Navigator>
     );

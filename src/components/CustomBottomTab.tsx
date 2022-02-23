@@ -44,7 +44,10 @@ const CustomBottomTab = (): React.ReactElement => {
                 width: Dimensions.get('window').width,
             }}
         >
-            <TouchableOpacity style={styles.menu}>
+            <TouchableOpacity
+                style={styles.menu}
+                onPress={() => navigation.navigate('FeedScreen')}
+            >
                 <Text style={styles.menuText}>Feeds</Text>
             </TouchableOpacity>
             <TouchableOpacity
