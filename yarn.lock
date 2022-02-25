@@ -8205,10 +8205,10 @@
   dependencies:
     "use-deep-compare" "^1.1.0"
 
-"react-native-dotenv@^3.3.0":
-  "integrity" "sha512-qt7WOOm+xFlvC2HCeCpakO23iPGpLVzCyegOv3x0luTiO3JmvfbZ9bHVoEKcIy1Fbxf9QuXb/TQdfT4wcie7rw=="
-  "resolved" "https://registry.npmjs.org/react-native-dotenv/-/react-native-dotenv-3.3.0.tgz"
-  "version" "3.3.0"
+"react-native-dotenv@^3.3.1":
+  "integrity" "sha512-gAKXout1XCwCqJ3QPGoQAF2eRzOHgOnwg3x19z+ssow8bDIksJeKBqvoHDyGziVilAIP1J0bEC9Jf+VF8nFang=="
+  "resolved" "https://registry.npmjs.org/react-native-dotenv/-/react-native-dotenv-3.3.1.tgz"
+  "version" "3.3.1"
   dependencies:
     "dotenv" "^10.0.0"
 
