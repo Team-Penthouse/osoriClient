@@ -55,5 +55,7 @@ module.exports = {
     'no-else-return': 'off',
     'no-nested-ternary': 'warn',
     'import/extensions': 'off',
+    '@typescript-eslint/ban-ts-comment': ['off'],
+    'no-return-await': 'off',
   },
 };
