@@ -1,30 +1,24 @@
 import React, { useEffect } from 'react';
-import 'react-native-gesture-handler';
 import { ApplicationProvider } from '@ui-kitten/components';
-import * as eva from '@eva-design/eva';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import SplashScreen from 'react-native-splash-screen';
-import axios from 'axios';
-import Entry from './src/layout/Entry';
 import rootReducer from './src/stores/rootStore';
+import Entry from './src/layout/Entry';
+import * as eva from '@eva-design/eva';
+import 'react-native-gesture-handler';
 import 'moment/locale/ko';
-import { API_URL } from '@env';
 
 /** react query 클라이언트를 생성한다. */
 const queryClient = new QueryClient();
 
-axios.defaults.baseURL = API_URL;
-
 const App = () => {
   // Hermes
-  // @ts-ignore
   const isHermes = () => !!global.HermesInternal;
 
   useEffect(() => {
-    console.log('HERMES_ENABLED :', isHermes());
     try {
       setTimeout(() => {
         SplashScreen.hide(); /** 추가 * */
