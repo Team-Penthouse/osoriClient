@@ -56,6 +56,8 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "i18n-js": "^3.8.0",
     "lodash": "^4.17.21",
+    "lottie-ios": "^3.2.3",
+    "lottie-react-native": "^5.0.1",
     "moment": "^2.29.1",
     "prettier": "^2.4.1",
     "react": "17.0.2",
