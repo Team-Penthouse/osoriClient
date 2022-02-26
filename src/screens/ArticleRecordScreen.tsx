@@ -2,25 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { Button, Layout, Spinner } from '@ui-kitten/components';
 import {
   Alert,
-  BackHandler,
   Dimensions,
   ImageBackground,
   PermissionsAndroid,
   Platform,
   TouchableOpacity,
 } from 'react-native';
-import AudioRecorderPlayer, { PlayBackType, RecordBackType } from 'react-native-audio-recorder-player';
-import RNFetchBlob from 'rn-fetch-blob';
+import { Fonts } from 'layout/CustomStyles';
+import { closeModal } from 'stores/uiStore';
+import { RootState } from 'stores/rootStore';
+import { TemporaryArticleType } from 'types/TemporaryTypes';
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
 import { isIphoneX } from 'react-native-iphone-x-helper';
+import AudioRecorderPlayer, { PlayBackType, RecordBackType } from 'react-native-audio-recorder-player';
 import AsyncStorage from '@react-native-community/async-storage';
-import { closeModal } from '../stores/uiStore';
-import Text from '../components/Text';
-import { Fonts } from '../layout/CustomStyles';
-import TextInput from '../components/TextInput';
-import { TemporaryArticleType } from '../types/TemporaryTypes';
-import { RootState } from '../stores/rootStore';
+import TextInput from 'components/TextInput';
+import RNFetchBlob from 'rn-fetch-blob';
+import Text from 'components/Text';
+import moment from 'moment';
 
 const recorder = new AudioRecorderPlayer();
 

@@ -19,14 +19,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { KakaoProfile } from '@react-native-seoul/kakao-login';
 import { StackNavigationProp } from '@react-navigation/stack';
 import moment from 'moment';
-import ExternalColor from '../layout/ExternalColor';
-import Text from '../components/Text';
-import { TemporaryArticleType } from '../types/TemporaryTypes';
-import { RootState } from '../stores/rootStore';
-import ProfileComponent from '../components/ProfileComponent';
-import CustomBottomTab from '../components/CustomBottomTab';
-import { setCurrentArticle } from '../stores/articleReducer';
-import { CustomStyles, DEVICE_SIZE } from '../layout/CustomStyles';
+import ExternalColor from 'layout/ExternalColor';
+import { CustomStyles, DEVICE_SIZE } from 'layout/CustomStyles';
+import Text from 'components/Text';
+import ProfileComponent from 'components/ProfileComponent';
+import CustomBottomTab from 'components/CustomBottomTab';
+import { TemporaryArticleType } from 'types/TemporaryTypes';
+import { RootState } from 'stores/rootStore';
+import { setCurrentArticle } from 'stores/articleReducer';
 
 const SCREEN_SIZE = Dimensions.get('window');
 

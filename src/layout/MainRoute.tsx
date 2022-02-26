@@ -5,13 +5,13 @@ import { KakaoAccessTokenInfo, KakaoOAuthToken } from '@react-native-seoul/kakao
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
+import ProfileComponent from 'components/ProfileComponent';
+import { RootState } from 'stores/rootStore';
+import { saveUserInfo, setIsLoggedIn } from 'stores/authStore';
 import MainScreen from '../screens/MainScreen';
 import ArticleRecordScreen from '../screens/ArticleRecordScreen';
 import LoginScreen from '../screens/LoginScreen';
-import { RootState } from '../stores/rootStore';
-import { saveUserInfo, setIsLoggedIn } from '../stores/authStore';
 import { Fonts } from './CustomStyles';
-import ProfileComponent from '../components/ProfileComponent';
 import ProfileViewScreen from './ProfileViewScreen';
 import ArticleViewScreen from '../screens/ArticleViewScreen';
 import FeedScreen from './FeedScreen';

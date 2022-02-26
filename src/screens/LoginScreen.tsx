@@ -1,20 +1,20 @@
 import React, { useLayoutEffect } from 'react';
-import { Layout } from '@ui-kitten/components';
 import {
   Alert, Image, ImageBackground, TouchableOpacity,
 } from 'react-native';
 import {
   getProfile, KakaoOAuthToken, KakaoProfile, login,
 } from '@react-native-seoul/kakao-login';
+import { Layout } from '@ui-kitten/components';
+import { saveToken, saveUserInfo, setIsLoggedIn } from 'stores/authStore';
 import { useDispatch, useSelector } from 'react-redux';
 import { isUndefined } from 'lodash';
 import { useNavigation } from '@react-navigation/native';
-import Text from '../components/Text';
-import ExternalColor from '../layout/ExternalColor';
-import { DEVICE_SIZE } from '../layout/CustomStyles';
-import { RootState } from '../stores/rootStore';
-import { saveToken, saveUserInfo, setIsLoggedIn } from '../stores/authStore';
-import { showTabBar } from '../stores/uiStore';
+import { DEVICE_SIZE } from 'layout/CustomStyles';
+import { RootState } from 'stores/rootStore';
+import { showTabBar } from 'stores/uiStore';
+import Text from 'components/Text';
+import ExternalColor from 'layout/ExternalColor';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -57,6 +57,7 @@ const LoginScreen = () => {
 
   return (
     <ImageBackground
+      // eslint-disable-next-line global-require
       source={require('assets/images/login_background.png')}
       style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
     >
