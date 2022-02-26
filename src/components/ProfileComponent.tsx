@@ -8,7 +8,7 @@ import { KakaoProfile } from '@react-native-seoul/kakao-login';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { setCurrentUser } from '../stores/userStore';
+import { setCurrentUser } from 'stores/userStore';
 import Text from './Text';
 
 interface Props {

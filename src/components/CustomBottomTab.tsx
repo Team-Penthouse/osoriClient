@@ -8,12 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { KakaoOAuthToken, KakaoProfile, login } from '@react-native-seoul/kakao-login';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import ArticleRecordScreen from '../screens/ArticleRecordScreen';
-import { showModal } from '../stores/uiStore';
+import { showModal } from 'stores/uiStore';
+import { saveToken } from 'stores/authStore';
+import { RootState } from 'stores/rootStore';
+import { setCurrentUser } from 'stores/userStore';
 import Text from './Text';
-import { saveToken } from '../stores/authStore';
-import { RootState } from '../stores/rootStore';
-import { setCurrentUser } from '../stores/userStore';
+import ArticleRecordScreen from '../screens/ArticleRecordScreen';
 
 const CustomBottomTab = (): React.ReactElement => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -74,7 +74,7 @@ const CustomBottomTab = (): React.ReactElement => {
             elevation: 5,
           }}
           borderRadius={100}
-          source={require('../assets/images/article_add_button.png')}
+          source={require('assets/images/article_add_button.png')}
         >
           <Text style={{ color: 'white' }} category="h2">
             +

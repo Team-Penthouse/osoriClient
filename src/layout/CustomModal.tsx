@@ -1,8 +1,8 @@
 import React from 'react';
 import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { ModalInterface } from '../stores/uiStore';
-import { RootState } from '../stores/rootStore';
+import { ModalInterface } from 'stores/uiStore';
+import { RootState } from 'stores/rootStore';
 
 const CustomModal = () => {
   const dispatcher = useDispatch();

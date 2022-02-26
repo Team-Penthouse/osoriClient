@@ -1,4 +1,4 @@
-import { TemporaryArticleType } from '../types/TemporaryTypes';
+import { TemporaryArticleType } from 'types/TemporaryTypes';
 
 const SET_CURRENT_ARTICLE = 'article/SET_CURRENT_ARTICLE';
 
