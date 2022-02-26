@@ -10,7 +10,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "swagger" : "npx swagger-typescript-api --modular true --module-name-first-tag --axios true -p https://osori.team-penthouse.com/api-docs/swagger.json -o src/services"
   },
   "rnpm": {
     "assets": [
