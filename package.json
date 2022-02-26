@@ -93,7 +93,7 @@
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/preset-flow": "^7.16.5",
-    "@babel/preset-typescript": "^7.16.5",
+    "@babel/preset-typescript": "^7.16.7",
     "@babel/runtime": "^7.15.4",
     "@bam.tech/react-native-make": "^3.0.3",
     "@react-native-community/eslint-config": "^3.0.1",

@@ -4,7 +4,7 @@ import { TextProps as RNTextProps } from 'react-native';
 import { EvaStatus, LiteralUnion, Overwrite } from '@ui-kitten/components/devsupport';
 import { StyledComponentProps } from '@ui-kitten/components/theme';
 import { TextElement } from '@ui-kitten/components/ui/text/text.component';
-import { Fonts } from '../layout/CustomStyles';
+import { Fonts } from 'layout/CustomStyles';
 
 type ChildElement = React.ReactText | TextElement;
 

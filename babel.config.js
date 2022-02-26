@@ -1,12 +1,23 @@
 module.exports = {
-    presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-flow', '@babel/preset-typescript'],
-    plugins: [
-        [
-            'module-resolver',
-            {
-                root: ['./src'],
-            },
+  presets: ['module:metro-react-native-babel-preset'],
+  plugins: [
+    'react-native-reanimated/plugin',
+    [
+      'module-resolver',
+      {
+        extensions: [
+          '.ios.ts',
+          '.android.ts',
+          '.ts',
+          '.ios.tsx',
+          '.android.tsx',
+          '.tsx',
+          '.jsx',
+          '.js',
+          '.json',
         ],
-        ['react-native-reanimated/plugin'],
+        root: ['./src'],
+      },
     ],
+  ],
 };

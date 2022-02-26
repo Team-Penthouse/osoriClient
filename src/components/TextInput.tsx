@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextInput as OriginalInput, TextInputProps, View } from 'react-native';
-import { Fonts } from '../layout/CustomStyles';
+import { Fonts } from 'layout/CustomStyles';
 import Text from './Text';
 
 const TextInput = (props: TextInputProps) => (

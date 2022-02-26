@@ -7,15 +7,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { KakaoProfile } from '@react-native-seoul/kakao-login';
 import { useNavigation } from '@react-navigation/native';
 import { Tabs } from 'react-native-collapsible-tab-view';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { setCurrentArticle } from 'stores/articleReducer';
+import { RootState } from 'stores/rootStore';
+import { setIsLoggedIn } from 'stores/authStore';
+import { TemporaryArticleType } from 'types/TemporaryTypes';
+import { CustomStyles } from 'layout/CustomStyles';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { TemporaryArticleType } from '../types/TemporaryTypes';
-import { setCurrentArticle } from '../stores/articleReducer';
-import { CustomStyles } from './CustomStyles';
-import { RootState } from '../stores/rootStore';
-import Text from '../components/Text';
-import { setIsLoggedIn } from '../stores/authStore';
+import Text from 'components/Text';
 
 const ProfileViewScreen = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();

@@ -57,5 +57,6 @@ module.exports = {
     'import/extensions': 'off',
     '@typescript-eslint/ban-ts-comment': ['off'],
     'no-return-await': 'off',
+    'no-redeclare': 'off',
   },
 };
