@@ -13,6 +13,8 @@ import Text from '../components/Text';
 import ExternalColor from '../layout/ExternalColor';
 import { DEVICE_SIZE, DEVICE_WIDTH } from '../layout/CustomStyles';
 import { saveUserInfo, setIsLoggedIn } from '../stores/authStore';
+import { User } from '../services/User';
+import { ArticleDto } from '../services/data-contracts';
 
 const LoginScreen = () => {
   // const navigation = useNavigation<StackNavigationProp<any>>();
@@ -26,6 +28,11 @@ const LoginScreen = () => {
    */
 
   /**
+   * @Variables
+   */
+  const api = new User();
+
+  /**
    * @Queries
    */
   const saveUser = useMutation(
@@ -36,7 +43,7 @@ const LoginScreen = () => {
         externalId: user?.id,
         profileImg: user?.profileImageUrl,
       };
-      return await axios.post(`${API_URL}/user`, body);
+      return await api.userCreate(body);
     },
     {
       onSuccess: (result: any) => {
@@ -46,7 +53,7 @@ const LoginScreen = () => {
   );
 
   const getUserByExternalId = async (user: KakaoProfile): Promise<any> => {
-    await axios.get(`${API_URL}/user/${user.id}?loginType=KAKAO`).then(async (result) => {
+    await api.userDetail(Number(user.id), { loginType: 'KAKAO' }).then(async (result: any) => {
       if (result?.data === 'USER_NOT_FOUND') {
         await saveUser.mutate(user);
         dispatcher(setIsLoggedIn(true));
