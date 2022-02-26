@@ -9,6 +9,11 @@ logs
 **/*.backup.*
 **/*.back.*
 
+.idea/
+
+package-lock.json
+yarn.lock
+
 node_modules
 bower_components
 

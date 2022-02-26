@@ -6,6 +6,8 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'airbnb',
+    'prettier',
+    'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -17,6 +19,12 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    'max-len': [
+      'warn',
+      {
+        code: 100,
+      },
+    ],
     'no-shadow': 'off',
     // 'no-unused-vars': 'warn',
     'import/no-unresolved': 'off',
@@ -47,6 +55,8 @@ module.exports = {
     'no-else-return': 'off',
     'no-nested-ternary': 'warn',
     'import/extensions': 'off',
+    '@typescript-eslint/ban-ts-comment': ['off'],
+    'no-return-await': 'off',
     'no-redeclare': 'off',
   },
 };

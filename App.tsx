@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import * as eva from '@eva-design/eva';
 import SplashScreen from 'react-native-splash-screen';
+import * as eva from '@eva-design/eva';
 import rootReducer from './src/stores/rootStore';
 import Entry from './src/layout/Entry';
 import 'moment/locale/ko';
@@ -19,6 +19,7 @@ const App = () => {
   const isHermes = () => !!global.HermesInternal;
 
   useEffect(() => {
+    console.log('IS_HERMES_ENABLED :', isHermes());
     try {
       setTimeout(() => {
         SplashScreen.hide(); /** 추가 * */
