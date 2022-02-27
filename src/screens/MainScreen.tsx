@@ -1,15 +1,12 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Divider } from '@ui-kitten/components';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import Carousel from 'react-native-snap-carousel';
 import {
-  Alert,
   Dimensions,
-  Image,
   ImageBackground,
   ScrollView,
   StyleSheet,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';

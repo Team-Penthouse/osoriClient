@@ -1,13 +1,12 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Avatar, Layout, Spinner } from '@ui-kitten/components';
-import {
-  Alert, StyleSheet, TouchableOpacity, View,
-} from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { KakaoProfile } from '@react-native-seoul/kakao-login';
 import { useNavigation } from '@react-navigation/native';
 import { Tabs } from 'react-native-collapsible-tab-view';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { MainStackParamList } from 'types/NavigationTypes';
 import { setCurrentArticle } from 'stores/articleReducer';
 import { RootState } from 'stores/rootStore';
 import { setIsLoggedIn } from 'stores/authStore';
@@ -18,12 +17,11 @@ import moment from 'moment';
 import Text from 'components/Text';
 
 const ProfileViewScreen = () => {
-  const navigation = useNavigation<StackNavigationProp<any>>();
-  const dispatcher = useDispatch();
+  const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   const currentUser: KakaoProfile = useSelector((state: RootState) => state.user.currentUser);
-
   const [savedArticles, setSavedArticles] = useState<TemporaryArticleType[]>([]);
   const [loadingArticles, setLoadingArticles] = useState<boolean>(false);
+  const dispatcher = useDispatch();
 
   const handleGoArticleView = (article: TemporaryArticleType) => {
     dispatcher(setCurrentArticle(article));
@@ -75,9 +73,14 @@ const ProfileViewScreen = () => {
     return (
       <TouchableOpacity
         key={index}
-        style={[{
-          flexDirection: 'row', borderBottomWidth: 0.5, alignItems: 'center', height: 60,
-        }]}
+        style={[
+          {
+            flexDirection: 'row',
+            borderBottomWidth: 0.5,
+            alignItems: 'center',
+            height: 60,
+          },
+        ]}
         onPress={() => handleGoArticleView(article)}
       >
         <View style={{ flex: 1 }}>
@@ -95,19 +98,28 @@ const ProfileViewScreen = () => {
   };
 
   return (
-  // <View style={{ flex: 1, backgroundColor: 'white' }}>
-  //     <View style={[CustomStyles.divider, { marginVertical: 20 }]} />
+    // <View style={{ flex: 1, backgroundColor: 'white' }}>
+    //     <View style={[CustomStyles.divider, { marginVertical: 20 }]} />
     <Tabs.Container
+      // headerContainerStyle={{
+      //     backgroundColor: 'rgba(223,222,255,0.74)',
+      // }}
+      lazy
       renderHeader={() => (
-        <View style={[CustomStyles.center, { backgroundColor: 'rgba(223,222,255,0.74)', paddingVertical: 20 }]}>
+        <View
+          style={[
+            CustomStyles.center,
+            { backgroundColor: 'rgba(223,222,255,0.74)', paddingVertical: 20 },
+          ]}
+        >
           <TouchableOpacity>
             <Avatar
               style={{ width: 150, height: 150, margin: 20 }}
               source={
-                                currentUser?.profileImageUrl === null
-                                  ? require('assets/images/anonymous_user.png')
-                                  : { uri: currentUser?.profileImageUrl }
-                            }
+                currentUser?.profileImageUrl === null
+                  ? require('assets/images/anonymous_user.png')
+                  : { uri: currentUser?.profileImageUrl }
+              }
               defaultSource={require('assets/images/anonymous_user.png')}
             />
           </TouchableOpacity>
@@ -115,10 +127,6 @@ const ProfileViewScreen = () => {
           <Text category="h3">{currentUser?.nickname || ''}</Text>
         </View>
       )}
-            // headerContainerStyle={{
-            //     backgroundColor: 'rgba(223,222,255,0.74)',
-            // }}
-      lazy
     >
       <Tabs.Tab name="Bio" key={1}>
         <Tabs.ScrollView>
@@ -161,7 +169,7 @@ const ProfileViewScreen = () => {
         />
       </Tabs.Tab>
     </Tabs.Container>
-  // </View>
+    // </View>
   );
 };
 
@@ -170,4 +178,5 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
 });
+
 export default ProfileViewScreen;

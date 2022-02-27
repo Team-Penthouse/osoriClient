@@ -8,10 +8,10 @@ import moment from 'moment';
 import ExternalColor from 'layout/ExternalColor';
 import Text from 'components/Text';
 
-interface Props {}
-
-const ArticleViewScreen = (props: Props) => {
-  const currentArticle: TemporaryArticleType = useSelector((state: RootState) => state.article.currentArticle);
+const ArticleViewScreen = () => {
+  const currentArticle: TemporaryArticleType = useSelector(
+    (state: RootState) => state.article.currentArticle,
+  );
 
   return (
     <ImageBackground
@@ -25,7 +25,11 @@ const ArticleViewScreen = (props: Props) => {
       </View>
       <View
         style={{
-          backgroundColor: 'white', marginHorizontal: 20, borderRadius: 8, padding: 20, marginTop: 20,
+          backgroundColor: 'white',
+          marginHorizontal: 20,
+          borderRadius: 8,
+          padding: 20,
+          marginTop: 20,
         }}
       >
         <Text category="label" style={{ alignSelf: 'flex-end', marginBottom: 20 }}>
