@@ -10,6 +10,7 @@ logs
 **/*.back.*
 
 .idea/
+.idea
 
 package-lock.json
 yarn.lock
