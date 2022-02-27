@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import SplashScreen from 'react-native-splash-screen';
 import * as eva from '@eva-design/eva';
 import rootReducer from './src/stores/rootStore';
-import Entry from './src/layout/Entry';
+import NavController from './src/navigation/NavController';
 import 'moment/locale/ko';
 
 /** react query 클라이언트를 생성한다. */
@@ -38,7 +38,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <ApplicationProvider {...eva} theme={eva.light}>
         <Provider store={store}>
-          <Entry />
+          <NavController />
         </Provider>
       </ApplicationProvider>
     </QueryClientProvider>
