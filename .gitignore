@@ -333,4 +333,7 @@ Temporary Items
 # Cacao Pods
 ios/Pods
 
+# Vscode
+.vscode
+
 # End of https://www.toptal.com/developers/gitignore/api/reactnative,react

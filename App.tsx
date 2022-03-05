@@ -3,7 +3,7 @@ import { ApplicationProvider } from '@ui-kitten/components';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import SplashScreen from 'react-native-splash-screen';
 import * as eva from '@eva-design/eva';
-import Entry from './src/layout/Entry';
+import NavController from './src/navigation/NavController';
 import 'moment/locale/ko';
 import { MobxProvider } from './src/stores/RootStore';
 
@@ -30,7 +30,7 @@ const App = () => {
     <MobxProvider>
       <QueryClientProvider client={queryClient}>
         <ApplicationProvider {...eva} theme={eva.light}>
-          <Entry />
+            <NavController />
         </ApplicationProvider>
       </QueryClientProvider>
     </MobxProvider>
