@@ -3,9 +3,9 @@ import { ApplicationProvider } from '@ui-kitten/components';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import SplashScreen from 'react-native-splash-screen';
 import * as eva from '@eva-design/eva';
-import NavController from './src/navigation/NavController';
+import NavController from 'navigation/NavController';
 import 'moment/locale/ko';
-import { MobxProvider } from './src/stores/RootStore';
+import { MobxProvider } from 'stores/RootStore';
 
 /** react query 클라이언트를 생성한다. */
 const queryClient = new QueryClient();
@@ -30,7 +30,7 @@ const App = () => {
     <MobxProvider>
       <QueryClientProvider client={queryClient}>
         <ApplicationProvider {...eva} theme={eva.light}>
-            <NavController />
+          <NavController />
         </ApplicationProvider>
       </QueryClientProvider>
     </MobxProvider>

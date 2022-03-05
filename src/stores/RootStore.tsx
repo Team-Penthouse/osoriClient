@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useRef } from 'react';
 import { MobXProviderContext, ProviderProps } from 'mobx-react';
 import { shallowEqual } from 'mobx-react/src/utils/utils';
-import UserStore from './UserStore';
-import UIStore from './UIStore';
+import UIStore from 'stores/uiStore';
+import UserStore from 'stores/userStore';
 
 export const useStore = () => {
   return useContext(CustomContext);

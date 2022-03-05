@@ -1,5 +1,4 @@
 import { makeAutoObservable } from 'mobx';
-import { RootStore } from './RootStore';
 
 export default class UserStore {
   constructor() {

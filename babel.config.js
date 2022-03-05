@@ -16,7 +16,7 @@ module.exports = {
           '.js',
           '.json',
         ],
-        root: ['./src'],
+        root: ['src'],
       },
     ],
   ],

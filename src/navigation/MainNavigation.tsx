@@ -1,24 +1,20 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { MainStackParamList } from 'types/NavigationTypes';
-import { RootState } from 'stores/rootStore';
 import { Fonts } from 'layout/CustomStyles';
 import ProfileComponent from 'components/ProfileComponent';
-import ProfileViewScreen from 'layout/ProfileViewScreen';
+import ProfileViewScreen from 'screens/ProfileViewScreen';
 import ArticleViewScreen from 'screens/ArticleViewScreen';
-import FeedScreen from 'layout/FeedScreen';
+import FeedScreen from 'screens/FeedScreen';
 import MainScreen from 'screens/MainScreen';
+import { KakaoProfile } from '@react-native-seoul/kakao-login';
 
 const Stack = createStackNavigator<MainStackParamList>();
 
 const MainNavigation = () => {
-  const userInfo = useSelector((state: RootState) => state.auth.user);
-  const tabBarVisible = useSelector((state: RootState) => state.ui.tabBarVisible);
-
   const HeaderLeft = () => (
     <ProfileComponent
-      userInfo={userInfo}
+      userInfo={{} as KakaoProfile}
       width={100}
       containerStyle={{
         margin: 0,
