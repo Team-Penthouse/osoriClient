@@ -13,22 +13,18 @@ import AudioRecorderPlayer, {
   RecordBackType,
 } from 'react-native-audio-recorder-player';
 import { Fonts } from 'layout/CustomStyles';
-import { closeModal } from 'stores/uiStore';
-import { RootState } from 'stores/rootStore';
 import { TemporaryArticleType } from 'types/TemporaryTypes';
-import { useDispatch, useSelector } from 'react-redux';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import AsyncStorage from '@react-native-community/async-storage';
 import TextInput from 'components/TextInput';
 import RNFetchBlob from 'rn-fetch-blob';
 import Text from 'components/Text';
 import moment from 'moment';
+import { KakaoProfile } from '@react-native-seoul/kakao-login';
 
 const recorder = new AudioRecorderPlayer();
 
 const ArticleRecordScreen = () => {
-  const dispatcher = useDispatch();
-  const myInfo = useSelector((state: RootState) => state.auth.user);
 
   const { dirs } = RNFetchBlob.fs;
   const path = Platform.select({
@@ -149,9 +145,7 @@ const ArticleRecordScreen = () => {
       .catch((e) => {
         console.log('err', e);
       })
-      .finally(() => {
-        setLoading(false);
-      });
+    setLoading(false)
   };
 
   const handleClose = () => {
@@ -159,9 +153,6 @@ const ArticleRecordScreen = () => {
       {
         text: '예',
         style: 'destructive',
-        onPress: () => {
-          dispatcher(closeModal());
-        },
       },
       {
         text: '아니오',
@@ -180,7 +171,7 @@ const ArticleRecordScreen = () => {
             title,
             contents: receivedText,
             length: receivedText.length,
-            creator: myInfo,
+            creator: {} as KakaoProfile,
             createDate: new Date(),
             updateDate: new Date(),
           };
@@ -196,7 +187,6 @@ const ArticleRecordScreen = () => {
             }
           });
 
-          dispatcher(closeModal());
         },
       },
       {

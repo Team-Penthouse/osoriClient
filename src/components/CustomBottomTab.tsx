@@ -1,35 +1,23 @@
 import React, { useState } from 'react';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import { Layout } from '@ui-kitten/components';
-import {
-  Dimensions, ImageBackground, StyleSheet, TouchableOpacity,
-} from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { KakaoOAuthToken, KakaoProfile, login } from '@react-native-seoul/kakao-login';
+import { Dimensions, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { showModal } from 'stores/uiStore';
-import { saveToken } from 'stores/authStore';
-import { RootState } from 'stores/rootStore';
-import { setCurrentUser } from 'stores/userStore';
+import { observer } from 'mobx-react';
 import Text from './Text';
-import ArticleRecordScreen from '../screens/ArticleRecordScreen';
 
-const CustomBottomTab = (): React.ReactElement => {
+const CustomBottomTab = observer((): React.ReactElement => {
   const navigation = useNavigation<StackNavigationProp<any>>();
-  const dispatcher = useDispatch();
-  const myInfo: KakaoProfile = useSelector((state: RootState) => state.auth.user);
 
   const [isVisible, setIsVisible] = useState(false);
 
   const handlePressAdd = () => {
     // setIsVisible(true);
-    dispatcher(showModal({ title: 'test', component: <ArticleRecordScreen /> }));
     // { type: UI_MODAL_SHOW, payload:  }
   };
 
   const handleGoMyProfile = () => {
-    dispatcher(setCurrentUser(myInfo));
     navigation.push('ProfileViewScreen');
   };
 
@@ -46,10 +34,7 @@ const CustomBottomTab = (): React.ReactElement => {
         width: Dimensions.get('window').width,
       }}
     >
-      <TouchableOpacity
-        style={styles.menu}
-        onPress={() => navigation.navigate('FeedScreen')}
-      >
+      <TouchableOpacity style={styles.menu} onPress={() => navigation.navigate('FeedScreen')}>
         <Text style={styles.menuText}>Feeds</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -86,14 +71,13 @@ const CustomBottomTab = (): React.ReactElement => {
       </TouchableOpacity>
     </Layout>
   );
-};
+});
 
 const styles = StyleSheet.create({
   menu: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: 'rgba(205,205,205,0.2)',
     paddingVertical: 10,
     borderRadius: 8,
   },

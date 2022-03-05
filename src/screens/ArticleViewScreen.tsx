@@ -1,17 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ImageBackground, View } from 'react-native';
 import { isIphoneX } from 'react-native-iphone-x-helper';
-import { useSelector } from 'react-redux';
-import { RootState } from 'stores/rootStore';
 import { TemporaryArticleType } from 'types/TemporaryTypes';
 import moment from 'moment';
 import ExternalColor from 'layout/ExternalColor';
 import Text from 'components/Text';
+import { ArticleDto } from '../services/data-contracts';
 
 const ArticleViewScreen = () => {
-  const currentArticle: TemporaryArticleType = useSelector(
-    (state: RootState) => state.article.currentArticle,
-  );
+  const [currentArticle, setCurrentArticle] = useState<ArticleDto>();
 
   return (
     <ImageBackground
@@ -33,9 +30,9 @@ const ArticleViewScreen = () => {
         }}
       >
         <Text category="label" style={{ alignSelf: 'flex-end', marginBottom: 20 }}>
-          {moment(currentArticle.createDate).format('YYYY.MM.DD HH:mm')}
+          {moment(currentArticle?.createDate).format('YYYY.MM.DD HH:mm')}
         </Text>
-        <Text>{currentArticle.contents}</Text>
+        <Text>{currentArticle?.contents}</Text>
       </View>
     </ImageBackground>
   );

@@ -58,5 +58,6 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': ['off'],
     'no-return-await': 'off',
     'no-redeclare': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 };
