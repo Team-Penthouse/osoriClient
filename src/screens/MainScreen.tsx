@@ -1,39 +1,31 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { Avatar, Divider } from '@ui-kitten/components';
+import React, { useEffect, useState } from 'react';
+import { Divider } from '@ui-kitten/components';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import Carousel from 'react-native-snap-carousel';
 import {
-  Alert,
   Dimensions,
-  Image,
   ImageBackground,
   ScrollView,
   StyleSheet,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
 import { KakaoProfile } from '@react-native-seoul/kakao-login';
 import { StackNavigationProp } from '@react-navigation/stack';
 import moment from 'moment';
 import ExternalColor from 'layout/ExternalColor';
-import { CustomStyles, DEVICE_SIZE } from 'layout/CustomStyles';
+import { DEVICE_SIZE } from 'layout/CustomStyles';
 import Text from 'components/Text';
 import ProfileComponent from 'components/ProfileComponent';
 import CustomBottomTab from 'components/CustomBottomTab';
 import { TemporaryArticleType } from 'types/TemporaryTypes';
-import { RootState } from 'stores/rootStore';
-import { setCurrentArticle } from 'stores/articleReducer';
 
 const SCREEN_SIZE = Dimensions.get('window');
 
 const MainScreen = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
-  const dispatcher = useDispatch();
-  const userInfo: KakaoProfile = useSelector((state: RootState) => state.auth.user);
   const [articles, setArticles] = useState<TemporaryArticleType[]>([]);
 
   const init = async () => {
@@ -48,7 +40,6 @@ const MainScreen = () => {
   };
 
   const handlePressArticle = (article: TemporaryArticleType) => {
-    dispatcher(setCurrentArticle(article));
     navigation.push('ArticleViewScreen');
   };
 

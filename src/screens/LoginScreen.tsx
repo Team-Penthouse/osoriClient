@@ -1,27 +1,22 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Alert, Image, ImageBackground, TouchableOpacity, View } from 'react-native';
 import { getProfile, KakaoProfile, login } from '@react-native-seoul/kakao-login';
 import { isUndefined } from 'lodash';
-import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { useDispatch } from 'react-redux';
-import { useMutation, useQuery } from 'react-query';
-import axios from 'axios';
-import { API_URL } from '@env';
+import { useMutation } from 'react-query';
+import { observer } from 'mobx-react';
 import Text from '../components/Text';
 import ExternalColor from '../layout/ExternalColor';
 import { DEVICE_SIZE, DEVICE_WIDTH } from '../layout/CustomStyles';
-import { saveUserInfo, setIsLoggedIn } from '../stores/authStore';
 import { User } from '../services/User';
-import { ArticleDto } from '../services/data-contracts';
+import { useStore } from '../stores/RootStore';
 
-const LoginScreen = () => {
+const LoginScreen = observer(() => {
+  const { userStore } = useStore();
   // const navigation = useNavigation<StackNavigationProp<any>>();
   /**
    * @deprecated
    */
-  const dispatcher = useDispatch();
 
   /**
    * @States
@@ -53,14 +48,15 @@ const LoginScreen = () => {
   );
 
   const getUserByExternalId = async (user: KakaoProfile): Promise<any> => {
-    await api.userDetail(Number(user.id), { loginType: 'KAKAO' }).then(async (result: any) => {
-      if (result?.data === 'USER_NOT_FOUND') {
-        await saveUser.mutate(user);
-        dispatcher(setIsLoggedIn(true));
-      } else {
-        dispatcher(setIsLoggedIn(true));
-      }
-    });
+    await api
+      .userDetail(Number(user.id), { loginType: 'KAKAO' } as any)
+      .then(async (result: any) => {
+        if (result?.data === 'USER_NOT_FOUND') {
+          await saveUser.mutate(user);
+        }
+        userStore.setIsLoggedIn(true);
+        console.log('login', userStore.isLoggedIn);
+      });
   };
 
   const handleLoginByKakao = async () => {
@@ -70,7 +66,6 @@ const LoginScreen = () => {
           // @ts-ignore
           const userInfo: KakaoProfile = await getProfile();
           if (typeof userInfo.nickname !== 'undefined') {
-            dispatcher(saveUserInfo(userInfo));
             await getUserByExternalId(userInfo);
           }
         } else {
@@ -135,6 +130,6 @@ const LoginScreen = () => {
       </View>
     </ImageBackground>
   );
-};
+});
 
 export default LoginScreen;

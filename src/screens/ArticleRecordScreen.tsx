@@ -10,11 +10,14 @@ import {
 } from 'react-native';
 import { Fonts } from 'layout/CustomStyles';
 import { closeModal } from 'stores/uiStore';
-import { RootState } from 'stores/rootStore';
+import { RootState } from 'stores/RootStore';
 import { TemporaryArticleType } from 'types/TemporaryTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { isIphoneX } from 'react-native-iphone-x-helper';
-import AudioRecorderPlayer, { PlayBackType, RecordBackType } from 'react-native-audio-recorder-player';
+import AudioRecorderPlayer, {
+  PlayBackType,
+  RecordBackType,
+} from 'react-native-audio-recorder-player';
 import AsyncStorage from '@react-native-community/async-storage';
 import TextInput from 'components/TextInput';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -42,9 +45,11 @@ const ArticleRecordScreen = () => {
           PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
         ]);
         if (
-          grants['android.permission.WRITE_EXTERNAL_STORAGE'] === PermissionsAndroid.RESULTS.GRANTED
-                    && grants['android.permission.READ_EXTERNAL_STORAGE'] === PermissionsAndroid.RESULTS.GRANTED
-                    && grants['android.permission.RECORD_AUDIO'] === PermissionsAndroid.RESULTS.GRANTED
+          grants['android.permission.WRITE_EXTERNAL_STORAGE'] ===
+            PermissionsAndroid.RESULTS.GRANTED &&
+          grants['android.permission.READ_EXTERNAL_STORAGE'] ===
+            PermissionsAndroid.RESULTS.GRANTED &&
+          grants['android.permission.RECORD_AUDIO'] === PermissionsAndroid.RESULTS.GRANTED
         ) {
         } else {
           return;
@@ -218,7 +223,10 @@ const ArticleRecordScreen = () => {
     <ImageBackground
       source={require('assets/images/record_background.png')}
       style={{
-        flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
       }}
     >
       <TextInput
@@ -269,20 +277,24 @@ const ArticleRecordScreen = () => {
             <Spinner
               status="danger"
               style={{
-                position: 'absolute', borderRadius: 100, height: 80, width: 80,
+                position: 'absolute',
+                borderRadius: 100,
+                height: 80,
+                width: 80,
               }}
             />
             <Text style={{ position: 'absolute', color: 'red' }}>
-              {millisToSeconds(recordBack?.currentPosition)}
-              {' '}
-              / 50
+              {millisToSeconds(recordBack?.currentPosition)} / 50
             </Text>
           </TouchableOpacity>
         ) : (
           <Button
             disabled={isPlaying || loading}
             style={{
-              borderRadius: 100, height: 80, width: 80, margin: 5,
+              borderRadius: 100,
+              height: 80,
+              width: 80,
+              margin: 5,
             }}
             appearance="outline"
             status="primary"
@@ -304,23 +316,26 @@ const ArticleRecordScreen = () => {
             <Spinner
               status="basic"
               style={{
-                position: 'absolute', borderRadius: 100, height: 80, width: 80,
+                position: 'absolute',
+                borderRadius: 100,
+                height: 80,
+                width: 80,
               }}
             />
             {playBack.duration !== 0 && (
-            <Text style={{ position: 'absolute', color: '#363636' }}>
-              {millisToSeconds(playBack.currentPosition)}
-              {' '}
-              /
-              {millisToSeconds(playBack.duration)}
-            </Text>
+              <Text style={{ position: 'absolute', color: '#363636' }}>
+                {millisToSeconds(playBack.currentPosition)} /{millisToSeconds(playBack.duration)}
+              </Text>
             )}
           </TouchableOpacity>
         ) : (
           <Button
             disabled={isRecording || loading}
             style={{
-              borderRadius: 100, height: 80, width: 80, margin: 5,
+              borderRadius: 100,
+              height: 80,
+              width: 80,
+              margin: 5,
             }}
             appearance="outline"
             status="danger"
@@ -341,7 +356,10 @@ const ArticleRecordScreen = () => {
             <Spinner
               status="warning"
               style={{
-                position: 'absolute', borderRadius: 100, height: 80, width: 80,
+                position: 'absolute',
+                borderRadius: 100,
+                height: 80,
+                width: 80,
               }}
             />
             <Text style={{ position: 'absolute', fontWeight: 'bold' }}>변환중</Text>
@@ -350,7 +368,10 @@ const ArticleRecordScreen = () => {
           <Button
             disabled={isPlaying || isRecording}
             style={{
-              borderRadius: 100, height: 80, width: 80, margin: 5,
+              borderRadius: 100,
+              height: 80,
+              width: 80,
+              margin: 5,
             }}
             onPress={requestAudioToClova}
           >

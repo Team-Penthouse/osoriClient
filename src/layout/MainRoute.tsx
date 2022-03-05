@@ -1,33 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import * as Kakao from '@react-native-seoul/kakao-login';
-import { KakaoAccessTokenInfo, KakaoOAuthToken } from '@react-native-seoul/kakao-login';
-import { useNavigation } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  KakaoAccessTokenInfo,
+  KakaoOAuthToken,
+  KakaoProfile,
+} from '@react-native-seoul/kakao-login';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import ProfileComponent from 'components/ProfileComponent';
-import { RootState } from 'stores/rootStore';
-import { saveUserInfo, setIsLoggedIn } from 'stores/authStore';
+import { observer } from 'mobx-react';
 import MainScreen from '../screens/MainScreen';
-import ArticleRecordScreen from '../screens/ArticleRecordScreen';
 import LoginScreen from '../screens/LoginScreen';
 import { Fonts } from './CustomStyles';
 import ProfileViewScreen from './ProfileViewScreen';
 import ArticleViewScreen from '../screens/ArticleViewScreen';
 import FeedScreen from './FeedScreen';
+import { useStore } from '../stores/RootStore';
 
-const MainRoute = () => {
-  const navigation = useNavigation();
-  const dispatcher = useDispatch();
+const MainRoute = observer(() => {
+  const { userStore } = useStore();
   const [initialTab, setInitialTab] = useState<string>('로그인');
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-  const userInfo = useSelector((state: RootState) => state.auth.user);
-
-  const tabBarVisible = useSelector((state: RootState) => state.ui.tabBarVisible);
 
   const HeaderLeft = () => (
     <ProfileComponent
-      userInfo={userInfo}
+      userInfo={{} as KakaoProfile}
       width={100}
       containerStyle={{
         margin: 0,
@@ -45,15 +41,12 @@ const MainRoute = () => {
         console.log('USER_ACCESS_TOKEN', userToken.accessToken);
         const remoteToken: KakaoAccessTokenInfo = await Kakao.getAccessToken();
         if (userToken.accessToken === remoteToken.accessToken) {
-          dispatcher(setIsLoggedIn(true));
           await AsyncStorage.getItem('userInfo').then((userInfo) => {
             if (userInfo !== null) {
-              dispatcher(saveUserInfo(JSON.parse(userInfo)));
             }
           });
         } else {
           AsyncStorage.removeItem('userToken');
-          dispatcher(setIsLoggedIn(false));
           console.warn('TOKEN_IS_INVALID');
         }
       } else {
@@ -66,12 +59,16 @@ const MainRoute = () => {
     checkInvalidToken();
   }, []);
 
+  useEffect(() => {
+    console.log('main route', userStore.isLoggedIn);
+  }, [userStore.isLoggedIn]);
+
   const Stack = createStackNavigator();
 
   return (
     <Stack.Navigator
       initialRouteName={initialTab}
-            // tabBar={() => (tabBarVisible ? <CustomBottomTab /> : null)}
+      // tabBar={() => (tabBarVisible ? <CustomBottomTab /> : null)}
       screenOptions={{
         headerTitleAlign: 'center',
         headerTitleStyle: { fontFamily: Fonts.NANUM_SQUARE_LIGHT, fontSize: 30 },
@@ -79,7 +76,7 @@ const MainRoute = () => {
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
-      {isLoggedIn ? (
+      {userStore.isLoggedIn ? (
         <>
           <Stack.Screen
             name="MainScreen"
@@ -92,29 +89,19 @@ const MainRoute = () => {
             }}
             component={MainScreen}
           />
-          <Stack.Screen
-            name="ProfileViewScreen"
-            component={ProfileViewScreen}
-          />
+          <Stack.Screen name="ProfileViewScreen" component={ProfileViewScreen} />
           <Stack.Screen
             name="ArticleViewScreen"
             options={{ headerShown: false }}
             component={ArticleViewScreen}
           />
-          <Stack.Screen
-            name="FeedScreen"
-            component={FeedScreen}
-          />
+          <Stack.Screen name="FeedScreen" component={FeedScreen} />
         </>
       ) : (
-        <Stack.Screen
-          name="LoginScreen"
-          options={{ headerShown: false }}
-          component={LoginScreen}
-        />
+        <Stack.Screen name="LoginScreen" options={{ headerShown: false }} component={LoginScreen} />
       )}
     </Stack.Navigator>
   );
-};
+});
 
 export default MainRoute;

@@ -1,32 +1,28 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Avatar, Layout, Spinner } from '@ui-kitten/components';
-import {
-  Alert, StyleSheet, TouchableOpacity, View,
-} from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { KakaoProfile } from '@react-native-seoul/kakao-login';
 import { useNavigation } from '@react-navigation/native';
 import { Tabs } from 'react-native-collapsible-tab-view';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { setCurrentArticle } from 'stores/articleReducer';
-import { RootState } from 'stores/rootStore';
-import { setIsLoggedIn } from 'stores/authStore';
 import { TemporaryArticleType } from 'types/TemporaryTypes';
 import { CustomStyles } from 'layout/CustomStyles';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import Text from 'components/Text';
+import { observer } from 'mobx-react';
+import { UserDto } from '../services/data-contracts';
+import { useStore } from '../stores/RootStore';
 
-const ProfileViewScreen = () => {
+const ProfileViewScreen = observer(() => {
+  const { userStore } = useStore();
   const navigation = useNavigation<StackNavigationProp<any>>();
-  const dispatcher = useDispatch();
-  const currentUser: KakaoProfile = useSelector((state: RootState) => state.user.currentUser);
 
   const [savedArticles, setSavedArticles] = useState<TemporaryArticleType[]>([]);
   const [loadingArticles, setLoadingArticles] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<UserDto>();
 
   const handleGoArticleView = (article: TemporaryArticleType) => {
-    dispatcher(setCurrentArticle(article));
     navigation.push('ArticleViewScreen');
   };
 
@@ -36,7 +32,7 @@ const ProfileViewScreen = () => {
         text: '예',
         onPress: async () => {
           await AsyncStorage.removeItem('userToken');
-          dispatcher(setIsLoggedIn(false));
+          userStore.setIsLoggedIn(false);
         },
       },
       {
@@ -65,7 +61,6 @@ const ProfileViewScreen = () => {
   }, []);
 
   useEffect(() => {
-    console.log(currentUser);
     getSavedArticles();
   }, []);
 
@@ -75,9 +70,14 @@ const ProfileViewScreen = () => {
     return (
       <TouchableOpacity
         key={index}
-        style={[{
-          flexDirection: 'row', borderBottomWidth: 0.5, alignItems: 'center', height: 60,
-        }]}
+        style={[
+          {
+            flexDirection: 'row',
+            borderBottomWidth: 0.5,
+            alignItems: 'center',
+            height: 60,
+          },
+        ]}
         onPress={() => handleGoArticleView(article)}
       >
         <View style={{ flex: 1 }}>
@@ -95,19 +95,24 @@ const ProfileViewScreen = () => {
   };
 
   return (
-  // <View style={{ flex: 1, backgroundColor: 'white' }}>
-  //     <View style={[CustomStyles.divider, { marginVertical: 20 }]} />
+    // <View style={{ flex: 1, backgroundColor: 'white' }}>
+    //     <View style={[CustomStyles.divider, { marginVertical: 20 }]} />
     <Tabs.Container
       renderHeader={() => (
-        <View style={[CustomStyles.center, { backgroundColor: 'rgba(223,222,255,0.74)', paddingVertical: 20 }]}>
+        <View
+          style={[
+            CustomStyles.center,
+            { backgroundColor: 'rgba(223,222,255,0.74)', paddingVertical: 20 },
+          ]}
+        >
           <TouchableOpacity>
             <Avatar
               style={{ width: 150, height: 150, margin: 20 }}
               source={
-                                currentUser?.profileImageUrl === null
-                                  ? require('assets/images/anonymous_user.png')
-                                  : { uri: currentUser?.profileImageUrl }
-                            }
+                currentUser?.profileImg === null
+                  ? require('assets/images/anonymous_user.png')
+                  : { uri: currentUser?.profileImg }
+              }
               defaultSource={require('assets/images/anonymous_user.png')}
             />
           </TouchableOpacity>
@@ -115,9 +120,9 @@ const ProfileViewScreen = () => {
           <Text category="h3">{currentUser?.nickname || ''}</Text>
         </View>
       )}
-            // headerContainerStyle={{
-            //     backgroundColor: 'rgba(223,222,255,0.74)',
-            // }}
+      // headerContainerStyle={{
+      //     backgroundColor: 'rgba(223,222,255,0.74)',
+      // }}
       lazy
     >
       <Tabs.Tab name="Bio" key={1}>
@@ -125,21 +130,21 @@ const ProfileViewScreen = () => {
           <View style={{ flex: 1, padding: 10 }}>
             <View style={[CustomStyles.row, styles.infoRow]}>
               <Text style={{ flex: 1 }}>닉네임</Text>
-              <Text style={{ alignSelf: 'flex-end', flex: 1 }}>{currentUser.nickname}</Text>
+              <Text style={{ alignSelf: 'flex-end', flex: 1 }}>{currentUser?.nickname}</Text>
             </View>
             <View style={[CustomStyles.row, styles.infoRow]}>
               <Text style={{ flex: 1 }}>성별</Text>
               <Text style={{ alignSelf: 'flex-end', flex: 1 }}>
-                {currentUser.gender !== 'null' ? currentUser.gender : '정보 없음'}
+                {currentUser?.gender !== 'null' ? currentUser?.gender : '정보 없음'}
               </Text>
             </View>
             <View style={[CustomStyles.row, styles.infoRow]}>
               <Text style={{ flex: 1 }}>생일</Text>
-              <Text style={{ flex: 1 }}>{currentUser.birthday}</Text>
+              <Text style={{ flex: 1 }}>{currentUser?.birthday}</Text>
             </View>
             <View style={[CustomStyles.row, styles.infoRow]}>
               <Text style={{ flex: 1 }}>나이대</Text>
-              <Text style={{ flex: 1 }}>{currentUser.ageRange}</Text>
+              <Text style={{ flex: 1 }}>{currentUser?.ageRange}</Text>
             </View>
           </View>
           <TouchableOpacity style={{ padding: 10 }} onPress={handleLogout}>
@@ -161,9 +166,9 @@ const ProfileViewScreen = () => {
         />
       </Tabs.Tab>
     </Tabs.Container>
-  // </View>
+    // </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   infoRow: {
