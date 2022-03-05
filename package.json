@@ -19,6 +19,7 @@
     ]
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/preset-env": "^7.16.5",
     "@babel/preset-react": "^7.16.5",
     "@eva-design/eva": "^2.1.1",
@@ -37,8 +38,6 @@
     "@types/react-native-fs": "^2.13.0",
     "@types/react-native-modal": "^4.1.1",
     "@types/react-native-snap-carousel": "^3.8.5",
-    "@types/react-redux": "^7.1.20",
-    "@types/redux": "^3.6.0",
     "@types/rn-fetch-blob": "^1.2.2",
     "@types/sequelize": "^4.28.10",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
@@ -59,6 +58,8 @@
     "lodash": "^4.17.21",
     "lottie-ios": "^3.2.3",
     "lottie-react-native": "^5.0.1",
+    "mobx": "^6.4.2",
+    "mobx-react": "^7.3.0",
     "moment": "^2.29.1",
     "prettier": "^2.4.1",
     "react": "17.0.2",
@@ -85,9 +86,6 @@
     "react-native-vector-icons": "^9.0.0",
     "react-navigation": "^4.4.4",
     "react-query": "^3.34.16",
-    "react-redux": "^7.2.6",
-    "redux": "^4.1.2",
-    "redux-devtools-extension": "^2.13.9",
     "rn-fetch-blob": "^0.12.0",
     "sequelize": "^6.12.0",
     "typescript": "^4.4.3"
