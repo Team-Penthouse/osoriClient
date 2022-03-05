@@ -1,15 +1,15 @@
-import React, { useLayoutEffect } from 'react';
-import { Alert, Image, ImageBackground, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { Alert } from 'react-native';
 import { getProfile, KakaoProfile, login } from '@react-native-seoul/kakao-login';
 import { isUndefined } from 'lodash';
 import LottieView from 'lottie-react-native';
 import { useMutation } from 'react-query';
 import { observer } from 'mobx-react';
-import Text from '../components/Text';
-import ExternalColor from '../layout/ExternalColor';
-import { DEVICE_SIZE, DEVICE_WIDTH } from '../layout/CustomStyles';
-import { User } from '../services/User';
-import { useStore } from '../stores/RootStore';
+import styled from 'styled-components/native';
+import Text from 'components/Text';
+import { DEVICE_WIDTH } from 'layout/CustomStyles';
+import { User } from 'services/User';
+import { useStore } from 'stores/RootStore';
 
 const LoginScreen = observer(() => {
   const { userStore } = useStore();
@@ -78,58 +78,83 @@ const LoginScreen = observer(() => {
       });
   };
 
-  useLayoutEffect(() => {
-    // const subscribe = navigation.addListener('focus', () => {});
-    // const unsubscribe = navigation.addListener('blur', () => {});
-    // return () => {
-    //   subscribe();
-    //   unsubscribe();
-    // };
-  }, []);
-
   return (
-    <ImageBackground
-      source={require('assets/images/login_background.png')}
-      style={{ flex: 1, alignItems: 'center' }}
-    >
-      <View
-        style={{
-          height: '40%',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'transparent',
-        }}
-      >
-        <View style={{ backgroundColor: 'transparent', margin: 20 }}>
-          <Text style={{ fontSize: 60, color: ExternalColor.p1 }}>OSORI</Text>
-          <Text style={{ alignSelf: 'center', color: ExternalColor.i1 }}>
-            <Text style={{ color: ExternalColor.s2 }}>오</Text>
-            늘의 나를 남기는 <Text style={{ color: ExternalColor.s2 }}>소리</Text>
-          </Text>
-        </View>
-        <Text category="h6" style={{ color: 'white' }}>
-          환영합니다
-        </Text>
-      </View>
-      <LottieView
-        style={{ width: DEVICE_WIDTH * 0.8 }}
+    <Container source={require('assets/images/login_background.png')}>
+      <Header>
+        <HeaderTitleContainer>
+          <HeaderTitleText>OSORI</HeaderTitleText>
+          <HeaderSubTitleText>
+            <HeaderSubTitleHighlightText>오</HeaderSubTitleHighlightText>
+            늘의 나를 남기는 <HeaderSubTitleHighlightText>소리</HeaderSubTitleHighlightText>
+          </HeaderSubTitleText>
+        </HeaderTitleContainer>
+        <WelcomeText>환영합니다</WelcomeText>
+      </Header>
+      <WelcomeImage
         resizeMode="cover"
         source={require('assets/lottie/welcome.json')}
         speed={0.5}
         autoPlay
         loop
       />
-      <View style={{ alignItems: 'center', backgroundColor: 'transparent' }}>
-        <TouchableOpacity onPress={handleLoginByKakao}>
-          <Image
+      <LoginButtonContainer>
+        <KakaoButton onPress={handleLoginByKakao}>
+          <KakaoImage
             resizeMode="contain"
-            style={{ width: DEVICE_SIZE.width / 2 }}
             source={require('assets/images/kakao_login/ko/kakao_login_large_narrow.png')}
           />
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+        </KakaoButton>
+      </LoginButtonContainer>
+    </Container>
   );
 });
+
+const Container = styled.ImageBackground`
+  flex: 1;
+  align-items: center;
+`;
+
+const Header = styled.View`
+  height: 40%;
+  align-items: center;
+  justify-content: center;
+`;
+
+const HeaderTitleContainer = styled.View`
+  margin: 20px;
+  align-items: center;
+`;
+
+const HeaderTitleText = styled(Text)`
+  font-size: 60px;
+  color: ${(props) => props.theme.colors.primary1};
+`;
+
+const HeaderSubTitleText = styled(Text)`
+  color: ${(props) => props.theme.colors.secondary1};
+`;
+
+const HeaderSubTitleHighlightText = styled(Text)`
+  color: ${(props) => props.theme.colors.secondary2};
+`;
+
+const WelcomeText = styled(Text)`
+  font-size: 18px;
+  color: ${(props) => props.theme.colors.label};
+`;
+
+const LoginButtonContainer = styled.View`
+  align-items: center;
+`;
+
+const KakaoButton = styled.TouchableOpacity``;
+
+const KakaoImage = styled.Image`
+  width: ${DEVICE_WIDTH / 2}px;
+`;
+
+const WelcomeImage = styled(LottieView)`
+  width: ${DEVICE_WIDTH * 0.8}px;
+`;
 
 export default LoginScreen;

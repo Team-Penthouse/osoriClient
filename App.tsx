@@ -6,6 +6,8 @@ import * as eva from '@eva-design/eva';
 import NavController from 'navigation/NavController';
 import 'moment/locale/ko';
 import { MobxProvider } from 'stores/RootStore';
+import { ThemeProvider } from 'styled-components';
+import Theme from './src/styles/Theme';
 
 /** react query 클라이언트를 생성한다. */
 const queryClient = new QueryClient();
@@ -28,11 +30,13 @@ const App = () => {
 
   return (
     <MobxProvider>
-      <QueryClientProvider client={queryClient}>
-        <ApplicationProvider {...eva} theme={eva.light}>
-          <NavController />
-        </ApplicationProvider>
-      </QueryClientProvider>
+      <ThemeProvider theme={Theme}>
+        <QueryClientProvider client={queryClient}>
+          <ApplicationProvider {...eva} theme={eva.light}>
+            <NavController />
+          </ApplicationProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
     </MobxProvider>
   );
 };
