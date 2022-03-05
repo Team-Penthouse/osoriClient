@@ -25,10 +25,10 @@ const NavController = observer(() => {
           });
         } else {
           AsyncStorage.removeItem('userToken');
-          console.warn('TOKEN_IS_INVALID');
+          console.log('TOKEN_IS_INVALID');
         }
       } else {
-        console.warn('TOKEN_IS_NOT_PROVIDED');
+        console.log('TOKEN_IS_NOT_PROVIDED');
       }
     });
   };
