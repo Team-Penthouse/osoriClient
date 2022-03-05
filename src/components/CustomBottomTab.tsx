@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import { Layout } from '@ui-kitten/components';
 import { Dimensions, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
-import { KakaoOAuthToken, KakaoProfile, login } from '@react-native-seoul/kakao-login';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { observer } from 'mobx-react';
 import Text from './Text';
-import ArticleRecordScreen from '../screens/ArticleRecordScreen';
 
-const CustomBottomTab = (): React.ReactElement => {
+const CustomBottomTab = observer((): React.ReactElement => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const [isVisible, setIsVisible] = useState(false);
@@ -72,7 +71,7 @@ const CustomBottomTab = (): React.ReactElement => {
       </TouchableOpacity>
     </Layout>
   );
-};
+});
 
 const styles = StyleSheet.create({
   menu: {

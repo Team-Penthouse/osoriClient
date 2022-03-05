@@ -5,28 +5,31 @@ import { EvaStatus, LiteralUnion, Overwrite } from '@ui-kitten/components/devsup
 import { StyledComponentProps } from '@ui-kitten/components/theme';
 import { TextElement } from '@ui-kitten/components/ui/text/text.component';
 import { Fonts } from 'layout/CustomStyles';
+import { observer } from 'mobx-react';
 
 type ChildElement = React.ReactText | TextElement;
 
 type TextStyledProps = Overwrite<
-    StyledComponentProps,
-    {
-        appearance?: LiteralUnion<'default' | 'alternative' | 'hint'>;
-    }
+  StyledComponentProps,
+  {
+    appearance?: LiteralUnion<'default' | 'alternative' | 'hint'>;
+  }
 >;
 
 interface CustomProps extends RNTextProps, TextStyledProps {
-    children?: ChildElement | ChildElement[];
-    category?: LiteralUnion<
-        'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 's1' | 's2' | 'p1' | 'p2' | 'c1' | 'c2' | 'label'
-    >;
-    status?: EvaStatus;
+  children?: ChildElement | ChildElement[];
+  category?: LiteralUnion<
+    'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 's1' | 's2' | 'p1' | 'p2' | 'c1' | 'c2' | 'label'
+  >;
+  status?: EvaStatus;
 }
 
-const Text = (props: CustomProps): React.ReactElement => (
-  <KittenText {...props} style={[props.style, { fontFamily: Fonts.NANUM_SQUARE_LIGHT }]}>
-    {props.children}
-  </KittenText>
+const Text = observer(
+  (props: CustomProps): React.ReactElement => (
+    <KittenText {...props} style={[props.style, { fontFamily: Fonts.NANUM_SQUARE_LIGHT }]}>
+      {props.children}
+    </KittenText>
+  ),
 );
 
 export default Text;

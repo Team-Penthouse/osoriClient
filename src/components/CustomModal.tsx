@@ -1,8 +1,9 @@
 import React from 'react';
 import Modal from 'react-native-modal';
+import { observer } from 'mobx-react';
 import { useStore } from '../stores/RootStore';
 
-const CustomModal = () => {
+const CustomModal = observer(() => {
   const { isModalVisible, modalOptions } = useStore().uiStore;
 
   return (
@@ -16,5 +17,5 @@ const CustomModal = () => {
       <>{modalOptions?.component}</>
     </Modal>
   );
-};
+});
 export default CustomModal;
