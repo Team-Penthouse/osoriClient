@@ -18,7 +18,7 @@ export interface UserDto {
   email?: string;
   name?: string;
   phoneNumber?: string;
-  profileImg?: number;
+  profileImg?: string;
   ageRange?: string;
   birthday?: string;
 

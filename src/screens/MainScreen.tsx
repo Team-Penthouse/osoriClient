@@ -21,10 +21,13 @@ import Text from 'components/Text';
 import ProfileComponent from 'components/ProfileComponent';
 import CustomBottomTab from 'components/CustomBottomTab';
 import { TemporaryArticleType } from 'types/TemporaryTypes';
+import { observer } from 'mobx-react';
+import { useStore } from '../stores/RootStore';
 
 const SCREEN_SIZE = Dimensions.get('window');
 
-const MainScreen = () => {
+const MainScreen = observer(() => {
+  const { authStore } = useStore();
   const navigation = useNavigation<StackNavigationProp<any>>();
   const [articles, setArticles] = useState<TemporaryArticleType[]>([]);
 
@@ -122,6 +125,7 @@ const MainScreen = () => {
       style={{ flex: 1, paddingTop: isIphoneX() ? 40 : 0 }}
     >
       <ScrollView style={{ flex: 1 }}>
+        <ProfileComponent userInfo={authStore.me} />
         <View style={{ alignItems: 'center', backgroundColor: 'transparent', paddingTop: 20 }}>
           <Text
             category="h2"
@@ -181,7 +185,7 @@ const MainScreen = () => {
       <CustomBottomTab />
     </ImageBackground>
   );
-};
+});
 
 const styles = StyleSheet.create({
   sectionHeader: {

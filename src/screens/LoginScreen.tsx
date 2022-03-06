@@ -9,10 +9,13 @@ import styled from 'styled-components/native';
 import Text from 'components/Text';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from 'layout/CustomStyles';
 import { useStore } from 'stores/RootStore';
+import { GoogleSigninButton, RNGoogleSignType } from '@react-native-google-signin/google-signin';
 import { loginByKakao } from '../services/Kakao';
+import { loginByGoogle } from '../services/Google';
+import { UserDto } from '../services/data-contracts';
 
 const LoginScreen = observer(() => {
-  const { userStore } = useStore();
+  const { userStore, authStore } = useStore();
 
   const introContainerOpacity = useRef(new Animated.Value(1)).current;
   const welcomeContainerOpacity = useRef(new Animated.Value(0)).current;
@@ -25,44 +28,75 @@ const LoginScreen = observer(() => {
    * @Queries
    */
   const saveUser = useMutation(
-    async (user: KakaoProfile) => {
-      const body = {
-        nickname: user?.nickname,
-        loginType: 'KAKAO',
-        externalId: user?.id,
-        profileImg: user?.profileImageUrl,
-      };
+    async (payload: { user: any; type: 'KAKAO' | 'GOOGLE' }) => {
+      let body = {};
+      if (payload.type === 'KAKAO') {
+        body = {
+          nickname: payload.user?.nickname,
+          loginType: payload.type,
+          externalId: payload.user?.id,
+          profileImg: payload.user?.profileImageUrl,
+        };
+      } else if (payload.type === 'GOOGLE') {
+        body = {
+          nickname: payload.user?.name,
+          loginType: payload.type,
+          externalId: payload.user?.id,
+          profileImg: payload.user?.photo,
+        };
+      }
       return await userStore.api.userCreate(body);
     },
     {
       onSuccess: (result: any) => {
-        console.log('save result', result.data);
+        const internalUser: UserDto = result.config.data;
+        authStore.setMe(internalUser);
       },
     },
   );
 
-  const getUserByExternalId = async (user: KakaoProfile) => {
-    await userStore.api
-      .userDetail(Number(user.id), { loginType: 'KAKAO' } as any)
-      .then(async (result: any) => {
-        if (result?.data === 'USER_NOT_FOUND') {
-          await saveUser.mutate(user);
-        }
-        moveToMainScreenWithAnimation();
-      });
+  const getUserByExternalId = async (user: any, type: 'KAKAO' | 'GOOGLE') => {
+    if (type === 'KAKAO') {
+      const kakaoUser: KakaoProfile = user as KakaoProfile;
+      await userStore.api
+        .userDetail(Number(kakaoUser.id), { loginType: 'KAKAO' } as any)
+        .then(async (result: any) => {
+          if (result?.data === 'USER_NOT_FOUND') {
+            await saveUser.mutate({ user: kakaoUser, type: 'KAKAO' });
+          }
+          moveToMainScreenWithAnimation();
+        });
+    } else if (type === 'GOOGLE') {
+      const googleUser = user.user;
+      await userStore.api
+        .userDetail(Number(googleUser.id), { loginType: 'GOOGLE' } as any)
+        .then(async (result: any) => {
+          if (result?.data === 'USER_NOT_FOUND') {
+            await saveUser.mutate({ user: googleUser, type: 'GOOGLE' });
+          }
+          moveToMainScreenWithAnimation();
+        });
+    }
   };
 
   const handleLoginByKakao = async () => {
     await loginByKakao({
       onProvided: async (userInfo) => {
         if (typeof userInfo.nickname !== 'undefined') {
-          await getUserByExternalId(userInfo);
+          await getUserByExternalId(userInfo, 'KAKAO');
         }
       },
       onFailed: () => {
         Alert.alert('잘못된 로그인입니다.');
       },
     });
+  };
+
+  const handleLoginByGoogle = async () => {
+    const response = await loginByGoogle();
+    if (response.idToken !== null) {
+      await getUserByExternalId(response, 'GOOGLE');
+    }
   };
 
   const moveToMainScreenWithAnimation = () => {
@@ -75,7 +109,7 @@ const LoginScreen = observer(() => {
       // 환영 로티를 포함한 컨테이너를 보이게
       Animated.timing(welcomeContainerOpacity, {
         toValue: 1,
-        duration: 2000,
+        duration: 1000,
         useNativeDriver: true,
       }).start(() => {
         // opacity 타이밍이 끝난 후 바로 이동되는 것은 부자연스러워,
@@ -102,10 +136,11 @@ const LoginScreen = observer(() => {
         <LoginButtonContainer>
           <KakaoButton onPress={handleLoginByKakao}>
             <KakaoImage
-              resizeMode="contain"
+              resizeMode="cover"
               source={require('assets/images/kakao_login/ko/kakao_login_large_narrow.png')}
             />
           </KakaoButton>
+          <GoogleButton onPress={handleLoginByGoogle} />
         </LoginButtonContainer>
       </IntroContainer>
       <WelcomeContainer style={{ opacity: welcomeContainerOpacity }}>
@@ -168,7 +203,14 @@ const LoginButtonContainer = styled.View`
 const KakaoButton = styled.TouchableOpacity``;
 
 const KakaoImage = styled.Image`
+  border-radius: 3px;
   width: ${DEVICE_WIDTH / 2}px;
+  height: 40px;
+  margin: 10px 0 10px 0;
+`;
+
+const GoogleButton = styled(GoogleSigninButton)`
+  width: ${DEVICE_WIDTH / 1.9}px;
 `;
 
 const WelcomeContainer = styled(Animated.View)`

@@ -7,6 +7,7 @@ import NavController from 'navigation/NavController';
 import 'moment/locale/ko';
 import { MobxProvider } from 'stores/RootStore';
 import { ThemeProvider } from 'styled-components';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import Theme from './src/styles/Theme';
 
 /** react query 클라이언트를 생성한다. */
@@ -19,6 +20,11 @@ const App = () => {
 
   useEffect(() => {
     console.log('IS_HERMES_ENABLED :', isHermes());
+
+    GoogleSignin.configure({
+      webClientId: '281124763164-kmn2l0fsmjscqqidvfis0erapoqbmps0.apps.googleusercontent.com',
+    });
+
     try {
       setTimeout(() => {
         SplashScreen.hide(); /** 추가 * */
@@ -26,7 +32,7 @@ const App = () => {
     } catch (e) {
       console.warn(e);
     }
-  });
+  }, []);
 
   return (
     <MobxProvider>

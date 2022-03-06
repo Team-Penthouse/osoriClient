@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Alert, StyleProp, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { Avatar } from '@ui-kitten/components';
-import { KakaoProfile } from '@react-native-seoul/kakao-login';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { observer } from 'mobx-react';
 import Text from './Text';
+import { UserDto } from '../services/data-contracts';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
-  userInfo: KakaoProfile;
+  userInfo?: UserDto;
   width?: number;
   showLogout?: boolean;
 }
@@ -34,6 +34,10 @@ const ProfileComponent = observer(
         },
       ]);
     };
+    useEffect(() => {
+      console.log('user changed', userInfo);
+      console.log('user Image', userInfo?.profileImg);
+    }, [userInfo]);
 
     return (
       <View
@@ -57,13 +61,13 @@ const ProfileComponent = observer(
           <Avatar
             size="small"
             source={
-              userInfo?.profileImageUrl === null
-                ? require('assets/images/anonymous_user.png')
-                : { uri: userInfo?.profileImageUrl }
+              // typeof userInfo?.profileImg === 'undefined'
+              //   ? require('assets/images/anonymous_user.png')
+              { uri: userInfo?.profileImg }
             }
             style={{
               marginRight: 10,
-              borderWidth: userInfo?.profileImageUrl === null ? 0.2 : 0,
+              borderWidth: typeof userInfo?.profileImg === 'undefined' ? 0.2 : 0,
             }}
           />
           <Text category="h6" style={textStyle}>
