@@ -35,8 +35,10 @@ const ProfileComponent = observer(
       ]);
     };
     useEffect(() => {
-      console.log('user changed', userInfo);
-      console.log('user Image', userInfo?.profileImg);
+      if (typeof userInfo !== 'undefined') {
+        console.log('user changed', userInfo);
+        console.log('user Image', userInfo?.loginType);
+      }
     }, [userInfo]);
 
     return (

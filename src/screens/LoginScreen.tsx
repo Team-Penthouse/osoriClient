@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { Alert, Animated } from 'react-native';
-import { getProfile, KakaoProfile, login } from '@react-native-seoul/kakao-login';
-import { isUndefined } from 'lodash';
+import { KakaoProfile } from '@react-native-seoul/kakao-login';
 import LottieView from 'lottie-react-native';
 import { useMutation } from 'react-query';
 import { observer } from 'mobx-react';
@@ -9,7 +8,7 @@ import styled from 'styled-components/native';
 import Text from 'components/Text';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from 'layout/CustomStyles';
 import { useStore } from 'stores/RootStore';
-import { GoogleSigninButton, RNGoogleSignType } from '@react-native-google-signin/google-signin';
+import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { loginByKakao } from '../services/Kakao';
 import { loginByGoogle } from '../services/Google';
 import { UserDto } from '../services/data-contracts';
@@ -63,6 +62,8 @@ const LoginScreen = observer(() => {
         .then(async (result: any) => {
           if (result?.data === 'USER_NOT_FOUND') {
             await saveUser.mutate({ user: kakaoUser, type: 'KAKAO' });
+          } else {
+            authStore.setMe(result.data);
           }
           moveToMainScreenWithAnimation();
         });
@@ -73,6 +74,8 @@ const LoginScreen = observer(() => {
         .then(async (result: any) => {
           if (result?.data === 'USER_NOT_FOUND') {
             await saveUser.mutate({ user: googleUser, type: 'GOOGLE' });
+          } else {
+            authStore.setMe(result.data);
           }
           moveToMainScreenWithAnimation();
         });

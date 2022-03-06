@@ -125,7 +125,6 @@ const MainScreen = observer(() => {
       style={{ flex: 1, paddingTop: isIphoneX() ? 40 : 0 }}
     >
       <ScrollView style={{ flex: 1 }}>
-        <ProfileComponent userInfo={authStore.me} />
         <View style={{ alignItems: 'center', backgroundColor: 'transparent', paddingTop: 20 }}>
           <Text
             category="h2"
