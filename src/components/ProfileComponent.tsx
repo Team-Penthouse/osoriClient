@@ -65,11 +65,11 @@ const ProfileComponent = observer(
             source={
               // typeof userInfo?.profileImg === 'undefined'
               //   ? require('assets/images/anonymous_user.png')
-              { uri: userInfo?.profileImg }
+              { uri: userInfo?.profileImage }
             }
             style={{
               marginRight: 10,
-              borderWidth: typeof userInfo?.profileImg === 'undefined' ? 0.2 : 0,
+              borderWidth: typeof userInfo?.profileImage === 'undefined' ? 0.2 : 0,
             }}
           />
           <Text category="h6" style={textStyle}>

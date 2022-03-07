@@ -27,28 +27,28 @@ const LoginScreen = observer(() => {
    * @Queries
    */
   const saveUser = useMutation(
-    async (payload: { user: any; type: 'KAKAO' | 'GOOGLE' }) => {
+    async ({ user, type }: { user: any; type: 'KAKAO' | 'GOOGLE' }) => {
       let body = {};
-      if (payload.type === 'KAKAO') {
+      if (type === 'KAKAO') {
         body = {
-          nickname: payload.user?.nickname,
-          loginType: payload.type,
-          externalId: payload.user?.id,
-          profileImg: payload.user?.profileImageUrl,
+          nickname: user?.nickname,
+          loginType: type,
+          externalId: user?.id,
+          profileImage: user?.profileImageUrl,
         };
-      } else if (payload.type === 'GOOGLE') {
+      } else if (type === 'GOOGLE') {
         body = {
-          nickname: payload.user?.name,
-          loginType: payload.type,
-          externalId: payload.user?.id,
-          profileImg: payload.user?.photo,
+          nickname: user?.name,
+          loginType: type,
+          externalId: user?.id,
+          profileImage: user?.photo,
         };
       }
       return await userStore.api.userCreate(body);
     },
     {
       onSuccess: (result: any) => {
-        const internalUser: UserDto = result.config.data;
+        const internalUser: UserDto = JSON.parse(result.config.data);
         authStore.setMe(internalUser);
       },
     },
@@ -58,7 +58,7 @@ const LoginScreen = observer(() => {
     if (type === 'KAKAO') {
       const kakaoUser: KakaoProfile = user as KakaoProfile;
       await userStore.api
-        .userDetail(Number(kakaoUser.id), { loginType: 'KAKAO' } as any)
+        .userDetail(kakaoUser.id, { loginType: 'KAKAO' } as any)
         .then(async (result: any) => {
           if (result?.data === 'USER_NOT_FOUND') {
             await saveUser.mutate({ user: kakaoUser, type: 'KAKAO' });
@@ -70,7 +70,7 @@ const LoginScreen = observer(() => {
     } else if (type === 'GOOGLE') {
       const googleUser = user.user;
       await userStore.api
-        .userDetail(Number(googleUser.id), { loginType: 'GOOGLE' } as any)
+        .userDetail(googleUser.id, { loginType: 'GOOGLE' } as any)
         .then(async (result: any) => {
           if (result?.data === 'USER_NOT_FOUND') {
             await saveUser.mutate({ user: googleUser, type: 'GOOGLE' });
