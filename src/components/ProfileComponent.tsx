@@ -6,6 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { observer } from 'mobx-react';
 import Text from './Text';
 import { UserDto } from '../services/data-contracts';
+import { useStore } from '../stores/RootStore';
 
 interface Props {
   containerStyle?: StyleProp<ViewStyle>;
@@ -17,10 +18,14 @@ interface Props {
 
 const ProfileComponent = observer(
   ({ containerStyle, textStyle, userInfo, width, showLogout }: Props) => {
+    const { userStore } = useStore();
     const navigation = useNavigation<StackNavigationProp<any>>();
 
     const handleGoProfileScreen = () => {
-      navigation.push('ProfileViewScreen');
+      if (typeof userInfo !== 'undefined') {
+        userStore.setUser(userInfo);
+        navigation.push('ProfileViewScreen');
+      }
     };
 
     const handleLogout = async () => {

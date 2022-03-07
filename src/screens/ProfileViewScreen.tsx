@@ -18,7 +18,6 @@ import { useStore } from '../stores/RootStore';
 const ProfileViewScreen = observer(() => {
   const { userStore } = useStore();
   const navigation = useNavigation<StackNavigationProp<any>>();
-
   const [savedArticles, setSavedArticles] = useState<TemporaryArticleType[]>([]);
   const [loadingArticles, setLoadingArticles] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<UserDto>();
@@ -63,6 +62,7 @@ const ProfileViewScreen = observer(() => {
   }, []);
 
   useEffect(() => {
+    setCurrentUser(userStore.user);
     getSavedArticles();
   }, []);
 
@@ -111,9 +111,9 @@ const ProfileViewScreen = observer(() => {
             <Avatar
               style={{ width: 150, height: 150, margin: 20 }}
               source={
-                currentUser?.profileImg === null
+                currentUser?.profileImage === null
                   ? require('assets/images/anonymous_user.png')
-                  : { uri: currentUser?.profileImg }
+                  : { uri: currentUser?.profileImage }
               }
               defaultSource={require('assets/images/anonymous_user.png')}
             />
@@ -122,9 +122,6 @@ const ProfileViewScreen = observer(() => {
           <Text category="h3">{currentUser?.nickname || ''}</Text>
         </View>
       )}
-      // headerContainerStyle={{
-      //     backgroundColor: 'rgba(223,222,255,0.74)',
-      // }}
       lazy
     >
       <Tabs.Tab name="Bio" key={1}>
@@ -148,10 +145,13 @@ const ProfileViewScreen = observer(() => {
               <Text style={{ flex: 1 }}>나이대</Text>
               <Text style={{ flex: 1 }}>{currentUser?.ageRange}</Text>
             </View>
+            <TouchableOpacity
+              style={{ padding: 10, alignSelf: 'flex-end', borderWidth: 1, borderRadius: 8 }}
+              onPress={handleLogout}
+            >
+              <Text style={{ fontWeight: 'bold' }}>로그아웃</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={{ padding: 10 }} onPress={handleLogout}>
-            <Text>로그아웃</Text>
-          </TouchableOpacity>
         </Tabs.ScrollView>
       </Tabs.Tab>
       <Tabs.Tab name="Articles" key={2}>
