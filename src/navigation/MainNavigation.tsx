@@ -7,10 +7,8 @@ import ProfileViewScreen from 'screens/ProfileViewScreen';
 import ArticleViewScreen from 'screens/ArticleViewScreen';
 import FeedScreen from 'screens/FeedScreen';
 import MainScreen from 'screens/MainScreen';
-import { KakaoProfile } from '@react-native-seoul/kakao-login';
 import { observer } from 'mobx-react';
 import { useStore } from '../stores/RootStore';
-import { UserDto } from '../services/data-contracts';
 
 const Stack = createStackNavigator<MainStackParamList>();
 
@@ -21,11 +19,7 @@ const MainNavigation = observer(() => {
       <ProfileComponent
         userInfo={authStore.me}
         width={100}
-        containerStyle={{
-          margin: 0,
-          padding: 0,
-          zIndex: 1,
-        }}
+        containerStyle={{ marginHorizontal: 10 }}
       />
     ),
     [authStore.me],
