@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { MainStackParamList } from 'types/NavigationTypes';
 import { Fonts } from 'layout/CustomStyles';
@@ -8,21 +8,27 @@ import ArticleViewScreen from 'screens/ArticleViewScreen';
 import FeedScreen from 'screens/FeedScreen';
 import MainScreen from 'screens/MainScreen';
 import { KakaoProfile } from '@react-native-seoul/kakao-login';
+import { observer } from 'mobx-react';
+import { useStore } from '../stores/RootStore';
+import { UserDto } from '../services/data-contracts';
 
 const Stack = createStackNavigator<MainStackParamList>();
 
-const MainNavigation = () => {
-  const HeaderLeft = () => (
-    <ProfileComponent
-      userInfo={{} as KakaoProfile}
-      width={100}
-      containerStyle={{
-        margin: 0,
-        padding: 0,
-        backgroundColor: 'transparent',
-        zIndex: 1,
-      }}
-    />
+const MainNavigation = observer(() => {
+  const { authStore } = useStore();
+  const HeaderLeft = useCallback(
+    () => (
+      <ProfileComponent
+        userInfo={authStore.me}
+        width={100}
+        containerStyle={{
+          margin: 0,
+          padding: 0,
+          zIndex: 1,
+        }}
+      />
+    ),
+    [authStore.me],
   );
 
   return (
@@ -42,7 +48,6 @@ const MainNavigation = () => {
           headerTitle: '',
           headerShown: true,
           headerTransparent: true,
-          headerStyle: { backgroundColor: 'transparent' },
           headerLeft: HeaderLeft,
         }}
         component={MainScreen}
@@ -56,6 +61,6 @@ const MainNavigation = () => {
       <Stack.Screen name="FeedScreen" component={FeedScreen} />
     </Stack.Navigator>
   );
-};
+});
 
 export default MainNavigation;

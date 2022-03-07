@@ -46,9 +46,10 @@ export class User<SecurityDataType = unknown> extends HttpClient<SecurityDataTyp
    * @name UserDetail
    * @request GET:/user/{userId}
    */
-  userDetail = (userId: number, params: RequestParams = {}) =>
+  userDetail = (userId: number | string, params: RequestParams = {}) =>
     this.request<void, void>({
       path: `/user/${userId}`,
+      query: params,
       method: 'GET',
       ...params,
     });

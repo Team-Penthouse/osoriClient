@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useRef } from 'react';
 import { MobXProviderContext, ProviderProps } from 'mobx-react';
 import { shallowEqual } from 'mobx-react/src/utils/utils';
-import UIStore from 'stores/uiStore';
-import UserStore from 'stores/userStore';
+import AuthStore from 'stores/AuthStore';
+import UIStore from 'stores/UIStore';
+import UserStore from 'stores/UserStore';
 
 export const useStore = () => {
   return useContext(CustomContext);
@@ -11,6 +12,7 @@ export const useStore = () => {
 export const RootStore = {
   userStore: new UserStore(),
   uiStore: new UIStore(),
+  authStore: new AuthStore(),
 };
 
 const CustomContext = createContext(RootStore);

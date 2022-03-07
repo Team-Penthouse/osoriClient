@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import Text from 'components/Text';
 import { observer } from 'mobx-react';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { UserDto } from '../services/data-contracts';
 import { useStore } from '../stores/RootStore';
 
@@ -31,6 +32,7 @@ const ProfileViewScreen = observer(() => {
       {
         text: '예',
         onPress: async () => {
+          await GoogleSignin.signOut();
           await AsyncStorage.removeItem('userToken');
           userStore.setIsLoggedIn(false);
         },
