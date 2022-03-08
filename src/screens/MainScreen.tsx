@@ -10,45 +10,36 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { KakaoProfile } from '@react-native-seoul/kakao-login';
 import { StackNavigationProp } from '@react-navigation/stack';
 import moment from 'moment';
 import ExternalColor from 'layout/ExternalColor';
-import { DEVICE_SIZE } from 'layout/CustomStyles';
 import Text from 'components/Text';
 import ProfileComponent from 'components/ProfileComponent';
 import CustomBottomTab from 'components/CustomBottomTab';
-import { TemporaryArticleType } from 'types/TemporaryTypes';
 import { observer } from 'mobx-react';
 import { useStore } from '../stores/RootStore';
-import { UserDto } from '../services/data-contracts';
+import { ArticleDto, UserDto } from '../services/data-contracts';
 
 const SCREEN_SIZE = Dimensions.get('window');
 
 const MainScreen = observer(() => {
-  const { authStore } = useStore();
+  const { authStore, articleStore } = useStore();
   const navigation = useNavigation<StackNavigationProp<any>>();
-  const [articles, setArticles] = useState<TemporaryArticleType[]>([]);
+  const [articles, setArticles] = useState<ArticleDto[]>([]);
 
   const init = async () => {
-    console.log('called');
-    await AsyncStorage.getItem('my_articles').then((res) => {
-      console.log(res);
-      if (res !== null) {
-        const data = JSON.parse(res);
-        setArticles([...articles, ...data]);
-      }
-    });
+    const response = await articleStore.api.articlesList();
+    setArticles(response.data);
   };
 
-  const handlePressArticle = (article: TemporaryArticleType) => {
+  const handlePressArticle = (article: ArticleDto) => {
+    articleStore.setArticle(article);
     navigation.push('ArticleViewScreen');
   };
 
-  const renderCarousel = (item: any) => {
-    const article: TemporaryArticleType = item.item;
+  const renderCarousel = (item: { item: ArticleDto; index: number }) => {
+    const article = item.item;
     return (
       <TouchableWithoutFeedback onPress={() => handlePressArticle(article)}>
         <View
@@ -140,19 +131,19 @@ const MainScreen = observer(() => {
           >
             BEST
           </Text>
-          {/* <Carousel */}
-          {/*  slideStyle={{ alignItems: 'center' }} */}
-          {/*  sliderWidth={SCREEN_SIZE.width} */}
-          {/*  itemWidth={300} */}
-          {/*  data={[1, 2, 3, 4, 5]} */}
-          {/*  renderItem={renderCarousel} */}
-          {/*  autoplay */}
-          {/*  autoplayDelay={6000} */}
-          {/*  autoplayInterval={6000} */}
-          {/*  loop */}
-          {/*  keyExtractor={(item, index) => index.toString()} */}
-          {/*  pagingEnabled */}
-          {/* /> */}
+          <Carousel
+            slideStyle={{ alignItems: 'center' }}
+            sliderWidth={SCREEN_SIZE.width}
+            itemWidth={300}
+            data={articles}
+            renderItem={renderCarousel}
+            autoplay
+            autoplayDelay={6000}
+            autoplayInterval={6000}
+            loop
+            keyExtractor={(item, index) => index.toString()}
+            removeClippedSubviews={false}
+          />
         </View>
         <View style={{ alignItems: 'center', marginTop: 20, backgroundColor: 'transparent' }}>
           <Text
@@ -168,18 +159,19 @@ const MainScreen = observer(() => {
           >
             NEW
           </Text>
-          {/* <Carousel */}
-          {/*  pagingEnabled */}
-          {/*  slideStyle={{ alignItems: 'center', backgroundColor: 'transparent' }} */}
-          {/*  sliderWidth={DEVICE_SIZE.width} */}
-          {/*  itemWidth={DEVICE_SIZE.width / 1.4} */}
-          {/*  data={articles} */}
-          {/*  renderItem={renderCarousel} */}
-          {/*  autoplay */}
-          {/*  autoplayInterval={6000} */}
-          {/*  automaticallyAdjustContentInsets */}
-          {/*  keyExtractor={(item, index) => index.toString()} */}
-          {/* /> */}
+          <Carousel
+            slideStyle={{ alignItems: 'center' }}
+            sliderWidth={SCREEN_SIZE.width}
+            itemWidth={300}
+            data={articles}
+            renderItem={renderCarousel}
+            autoplay
+            autoplayDelay={6000}
+            autoplayInterval={6000}
+            loop
+            keyExtractor={(item, index) => index.toString()}
+            removeClippedSubviews={false}
+          />
         </View>
       </ScrollView>
       <CustomBottomTab />

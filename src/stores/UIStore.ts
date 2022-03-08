@@ -17,7 +17,9 @@ export default class UIStore {
   };
 
   closeModal = () => {
-    this.modalOptions = {} as ModalInterface;
     this.isModalVisible = false;
+    setTimeout(() => {
+      this.modalOptions = {} as ModalInterface;
+    }, 1000);
   };
 }
