@@ -10,6 +10,7 @@
  */
 
 import { HttpClient, RequestParams } from './http-client';
+import { ArticleDto } from './data-contracts';
 
 export class Articles<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
@@ -23,6 +24,7 @@ export class Articles<SecurityDataType = unknown> extends HttpClient<SecurityDat
     this.request<void, void>({
       path: `/articles`,
       method: 'GET',
+      query: params,
       ...params,
     });
   /**
@@ -32,7 +34,7 @@ export class Articles<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @name ArticleCreate
    * @request POST:/article
    */
-  articleCreate = (data: { nickname?: string; loginType?: string }, params: RequestParams = {}) =>
+  articleCreate = (data: ArticleDto, params: RequestParams = {}) =>
     this.request<void, void>({
       path: `/article`,
       method: 'POST',

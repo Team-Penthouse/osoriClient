@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { useStore } from '../stores/RootStore';
 
 const CustomModal = observer(() => {
-  const { isModalVisible, modalOptions } = useStore().uiStore;
+  const { uiStore } = useStore();
 
   return (
     <Modal
@@ -12,9 +12,10 @@ const CustomModal = observer(() => {
       animationOut="fadeOut"
       backdropOpacity={0}
       style={{ padding: 0, margin: 0 }}
-      isVisible={isModalVisible}
+      isVisible={uiStore.isModalVisible}
+      avoidKeyboard
     >
-      <>{modalOptions?.component}</>
+      {typeof uiStore.modalOptions.component !== 'undefined' && uiStore.modalOptions?.component()}
     </Modal>
   );
 });

@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { ImageBackground, View } from 'react-native';
 import { isIphoneX } from 'react-native-iphone-x-helper';
-import { TemporaryArticleType } from 'types/TemporaryTypes';
 import moment from 'moment';
 import ExternalColor from 'layout/ExternalColor';
 import Text from 'components/Text';
+import { observer } from 'mobx-react';
 import { ArticleDto } from '../services/data-contracts';
+import { useStore } from '../stores/RootStore';
 
-const ArticleViewScreen = () => {
+const ArticleViewScreen = observer(() => {
+  const { articleStore } = useStore();
   const [currentArticle, setCurrentArticle] = useState<ArticleDto>();
+
+  const init = () => {
+    setCurrentArticle(articleStore.article);
+  };
+
+  useLayoutEffect(() => {
+    init();
+  }, []);
 
   return (
     <ImageBackground
@@ -36,6 +46,6 @@ const ArticleViewScreen = () => {
       </View>
     </ImageBackground>
   );
-};
+});
 
 export default ArticleViewScreen;

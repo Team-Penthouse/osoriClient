@@ -26,7 +26,11 @@ interface CustomProps extends RNTextProps, TextStyledProps {
 
 const Text = observer(
   (props: CustomProps): React.ReactElement => (
-    <KittenText {...props} style={[props.style, { fontFamily: Fonts.NANUM_SQUARE_LIGHT }]}>
+    <KittenText
+      {...props}
+      style={[props.style, { fontFamily: Fonts.NANUM_SQUARE_LIGHT }]}
+      allowFontScaling={false}
+    >
       {props.children}
     </KittenText>
   ),

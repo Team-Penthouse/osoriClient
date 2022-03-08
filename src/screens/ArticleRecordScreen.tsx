@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Layout, Spinner } from '@ui-kitten/components';
-import {
-  Alert,
-  Dimensions,
-  ImageBackground,
-  PermissionsAndroid,
-  Platform,
-  TouchableOpacity,
-} from 'react-native';
+import { Alert, Dimensions, ImageBackground, Platform, TouchableOpacity } from 'react-native';
 import AudioRecorderPlayer, {
   PlayBackType,
   RecordBackType,
@@ -21,78 +14,77 @@ import RNFetchBlob from 'rn-fetch-blob';
 import Text from 'components/Text';
 import moment from 'moment';
 import { KakaoProfile } from '@react-native-seoul/kakao-login';
+import { useStore } from 'stores/RootStore';
+import { CLOVA_SPEACH_INVOKE_URL, CLOVA_SPEACH_SECRET_KEY } from '@env';
+import axios from 'axios';
+import { useMutation } from 'react-query';
+import { ArticleDto } from '../services/data-contracts';
 
 const recorder = new AudioRecorderPlayer();
 
 const ArticleRecordScreen = () => {
+  const { audioStore, uiStore, authStore, articleStore } = useStore();
 
-  const { dirs } = RNFetchBlob.fs;
-  const path = Platform.select({
-    ios: 'record.m4a',
-    android: `${RNFetchBlob.fs.dirs.CacheDir}/test2.mp3`,
-  });
-
-  const getRecordGrant = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const grants = await PermissionsAndroid.requestMultiple([
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-        ]);
-        if (
-          grants['android.permission.WRITE_EXTERNAL_STORAGE'] ===
-            PermissionsAndroid.RESULTS.GRANTED &&
-          grants['android.permission.READ_EXTERNAL_STORAGE'] ===
-            PermissionsAndroid.RESULTS.GRANTED &&
-          grants['android.permission.RECORD_AUDIO'] === PermissionsAndroid.RESULTS.GRANTED
-        ) {
-          // permission 허용일때, 처리
-        } else {
-          return;
-        }
-      } catch (err) {
-        console.warn(err);
-      }
-    }
-  };
+  const RECORDING_FILE_PATH =
+    Platform.select({
+      ios: 'article_recording.m4a',
+      android: `${RNFetchBlob.fs.dirs.CacheDir}/article_recording.mp3`,
+    }) || '';
+  const RECORDING_FILE_NAME =
+    Platform.select({
+      ios: 'article_recording.m4a',
+      android: 'article_recording.mp3',
+    }) || '';
 
   const [loading, setLoading] = useState<boolean>(false);
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [audioBinary, setAudioBinary] = useState<string>('');
   const [receivedText, setReceivedText] = useState<string>('');
   const [recordBack, setRecordBack] = useState<RecordBackType>({ currentPosition: 0 });
   const [playBack, setPlayBack] = useState<PlayBackType>({ currentPosition: 0, duration: 0 });
   const [title, setTitle] = useState<string>(`${moment().format('YYYY-MM-DD')}-Untitled`);
 
+  const saveArticle = useMutation(async ({ article }: { article: ArticleDto }) => {
+    const response = await articleStore.api.articleCreate(article);
+    if (response.status === 200) {
+      uiStore.closeModal();
+    } else {
+      Alert.alert('저장에 실패했습니다.');
+    }
+  });
+
   const handleRecord = async () => {
     if (isRecording) {
+      // 녹음 중일 시
+
+      // 내부 레코드백 초기화
       setRecordBack({ currentPosition: 0 });
       setIsRecording(false);
-      console.log('record stopped');
-      let real = '';
-      const result = await recorder.stopRecorder().then((res) => {
-        console.log('Record Done');
-        real = res;
-      });
-      console.log('Record Result', result);
+
+      // 녹음 중지
+      await recorder.stopRecorder();
+
+      // 녹음 레코드백 기록 삭제
       await recorder.removeRecordBackListener();
     } else {
+      // 녹음 중이 아닐 시 (녹음 대기중일 시)
       setIsRecording(true);
-      await RNFetchBlob.fs.unlink(path!);
-      await recorder.startRecorder(path);
+
+      // 녹음파일 빈 파일로 초기화
+      // 해당 이름의 파일이 없을 때 녹음 시도 시 예외 발생
+      await RNFetchBlob.fs.writeFile(RECORDING_FILE_PATH, '');
+
+      // 녹음 시작
+      await recorder.startRecorder(RECORDING_FILE_PATH);
+
+      // 녹음 레코드백 모니터링
       recorder.addRecordBackListener(async (e) => {
         setRecordBack(e);
+
+        // 녹음 50초 경과 시, 자동 녹음 종료 및 레코드백 삭제
         if (e.currentPosition > 50000) {
           setIsRecording(false);
-          console.log('record stopped');
-          let real = '';
-          const result = await recorder.stopRecorder().then((res) => {
-            console.log('Record Done');
-            real = res;
-          });
-          console.log('Record Result', result);
+          await recorder.stopRecorder();
           await recorder.removeRecordBackListener();
         }
       });
@@ -101,51 +93,73 @@ const ArticleRecordScreen = () => {
 
   const handlePlayRecord = async () => {
     if (isPlaying) {
-      setPlayBack({ currentPosition: 0, duration: 0 });
+      // 재생 중 일 시
+
+      // 재생 종료
       await recorder.stopPlayer();
+
+      // 플레이백 및 플래그 초기화
+      setPlayBack({ currentPosition: 0, duration: 0 });
       setIsPlaying(false);
     } else {
-      await recorder.startPlayer(`${RNFetchBlob.fs.dirs.CacheDir}/test2.mp3`);
+      // 재생중이 아닐 시
+
+      // 녹음 파일 재생
+      await recorder.startPlayer(RECORDING_FILE_PATH);
       setIsPlaying(true);
       recorder.addPlayBackListener((e) => {
+        // 플레이백 저장
         setPlayBack(e);
-        console.log(e);
         if (e.currentPosition === e.duration) {
+          // 파일 재생이 끝날 시 플레이백 및 플래그 초기화
           setPlayBack({ currentPosition: 0, duration: 0 });
           setIsPlaying(false);
         }
       });
-      // setFilePath(msg);
     }
   };
 
-  const requestAudioToClova = async () => {
+  const requestToClovaSpeach = async () => {
+    const URL = `${CLOVA_SPEACH_INVOKE_URL}/recognizer/upload`;
+    const data = new FormData();
+    const media = {
+      name: RECORDING_FILE_NAME,
+      type: 'multipart/form-data',
+      uri: `${Platform.OS === 'android' && 'file://'}${RECORDING_FILE_PATH}`,
+    };
+    data.append('media', media);
+    data.append(
+      'params',
+      JSON.stringify({
+        language: 'ko-KR',
+        completion: 'sync',
+      }),
+    );
+
     setLoading(true);
-    const filePath = `${RNFetchBlob.fs.dirs.CacheDir}/test2.mp3`;
-    // const realFile = await RNFetchBlob.wrap(filePath);
-    await RNFetchBlob.fetch(
-      'POST',
-      'https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=Kor',
-      {
-        'Content-Type': 'application/octet-stream',
-        'X-NCP-APIGW-API-KEY-ID': '1iy66ip4vc',
-        'X-NCP-APIGW-API-KEY': 'ByilfOrnaFPZtWZhwkF4VD1AizmciyDPtsUgnGIK',
-      },
-      RNFetchBlob.wrap(filePath),
-    )
+    await axios
+      .post(URL, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'X-CLOVASPEECH-API-KEY': CLOVA_SPEACH_SECRET_KEY,
+        },
+      })
       .then((result) => {
-        const { text } = JSON.parse(result.data);
+        const { text } = result.data;
         let wholeText = receivedText + text;
+
+        // 500 글자 이상 절삭 후 저장
         if (wholeText.length > 500) {
           wholeText = wholeText.substr(0, 500);
         }
         setReceivedText(wholeText);
-        console.log(text);
+        return result;
       })
       .catch((e) => {
         console.log('err', e);
-      })
-    setLoading(false)
+      });
+
+    setLoading(false);
   };
 
   const handleClose = () => {
@@ -153,12 +167,12 @@ const ArticleRecordScreen = () => {
       {
         text: '예',
         style: 'destructive',
+        onPress: () => uiStore.closeModal(),
       },
       {
         text: '아니오',
       },
     ]);
-    console.log('called');
   };
 
   const handleSave = () => {
@@ -167,38 +181,26 @@ const ArticleRecordScreen = () => {
         text: '예',
         style: 'destructive',
         onPress: async () => {
-          const article: TemporaryArticleType = {
-            title,
-            contents: receivedText,
-            length: receivedText.length,
-            creator: {} as KakaoProfile,
-            createDate: new Date(),
-            updateDate: new Date(),
-          };
+          if (typeof authStore.me?.id !== 'undefined') {
+            const article: ArticleDto = {
+              title,
+              contents: receivedText,
+              creatorId: authStore.me?.id,
+            };
 
-          await AsyncStorage.getItem('my_articles').then((result) => {
-            if (result !== null) {
-              const articles = JSON.parse(result) as TemporaryArticleType[];
-              articles.push(article);
-              AsyncStorage.setItem('my_articles', JSON.stringify(articles));
-            } else {
-              const articles = [article];
-              AsyncStorage.setItem('my_articles', JSON.stringify(articles));
-            }
-          });
-
+            saveArticle.mutate({ article });
+          }
         },
       },
       {
         text: '아니오',
       },
     ]);
-    console.log('called');
   };
 
+  // 밀리세컨드 -> 초 단위 변환
   const millisToSeconds = (millis: number) => {
     const secondsText = String(millis);
-    console.log(secondsText.indexOf('.'));
     if (secondsText.indexOf('.') !== -1) {
       const seconds = secondsText.substr(0, secondsText.indexOf('.'));
       return Math.round(Number(seconds) / 1000);
@@ -207,7 +209,7 @@ const ArticleRecordScreen = () => {
   };
 
   useEffect(() => {
-    getRecordGrant();
+    audioStore.requestRecordPermission();
   }, []);
 
   return (
@@ -224,7 +226,7 @@ const ArticleRecordScreen = () => {
         maxLength={30}
         defaultValue="Untitled"
         value={title}
-        style={{ fontSize: 30, fontFamily: 'NanumSquareL' }}
+        style={{ fontSize: 30, fontFamily: Fonts.NANUM_SQUARE_LIGHT }}
         onChangeText={setTitle}
       />
       <TextInput
@@ -244,16 +246,6 @@ const ArticleRecordScreen = () => {
         }}
         onChangeText={(text) => setReceivedText(text)}
       />
-      {/* <Layout */}
-      {/*    style={{ */}
-      {/*        backgroundColor: 'rgba(163,163,163,0.51)', */}
-      {/*        paddingHorizontal: 50, */}
-      {/*        paddingVertical: 10, */}
-      {/*        borderRadius: 8, */}
-      {/*    }} */}
-      {/* > */}
-      {/*    <Text style={{ color: 'white' }}></Text> */}
-      {/* </Layout> */}
       <Layout style={{ flexDirection: 'row', backgroundColor: 'transparent', marginTop: 20 }}>
         {isRecording ? (
           <TouchableOpacity
@@ -364,7 +356,7 @@ const ArticleRecordScreen = () => {
               width: 80,
               margin: 5,
             }}
-            onPress={requestAudioToClova}
+            onPress={requestToClovaSpeach}
           >
             변환
           </Button>

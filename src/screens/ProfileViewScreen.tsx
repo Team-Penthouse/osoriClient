@@ -12,17 +12,29 @@ import moment from 'moment';
 import Text from 'components/Text';
 import { observer } from 'mobx-react';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { UserDto } from '../services/data-contracts';
+import { useQuery } from 'react-query';
+import axios from 'axios';
+import { ArticleDto, UserDto } from '../services/data-contracts';
 import { useStore } from '../stores/RootStore';
 
 const ProfileViewScreen = observer(() => {
-  const { userStore } = useStore();
+  const { userStore, articleStore, authStore } = useStore();
   const navigation = useNavigation<StackNavigationProp<any>>();
-  const [savedArticles, setSavedArticles] = useState<TemporaryArticleType[]>([]);
+  const [savedArticles, setSavedArticles] = useState<ArticleDto[]>([]);
   const [loadingArticles, setLoadingArticles] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<UserDto>();
 
-  const handleGoArticleView = (article: TemporaryArticleType) => {
+  const { isLoading, data: articleData } = useQuery<ArticleDto[]>('getArticles', async () => {
+    return await articleStore.api.articlesList();
+  });
+
+  const init = async () => {
+    const response = await articleStore.api.articlesList({ creatorId: authStore.me?.id });
+    setSavedArticles(response.data);
+  };
+
+  const handleGoArticleView = (article: ArticleDto) => {
+    articleStore.setArticle(article);
     navigation.push('ArticleViewScreen');
   };
 
@@ -52,6 +64,8 @@ const ProfileViewScreen = observer(() => {
   };
 
   useLayoutEffect(() => {
+    init();
+
     const subscribe = navigation.addListener('focus', () => {
       navigation.setOptions({ headerTitle: '', headerTransparent: true });
     });
@@ -66,12 +80,11 @@ const ProfileViewScreen = observer(() => {
     getSavedArticles();
   }, []);
 
-  const renderArticleRow = (item: any) => {
-    const article = item.item as TemporaryArticleType;
-    const index = item.index as number;
+  const renderArticleRow = ({ item, index }: { item: ArticleDto; index: number }) => {
+    console.log('render', item);
     return (
       <TouchableOpacity
-        key={index}
+        key={item.title}
         style={[
           {
             flexDirection: 'row',
@@ -80,16 +93,16 @@ const ProfileViewScreen = observer(() => {
             height: 60,
           },
         ]}
-        onPress={() => handleGoArticleView(article)}
+        onPress={() => handleGoArticleView(item)}
       >
         <View style={{ flex: 1 }}>
           <Text category="h6" style={{ marginLeft: 10 }}>
-            {article.title}
+            {item.title}
           </Text>
         </View>
         <View style={{ flex: 0.5 }}>
           <Text style={{ alignSelf: 'flex-end', marginRight: 10 }}>
-            {moment(article.createDate).format('YYYY.MM.DD')}
+            {moment(item.createDate).format('YYYY.MM.DD')}
           </Text>
         </View>
       </TouchableOpacity>

@@ -4,6 +4,8 @@ import { shallowEqual } from 'mobx-react/src/utils/utils';
 import AuthStore from 'stores/AuthStore';
 import UIStore from 'stores/UIStore';
 import UserStore from 'stores/UserStore';
+import AudioStore from './AudioStore';
+import ArticleStore from './ArticleStore';
 
 export const useStore = () => {
   return useContext(CustomContext);
@@ -13,6 +15,8 @@ export const RootStore = {
   userStore: new UserStore(),
   uiStore: new UIStore(),
   authStore: new AuthStore(),
+  audioStore: new AudioStore(),
+  articleStore: new ArticleStore(),
 };
 
 const CustomContext = createContext(RootStore);
