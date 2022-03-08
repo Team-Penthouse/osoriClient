@@ -23,6 +23,7 @@ import CustomBottomTab from 'components/CustomBottomTab';
 import { TemporaryArticleType } from 'types/TemporaryTypes';
 import { observer } from 'mobx-react';
 import { useStore } from '../stores/RootStore';
+import { UserDto } from '../services/data-contracts';
 
 const SCREEN_SIZE = Dimensions.get('window');
 
@@ -103,7 +104,7 @@ const MainScreen = observer(() => {
             <ProfileComponent
               containerStyle={{ flex: 1, width: 100 }}
               textStyle={{ color: 'white' }}
-              userInfo={article.creator}
+              userInfo={{} as UserDto}
             />
           </View>
         </View>
@@ -139,19 +140,19 @@ const MainScreen = observer(() => {
           >
             BEST
           </Text>
-          <Carousel
-            slideStyle={{ alignItems: 'center' }}
-            sliderWidth={SCREEN_SIZE.width}
-            itemWidth={300}
-            data={[1, 2, 3, 4, 5]}
-            renderItem={renderCarousel}
-            autoplay
-            autoplayDelay={6000}
-            autoplayInterval={6000}
-            loop
-            keyExtractor={(item, index) => index.toString()}
-            pagingEnabled
-          />
+          {/* <Carousel */}
+          {/*  slideStyle={{ alignItems: 'center' }} */}
+          {/*  sliderWidth={SCREEN_SIZE.width} */}
+          {/*  itemWidth={300} */}
+          {/*  data={[1, 2, 3, 4, 5]} */}
+          {/*  renderItem={renderCarousel} */}
+          {/*  autoplay */}
+          {/*  autoplayDelay={6000} */}
+          {/*  autoplayInterval={6000} */}
+          {/*  loop */}
+          {/*  keyExtractor={(item, index) => index.toString()} */}
+          {/*  pagingEnabled */}
+          {/* /> */}
         </View>
         <View style={{ alignItems: 'center', marginTop: 20, backgroundColor: 'transparent' }}>
           <Text
@@ -167,18 +168,18 @@ const MainScreen = observer(() => {
           >
             NEW
           </Text>
-          <Carousel
-            pagingEnabled
-            slideStyle={{ alignItems: 'center', backgroundColor: 'transparent' }}
-            sliderWidth={DEVICE_SIZE.width}
-            itemWidth={DEVICE_SIZE.width / 1.4}
-            data={articles}
-            renderItem={renderCarousel}
-            autoplay
-            autoplayInterval={6000}
-            automaticallyAdjustContentInsets
-            keyExtractor={(item, index) => index.toString()}
-          />
+          {/* <Carousel */}
+          {/*  pagingEnabled */}
+          {/*  slideStyle={{ alignItems: 'center', backgroundColor: 'transparent' }} */}
+          {/*  sliderWidth={DEVICE_SIZE.width} */}
+          {/*  itemWidth={DEVICE_SIZE.width / 1.4} */}
+          {/*  data={articles} */}
+          {/*  renderItem={renderCarousel} */}
+          {/*  autoplay */}
+          {/*  autoplayInterval={6000} */}
+          {/*  automaticallyAdjustContentInsets */}
+          {/*  keyExtractor={(item, index) => index.toString()} */}
+          {/* /> */}
         </View>
       </ScrollView>
       <CustomBottomTab />

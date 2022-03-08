@@ -25,8 +25,6 @@ import { KakaoProfile } from '@react-native-seoul/kakao-login';
 const recorder = new AudioRecorderPlayer();
 
 const ArticleRecordScreen = () => {
-
-  const { dirs } = RNFetchBlob.fs;
   const path = Platform.select({
     ios: 'record.m4a',
     android: `${RNFetchBlob.fs.dirs.CacheDir}/test2.mp3`,
@@ -144,8 +142,8 @@ const ArticleRecordScreen = () => {
       })
       .catch((e) => {
         console.log('err', e);
-      })
-    setLoading(false)
+      });
+    setLoading(false);
   };
 
   const handleClose = () => {
@@ -186,7 +184,6 @@ const ArticleRecordScreen = () => {
               AsyncStorage.setItem('my_articles', JSON.stringify(articles));
             }
           });
-
         },
       },
       {

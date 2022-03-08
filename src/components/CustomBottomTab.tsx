@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import { Layout } from '@ui-kitten/components';
-import { Dimensions, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
+import { Alert, Dimensions, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { observer } from 'mobx-react';
 import Text from './Text';
+import { useStore } from '../stores/RootStore';
+import ArticleRecordScreen from '../screens/ArticleRecordScreen';
 
 const CustomBottomTab = observer((): React.ReactElement => {
+  const { uiStore } = useStore();
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const [isVisible, setIsVisible] = useState(false);
 
   const handlePressAdd = () => {
-    // setIsVisible(true);
-    // { type: UI_MODAL_SHOW, payload:  }
+    console.log('called');
+    uiStore.showModal({ title: 'ads', component: () => <ArticleRecordScreen /> });
   };
 
   const handleGoMyProfile = () => {
