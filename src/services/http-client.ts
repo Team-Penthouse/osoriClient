@@ -125,8 +125,10 @@ export class HttpClient<SecurityDataType = unknown> {
     // Authorization
     const tokenString = await AsyncStorage.getItem('user-token');
 
+    let accessToken;
     if (tokenString) {
       const token: TokenType = JSON.parse(tokenString);
+      accessToken = token.accessToken;
       requestParams.headers.common = {
         Authorization: 'Bearer ' + token.accessToken,
         Accept: 'application/json',
@@ -134,7 +136,10 @@ export class HttpClient<SecurityDataType = unknown> {
     }
 
     if (type === ContentType.FormData && body && body !== null && typeof body === 'object') {
-      requestParams.headers.common = { Accept: '*/*' };
+      requestParams.headers.common = {
+        Accept: '*/*',
+        Authorization: 'Bearer ' + accessToken,
+      };
       requestParams.headers.post = {};
       requestParams.headers.put = {};
 

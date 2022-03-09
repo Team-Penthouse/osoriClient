@@ -46,7 +46,7 @@ const LoginScreen = observer(() => {
           profileImage: user?.photo,
         };
       }
-      await userStore.api.loginCreate(body);
+      return await userStore.api.loginCreate(body);
     },
     {
       onSuccess: async (result) => {
@@ -59,7 +59,7 @@ const LoginScreen = observer(() => {
     },
   );
 
-  const getUserByExternalId = async (user: any, type: 'KAKAO' | 'GOOGLE') => {
+  const loginByExternalId = async (user: any, type: 'KAKAO' | 'GOOGLE') => {
     if (type === 'KAKAO') {
       const kakaoUser: KakaoProfile = user as KakaoProfile;
       await loginUser.mutate({ user: kakaoUser, type: 'KAKAO' });
@@ -75,7 +75,7 @@ const LoginScreen = observer(() => {
     await loginByKakao({
       onProvided: async (userInfo) => {
         if (typeof userInfo.nickname !== 'undefined') {
-          await getUserByExternalId(userInfo, 'KAKAO');
+          await loginByExternalId(userInfo, 'KAKAO');
         }
       },
       onFailed: () => {
@@ -87,7 +87,7 @@ const LoginScreen = observer(() => {
   const handleLoginByGoogle = async () => {
     const response = await loginByGoogle();
     if (response.idToken !== null) {
-      await getUserByExternalId(response, 'GOOGLE');
+      await loginByExternalId(response, 'GOOGLE');
     }
   };
 
@@ -107,7 +107,7 @@ const LoginScreen = observer(() => {
         // opacity 타이밍이 끝난 후 바로 이동되는 것은 부자연스러워,
         // setTimeout 1초 후 로그인 (이동)
         setTimeout(() => {
-          userStore.setIsLoggedIn(true);
+          authStore.isLoggedIn = true;
         }, 1000);
       });
     });

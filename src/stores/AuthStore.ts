@@ -8,6 +8,7 @@ export default class AuthStore {
   }
 
   me?: UserDto = {} as UserDto;
+  isLoggedIn = false;
 
   setMe = (user: UserDto) => {
     this.me = user;
