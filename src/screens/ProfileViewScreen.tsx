@@ -81,7 +81,6 @@ const ProfileViewScreen = observer(() => {
   }, []);
 
   const renderArticleRow = ({ item, index }: { item: ArticleDto; index: number }) => {
-    console.log('render', item);
     return (
       <TouchableOpacity
         key={item.title}

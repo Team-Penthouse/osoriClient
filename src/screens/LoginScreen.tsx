@@ -11,6 +11,8 @@ import { useStore } from 'stores/RootStore';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { loginByKakao } from '../services/Kakao';
 import { loginByGoogle } from '../services/Google';
+import { TokenType } from '../types/CommonTypes';
+import jwtDecode from 'jwt-decode';
 import { UserDto } from '../services/data-contracts';
 
 const LoginScreen = observer(() => {
@@ -26,9 +28,9 @@ const LoginScreen = observer(() => {
   /**
    * @Queries
    */
-  const saveUser = useMutation(
+  const loginUser = useMutation(
     async ({ user, type }: { user: any; type: 'KAKAO' | 'GOOGLE' }) => {
-      let body = {};
+      let body = {} as UserDto;
       if (type === 'KAKAO') {
         body = {
           nickname: user?.nickname,
@@ -44,12 +46,15 @@ const LoginScreen = observer(() => {
           profileImage: user?.photo,
         };
       }
-      return await userStore.api.userCreate(body);
+      await userStore.api.loginCreate(body);
     },
     {
-      onSuccess: (result: any) => {
-        const internalUser: UserDto = JSON.parse(result.config.data);
-        authStore.setMe(internalUser);
+      onSuccess: async (result) => {
+        // @ts-ignore
+        const tokens: TokenType = result.data;
+        await authStore.saveTokens(tokens);
+        const user = (jwtDecode(tokens.accessToken) as any).user as UserDto;
+        authStore.setMe(user);
       },
     },
   );
@@ -57,28 +62,12 @@ const LoginScreen = observer(() => {
   const getUserByExternalId = async (user: any, type: 'KAKAO' | 'GOOGLE') => {
     if (type === 'KAKAO') {
       const kakaoUser: KakaoProfile = user as KakaoProfile;
-      await userStore.api
-        .userDetail(kakaoUser.id, { loginType: 'KAKAO' } as any)
-        .then(async (result: any) => {
-          if (result?.data === 'USER_NOT_FOUND') {
-            await saveUser.mutate({ user: kakaoUser, type: 'KAKAO' });
-          } else {
-            authStore.setMe(result.data);
-          }
-          moveToMainScreenWithAnimation();
-        });
+      await loginUser.mutate({ user: kakaoUser, type: 'KAKAO' });
+      moveToMainScreenWithAnimation();
     } else if (type === 'GOOGLE') {
       const googleUser = user.user;
-      await userStore.api
-        .userDetail(googleUser.id, { loginType: 'GOOGLE' } as any)
-        .then(async (result: any) => {
-          if (result?.data === 'USER_NOT_FOUND') {
-            await saveUser.mutate({ user: googleUser, type: 'GOOGLE' });
-          } else {
-            authStore.setMe(result.data);
-          }
-          moveToMainScreenWithAnimation();
-        });
+      await loginUser.mutate({ user: googleUser, type: 'GOOGLE' });
+      moveToMainScreenWithAnimation();
     }
   };
 
