@@ -10,6 +10,8 @@
  */
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, ResponseType } from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
+import { TokenType } from 'types/CommonTypes';
 
 export type QueryParamsType = Record<string | number, any>;
 
@@ -120,8 +122,24 @@ export class HttpClient<SecurityDataType = unknown> {
     const requestParams = this.mergeRequestParams(params, secureParams);
     const responseFormat = (format && this.format) || void 0;
 
+    // Authorization
+    const tokenString = await AsyncStorage.getItem('user-token');
+
+    let accessToken;
+    if (tokenString) {
+      const token: TokenType = JSON.parse(tokenString);
+      accessToken = token.accessToken;
+      requestParams.headers.common = {
+        Authorization: 'Bearer ' + token.accessToken,
+        Accept: 'application/json',
+      };
+    }
+
     if (type === ContentType.FormData && body && body !== null && typeof body === 'object') {
-      requestParams.headers.common = { Accept: '*/*' };
+      requestParams.headers.common = {
+        Accept: '*/*',
+        Authorization: 'Bearer ' + accessToken,
+      };
       requestParams.headers.post = {};
       requestParams.headers.put = {};
 

@@ -9,7 +9,8 @@
  * ---------------------------------------------------------------
  */
 
-import { HttpClient, RequestParams } from './http-client';
+import { ContentType, HttpClient, RequestParams } from './http-client';
+import { UserDto } from './data-contracts';
 
 export class User<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
@@ -46,10 +47,9 @@ export class User<SecurityDataType = unknown> extends HttpClient<SecurityDataTyp
    * @name UserDetail
    * @request GET:/user/{userId}
    */
-  userDetail = (userId: number | string, params: RequestParams = {}) =>
+  userDetail = (userId: number, params: RequestParams = {}) =>
     this.request<void, void>({
       path: `/user/${userId}`,
-      query: params,
       method: 'GET',
       ...params,
     });
@@ -77,6 +77,21 @@ export class User<SecurityDataType = unknown> extends HttpClient<SecurityDataTyp
     this.request<void, void>({
       path: `/user/${userId}`,
       method: 'DELETE',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags User
+   * @name LoginCreate
+   * @request POST:/user/login
+   */
+  loginCreate = (data: UserDto, params: RequestParams = {}) =>
+    this.request<void, void>({
+      path: `/user/login`,
+      method: 'POST',
+      body: data,
+      type: ContentType.Json,
       ...params,
     });
 }

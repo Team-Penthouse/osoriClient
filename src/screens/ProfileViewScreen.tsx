@@ -1,11 +1,9 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { Avatar, Layout, Spinner } from '@ui-kitten/components';
+import { Avatar } from '@ui-kitten/components';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { KakaoProfile } from '@react-native-seoul/kakao-login';
 import { useNavigation } from '@react-navigation/native';
 import { Tabs } from 'react-native-collapsible-tab-view';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { TemporaryArticleType } from 'types/TemporaryTypes';
 import { CustomStyles } from 'layout/CustomStyles';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
@@ -13,7 +11,6 @@ import Text from 'components/Text';
 import { observer } from 'mobx-react';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { useQuery } from 'react-query';
-import axios from 'axios';
 import { ArticleDto, UserDto } from '../services/data-contracts';
 import { useStore } from '../stores/RootStore';
 
@@ -44,8 +41,8 @@ const ProfileViewScreen = observer(() => {
         text: '예',
         onPress: async () => {
           await GoogleSignin.signOut();
-          await AsyncStorage.removeItem('userToken');
-          userStore.setIsLoggedIn(false);
+          await AsyncStorage.removeItem('user-token');
+          authStore.isLoggedIn = false;
         },
       },
       {
@@ -81,7 +78,6 @@ const ProfileViewScreen = observer(() => {
   }, []);
 
   const renderArticleRow = ({ item, index }: { item: ArticleDto; index: number }) => {
-    console.log('render', item);
     return (
       <TouchableOpacity
         key={item.title}

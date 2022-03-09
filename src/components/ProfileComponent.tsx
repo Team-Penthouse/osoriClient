@@ -38,12 +38,6 @@ const ProfileComponent = observer(({ containerStyle, textStyle, userInfo, width 
       },
     ]);
   };
-  useEffect(() => {
-    if (typeof userInfo !== 'undefined') {
-      console.log('user changed', userInfo);
-      console.log('user Image', userInfo?.loginType);
-    }
-  }, [userInfo]);
 
   return (
     <Container style={containerStyle} width={width}>

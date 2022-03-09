@@ -8,25 +8,20 @@ import AuthNavigation from 'navigation/AuthNavigation';
 import { useStore } from 'stores/RootStore';
 import CustomModal from 'components/CustomModal';
 import { observer } from 'mobx-react';
+import { TokenType } from '../types/CommonTypes';
+import jwtDecode from 'jwt-decode';
+import { UserDto } from '../services/data-contracts';
 
 const NavController = observer(() => {
-  const { userStore } = useStore();
+  const { userStore, authStore } = useStore();
 
   const checkInvalidToken = async () => {
-    await AsyncStorage.getItem('userToken').then(async (res) => {
-      if (res !== null) {
-        const userToken: KakaoOAuthToken = JSON.parse(res);
-        console.log('USER_ACCESS_TOKEN', userToken.accessToken);
-        const remoteToken: KakaoAccessTokenInfo = await Kakao.getAccessToken();
-        if (userToken.accessToken === remoteToken.accessToken) {
-          await AsyncStorage.getItem('userInfo').then((userInfo) => {
-            if (userInfo !== null) {
-            }
-          });
-        } else {
-          AsyncStorage.removeItem('userToken');
-          console.log('TOKEN_IS_INVALID');
-        }
+    await AsyncStorage.getItem('user-token').then(async (tokenString) => {
+      if (tokenString !== null) {
+        const tokens: TokenType = JSON.parse(tokenString);
+        const user = (jwtDecode(tokens.accessToken) as any).user as UserDto;
+        authStore.setMe(user);
+        authStore.isLoggedIn = true;
       } else {
         console.log('TOKEN_IS_NOT_PROVIDED');
       }
@@ -40,7 +35,7 @@ const NavController = observer(() => {
   return (
     <NavigationContainer>
       <CustomModal />
-      {userStore.isLoggedIn ? <MainNavigation /> : <AuthNavigation />}
+      {authStore.isLoggedIn ? <MainNavigation /> : <AuthNavigation />}
     </NavigationContainer>
   );
 });

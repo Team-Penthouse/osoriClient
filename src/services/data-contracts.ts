@@ -12,7 +12,7 @@
 export interface UserDto {
   id?: number;
   loginType: 'NONE' | 'KAKAO' | 'GOOGLE' | 'APPLE';
-  externalId?: number;
+  externalId?: string;
   nickname: string;
   gender?: string;
   email?: string;
