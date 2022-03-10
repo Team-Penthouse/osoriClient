@@ -20,6 +20,7 @@ import CustomBottomTab from 'components/CustomBottomTab';
 import { observer } from 'mobx-react';
 import { useStore } from '../stores/RootStore';
 import { ArticleDto, UserDto } from '../services/data-contracts';
+import Theme from '../styles/Theme';
 
 const SCREEN_SIZE = Dimensions.get('window');
 
@@ -112,9 +113,12 @@ const MainScreen = observer(() => {
   }, []);
 
   return (
-    <ImageBackground
-      source={require('assets/images/home_background.png')}
-      style={{ flex: 1, paddingTop: isIphoneX() ? 40 : 0 }}
+    <View
+      style={{
+        flex: 1,
+        paddingTop: isIphoneX() ? 40 : 0,
+        backgroundColor: Theme.colors.secondary3,
+      }}
     >
       <ScrollView style={{ flex: 1 }}>
         <View style={{ alignItems: 'center', backgroundColor: 'transparent', paddingTop: 20 }}>
@@ -175,7 +179,7 @@ const MainScreen = observer(() => {
         </View>
       </ScrollView>
       <CustomBottomTab />
-    </ImageBackground>
+    </View>
   );
 });
 
