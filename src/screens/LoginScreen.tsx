@@ -9,17 +9,24 @@ import Text from 'components/Text';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from 'layout/CustomStyles';
 import { useStore } from 'stores/RootStore';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
+import jwtDecode from 'jwt-decode';
 import { loginByKakao } from '../services/Kakao';
 import { loginByGoogle } from '../services/Google';
 import { TokenType } from '../types/CommonTypes';
-import jwtDecode from 'jwt-decode';
 import { UserDto } from '../services/data-contracts';
+import Theme from '../styles/Theme';
 
 const LoginScreen = observer(() => {
   const { userStore, authStore } = useStore();
 
   const introContainerOpacity = useRef(new Animated.Value(1)).current;
   const welcomeContainerOpacity = useRef(new Animated.Value(0)).current;
+  const backgroundColorRef = useRef(new Animated.Value(0)).current;
+
+  const backgroundColor = backgroundColorRef.interpolate({
+    inputRange: [0, 1],
+    outputRange: [Theme.colors.dark1, Theme.colors.secondary1],
+  });
 
   /**
    * @Variables
@@ -93,6 +100,11 @@ const LoginScreen = observer(() => {
 
   const moveToMainScreenWithAnimation = () => {
     // 로그인 버튼을 포함한 컨테이너를 안보이게
+    Animated.timing(backgroundColorRef, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: false,
+    }).start();
     Animated.timing(introContainerOpacity, {
       toValue: 0,
       duration: 500,
@@ -104,21 +116,33 @@ const LoginScreen = observer(() => {
         duration: 1000,
         useNativeDriver: true,
       }).start(() => {
+        setTimeout(() => {
+          Animated.timing(backgroundColorRef, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: false,
+          }).start();
+          Animated.timing(welcomeContainerOpacity, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: true,
+          }).start();
+        }, 500);
         // opacity 타이밍이 끝난 후 바로 이동되는 것은 부자연스러워,
         // setTimeout 1초 후 로그인 (이동)
         setTimeout(() => {
           authStore.isLoggedIn = true;
-        }, 1000);
+        }, 900);
       });
     });
   };
 
   return (
-    <Container source={require('assets/images/login_background.png')}>
+    <Container style={{ backgroundColor }}>
       <IntroContainer style={{ opacity: introContainerOpacity }}>
         <Header>
           <HeaderTitleContainer>
-            <HeaderTitleText>OSORI</HeaderTitleText>
+            <HeaderTitleText>Osori</HeaderTitleText>
             <HeaderSubTitleText>
               <HeaderSubTitleHighlightText>오</HeaderSubTitleHighlightText>
               늘의 나를 남기는 <HeaderSubTitleHighlightText>소리</HeaderSubTitleHighlightText>
@@ -149,7 +173,7 @@ const LoginScreen = observer(() => {
   );
 });
 
-const Container = styled.ImageBackground`
+const Container = styled(Animated.View)`
   flex: 1;
   align-items: center;
 `;
@@ -172,20 +196,21 @@ const HeaderTitleContainer = styled.View`
 
 const HeaderTitleText = styled(Text)`
   font-size: 60px;
-  color: ${(props) => props.theme.colors.primary1};
+  font-weight: 500;
+  color: ${(props) => props.theme.colors.primary3};
 `;
 
 const HeaderSubTitleText = styled(Text)`
-  color: ${(props) => props.theme.colors.secondary1};
+  color: ${(props) => props.theme.colors.primaryDark1};
 `;
 
 const HeaderSubTitleHighlightText = styled(Text)`
-  color: ${(props) => props.theme.colors.secondary2};
+  color: ${(props) => props.theme.colors.secondary1};
 `;
 
 const WelcomeText = styled(Text)`
   font-size: 26px;
-  color: ${(props) => props.theme.colors.primary1};
+  color: ${(props) => props.theme.colors.dark1};
 `;
 
 const LoginButtonContainer = styled.View`
