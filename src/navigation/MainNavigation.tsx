@@ -9,6 +9,7 @@ import FeedScreen from 'screens/FeedScreen';
 import MainScreen from 'screens/MainScreen';
 import { observer } from 'mobx-react';
 import { useStore } from '../stores/RootStore';
+import ArticleCreateScreen from '../screens/ArticleCreateScreen';
 
 const Stack = createStackNavigator<MainStackParamList>();
 
@@ -53,6 +54,11 @@ const MainNavigation = observer(() => {
         component={ArticleViewScreen}
       />
       <Stack.Screen name="FeedScreen" component={FeedScreen} />
+      <Stack.Screen
+        name={'ArticleCreateScreen'}
+        component={ArticleCreateScreen}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 });

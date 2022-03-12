@@ -7,17 +7,18 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { observer } from 'mobx-react';
 import Text from './Text';
 import { useStore } from '../stores/RootStore';
-import ArticleRecordScreen from '../screens/ArticleRecordScreen';
+import ArticleCreateScreen from '../screens/ArticleCreateScreen';
+import { MainStackParamList } from '../types/NavigationTypes';
 
 const CustomBottomTab = observer((): React.ReactElement => {
   const { uiStore } = useStore();
-  const navigation = useNavigation<StackNavigationProp<any>>();
+  const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
 
   const [isVisible, setIsVisible] = useState(false);
 
   const handlePressAdd = () => {
-    console.log('called');
-    uiStore.showModal({ title: 'ads', component: () => <ArticleRecordScreen /> });
+    // uiStore.showModal({ title: 'ads', component: () => <ArticleCreateScreen /> });
+    navigation.push('ArticleCreateScreen');
   };
 
   const handleGoMyProfile = () => {

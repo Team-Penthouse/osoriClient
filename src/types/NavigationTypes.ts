@@ -3,6 +3,7 @@ export type MainStackParamList = {
   MainScreen: undefined;
   ProfileViewScreen: undefined;
   ArticleViewScreen: undefined;
+  ArticleCreateScreen: undefined;
   FeedScreen: undefined;
 };
 
