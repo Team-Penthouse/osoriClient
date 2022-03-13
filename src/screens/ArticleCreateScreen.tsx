@@ -17,6 +17,7 @@ import styled from 'styled-components/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { ArticleDto } from '../services/data-contracts';
 import Theme from '../styles/Theme';
 import { MainStackParamList } from '../types/NavigationTypes';
@@ -25,6 +26,7 @@ const recorder = new AudioRecorderPlayer();
 
 const ArticleCreateScreen = () => {
   const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
+  const drawer = useNavigation<DrawerNavigationProp<any>>();
   const { audioStore, uiStore, authStore, articleStore } = useStore();
 
   const RECORDING_FILE_PATH =
@@ -224,6 +226,12 @@ const ArticleCreateScreen = () => {
     setTimeout(() => {
       contentInputRef.current?.focus();
     }, 200);
+  }, []);
+
+  useLayoutEffect(() => {
+    drawer.setOptions({
+      headerShown: false,
+    });
   }, []);
 
   return (

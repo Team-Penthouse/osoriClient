@@ -8,20 +8,24 @@ import ArticleViewScreen from 'screens/ArticleViewScreen';
 import FeedScreen from 'screens/FeedScreen';
 import MainScreen from 'screens/MainScreen';
 import { observer } from 'mobx-react';
+import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { useStore } from '../stores/RootStore';
 import ArticleCreateScreen from '../screens/ArticleCreateScreen';
+import Theme from '../styles/Theme';
+import Text from '../components/Text';
 
 const Stack = createStackNavigator<MainStackParamList>();
 
 const MainNavigation = observer(() => {
+  const navigation = useNavigation<DrawerNavigationProp<any>>();
   const { authStore } = useStore();
   const HeaderLeft = useCallback(
     () => (
-      <ProfileComponent
-        userInfo={authStore.me}
-        width={100}
-        containerStyle={{ marginHorizontal: 10 }}
-      />
+      <TouchableOpacity style={{ padding: 15 }} onPress={navigation.openDrawer}>
+        <Text>{`<`}</Text>
+      </TouchableOpacity>
     ),
     [authStore.me],
   );
@@ -30,24 +34,24 @@ const MainNavigation = observer(() => {
     <Stack.Navigator
       initialRouteName={'MainScreen'}
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        headerTitle: 'Osori',
         headerTitleAlign: 'center',
-        headerTitleStyle: { fontFamily: Fonts.NANUM_SQUARE_LIGHT, fontSize: 30 },
+        headerTitleStyle: { letterSpacing: 2, color: Theme.colors.dark1 },
+        headerStyle: { borderWidth: 1, borderColor: '#eee' },
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
       <Stack.Screen
         name="MainScreen"
         options={{
-          headerTitle: '',
-          headerTransparent: true,
-          // headerLeft: HeaderLeft,
+          headerLeft: HeaderLeft,
         }}
         component={MainScreen}
       />
       <Stack.Screen
         name="ProfileViewScreen"
-        options={{ headerTitle: '', headerTransparent: true }}
+        options={{ headerTitle: '', headerTransparent: false }}
         component={ProfileViewScreen}
       />
       <Stack.Screen

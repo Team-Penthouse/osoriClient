@@ -14,12 +14,7 @@ const DrawerNavigation = observer(() => {
       initialRouteName={'Osori'}
       drawerContent={() => <DrawerContent />}
       screenOptions={{
-        headerShown: true,
-        headerTransparent: false,
-        headerTitle: 'Osori',
-        headerTitleAlign: 'center',
-        headerTitleStyle: { letterSpacing: 2, color: Theme.colors.dark1 },
-        headerStyle: { borderWidth: 1, borderColor: '#eee' },
+        headerShown: false,
       }}
     >
       <Drawer.Screen name={'Osori'} options={{ drawerType: 'back' }} component={MainNavigation} />
