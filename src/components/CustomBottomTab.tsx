@@ -30,12 +30,16 @@ const CustomBottomTab = observer((): React.ReactElement => {
       style={{
         flexDirection: 'row',
         position: 'absolute',
-        height: isIphoneX() ? 130 : 100,
+        height: isIphoneX() ? 100 : 70,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'transparent',
-        bottom: isIphoneX() ? 0 : 20,
+        backgroundColor: 'white',
+        bottom: 0,
         width: Dimensions.get('window').width,
+        borderTopWidth: 1,
+        borderColor: '#eee',
+        paddingTop: 10,
+        paddingBottom: isIphoneX() ? 40 : 10,
       }}
     >
       <TouchableOpacity style={styles.menu} onPress={() => navigation.navigate('FeedScreen')}>
@@ -55,8 +59,8 @@ const CustomBottomTab = observer((): React.ReactElement => {
       >
         <ImageBackground
           style={{
-            width: 70,
-            height: 70,
+            width: 50,
+            height: 50,
             alignItems: 'center',
             justifyContent: 'center',
             shadowOpacity: 0.5,

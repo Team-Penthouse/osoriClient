@@ -21,7 +21,7 @@ export class Articles<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @request GET:/articles
    */
   articlesList = (params: RequestParams = {}) =>
-    this.request<void, void>({
+    this.request<ArticleDto[], void>({
       path: `/articles`,
       method: 'GET',
       query: params,

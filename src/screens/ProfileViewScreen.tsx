@@ -62,14 +62,6 @@ const ProfileViewScreen = observer(() => {
 
   useLayoutEffect(() => {
     init();
-
-    const subscribe = navigation.addListener('focus', () => {
-      navigation.setOptions({ headerTitle: '', headerTransparent: true });
-    });
-
-    return () => {
-      subscribe();
-    };
   }, []);
 
   useEffect(() => {

@@ -8,8 +8,9 @@ import AuthNavigation from 'navigation/AuthNavigation';
 import { useStore } from 'stores/RootStore';
 import CustomModal from 'components/CustomModal';
 import { observer } from 'mobx-react';
-import { TokenType } from '../types/CommonTypes';
 import jwtDecode from 'jwt-decode';
+import { runInAction } from 'mobx';
+import { TokenType } from '../types/CommonTypes';
 import { UserDto } from '../services/data-contracts';
 
 const NavController = observer(() => {
@@ -21,7 +22,9 @@ const NavController = observer(() => {
         const tokens: TokenType = JSON.parse(tokenString);
         const user = (jwtDecode(tokens.accessToken) as any).user as UserDto;
         authStore.setMe(user);
-        authStore.isLoggedIn = true;
+        runInAction(() => {
+          authStore.isLoggedIn = true;
+        });
       } else {
         console.log('TOKEN_IS_NOT_PROVIDED');
       }

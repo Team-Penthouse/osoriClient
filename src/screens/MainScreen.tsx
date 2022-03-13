@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Divider } from '@ui-kitten/components';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import Carousel from 'react-native-snap-carousel';
 import {
+  ActivityIndicator,
   Dimensions,
-  ImageBackground,
+  FlatList,
   ScrollView,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -18,21 +19,22 @@ import Text from 'components/Text';
 import ProfileComponent from 'components/ProfileComponent';
 import CustomBottomTab from 'components/CustomBottomTab';
 import { observer } from 'mobx-react';
+import { useQuery } from 'react-query';
 import { useStore } from '../stores/RootStore';
 import { ArticleDto, UserDto } from '../services/data-contracts';
 import Theme from '../styles/Theme';
+import { MainStackParamList } from '../types/NavigationTypes';
+import ArticleCard from '../components/ArticleCard';
 
 const SCREEN_SIZE = Dimensions.get('window');
 
 const MainScreen = observer(() => {
-  const { authStore, articleStore } = useStore();
-  const navigation = useNavigation<StackNavigationProp<any>>();
-  const [articles, setArticles] = useState<ArticleDto[]>([]);
+  const { articleStore } = useStore();
+  const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
 
-  const init = async () => {
-    const response = await articleStore.api.articlesList();
-    setArticles(response.data);
-  };
+  const articles = useQuery<ArticleDto[]>('getArticles', () =>
+    articleStore.api.articlesList().then((result) => result.data),
+  );
 
   const handlePressArticle = (article: ArticleDto) => {
     articleStore.setArticle(article);
@@ -104,91 +106,43 @@ const MainScreen = observer(() => {
     );
   };
 
-  useEffect(() => {
-    // navigation.reset({
-    //     index: 0,
-    //     routes: [{ name: '홈' }],
-    // });
-    init();
-  }, []);
+  const renderArticles = (item: { item: ArticleDto; index: number }) => {
+    return <ArticleCard article={item.item} />;
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTransparent: false,
+      headerTitle: 'Osori',
+      headerTitleStyle: { letterSpacing: 2, color: Theme.colors.dark1 },
+      headerStyle: { borderWidth: 1, borderColor: '#eee' },
+    });
+    const focus = navigation.addListener('focus', () => {
+      articles.refetch();
+    });
+
+    return () => {
+      focus();
+    };
+  });
 
   return (
     <View
       style={{
         flex: 1,
         paddingTop: isIphoneX() ? 40 : 0,
-        backgroundColor: Theme.colors.secondary3,
+        paddingBottom: 70,
+        backgroundColor: Theme.colors.white2,
       }}
     >
-      <ScrollView style={{ flex: 1 }}>
-        <View style={{ alignItems: 'center', backgroundColor: 'transparent', paddingTop: 20 }}>
-          <Text
-            category="h2"
-            style={[
-              styles.sectionHeader,
-              {
-                marginRight: 70,
-                alignSelf: 'flex-end',
-                color: ExternalColor.b1,
-              },
-            ]}
-          >
-            BEST
-          </Text>
-          <Carousel
-            slideStyle={{ alignItems: 'center' }}
-            sliderWidth={SCREEN_SIZE.width}
-            itemWidth={300}
-            data={articles}
-            renderItem={renderCarousel}
-            autoplay
-            autoplayDelay={6000}
-            autoplayInterval={6000}
-            loop
-            keyExtractor={(item, index) => index.toString()}
-            removeClippedSubviews={false}
-          />
-        </View>
-        <View style={{ alignItems: 'center', marginTop: 20, backgroundColor: 'transparent' }}>
-          <Text
-            category="h2"
-            style={[
-              styles.sectionHeader,
-              {
-                marginLeft: 70,
-                alignSelf: 'flex-start',
-                color: ExternalColor.e2,
-              },
-            ]}
-          >
-            NEW
-          </Text>
-          <Carousel
-            slideStyle={{ alignItems: 'center' }}
-            sliderWidth={SCREEN_SIZE.width}
-            itemWidth={300}
-            data={articles}
-            renderItem={renderCarousel}
-            autoplay
-            autoplayDelay={6000}
-            autoplayInterval={6000}
-            loop
-            keyExtractor={(item, index) => index.toString()}
-            removeClippedSubviews={false}
-          />
-        </View>
-      </ScrollView>
+      {articles.isFetching ? (
+        <ActivityIndicator style={{ flexGrow: 1 }} />
+      ) : (
+        <FlatList data={articles.data || []} renderItem={renderArticles} />
+      )}
       <CustomBottomTab />
     </View>
   );
-});
-
-const styles = StyleSheet.create({
-  sectionHeader: {
-    marginBottom: 10,
-    shadowOpacity: 0.3,
-    fontWeight: 'bold',
-  },
 });
 
 export default MainScreen;

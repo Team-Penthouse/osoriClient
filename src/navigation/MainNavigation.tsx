@@ -28,12 +28,10 @@ const MainNavigation = observer(() => {
 
   return (
     <Stack.Navigator
-      // tabBar={() => (tabBarVisible ? <CustomBottomTab /> : null)}
       initialRouteName={'MainScreen'}
       screenOptions={{
         headerTitleAlign: 'center',
         headerTitleStyle: { fontFamily: Fonts.NANUM_SQUARE_LIGHT, fontSize: 30 },
-        headerMode: 'float',
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
@@ -41,13 +39,16 @@ const MainNavigation = observer(() => {
         name="MainScreen"
         options={{
           headerTitle: '',
-          headerShown: true,
           headerTransparent: true,
           headerLeft: HeaderLeft,
         }}
         component={MainScreen}
       />
-      <Stack.Screen name="ProfileViewScreen" component={ProfileViewScreen} />
+      <Stack.Screen
+        name="ProfileViewScreen"
+        options={{ headerTitle: '', headerTransparent: true }}
+        component={ProfileViewScreen}
+      />
       <Stack.Screen
         name="ArticleViewScreen"
         options={{ headerShown: false }}
