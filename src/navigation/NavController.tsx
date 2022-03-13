@@ -12,6 +12,7 @@ import jwtDecode from 'jwt-decode';
 import { runInAction } from 'mobx';
 import { TokenType } from '../types/CommonTypes';
 import { UserDto } from '../services/data-contracts';
+import DrawerNavigation from './DrawerNavigation';
 
 const NavController = observer(() => {
   const { userStore, authStore } = useStore();
@@ -38,7 +39,7 @@ const NavController = observer(() => {
   return (
     <NavigationContainer>
       <CustomModal />
-      {authStore.isLoggedIn ? <MainNavigation /> : <AuthNavigation />}
+      {authStore.isLoggedIn ? <DrawerNavigation /> : <AuthNavigation />}
     </NavigationContainer>
   );
 });

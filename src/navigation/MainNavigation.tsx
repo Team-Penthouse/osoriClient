@@ -30,6 +30,7 @@ const MainNavigation = observer(() => {
     <Stack.Navigator
       initialRouteName={'MainScreen'}
       screenOptions={{
+        headerShown: false,
         headerTitleAlign: 'center',
         headerTitleStyle: { fontFamily: Fonts.NANUM_SQUARE_LIGHT, fontSize: 30 },
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -40,7 +41,7 @@ const MainNavigation = observer(() => {
         options={{
           headerTitle: '',
           headerTransparent: true,
-          headerLeft: HeaderLeft,
+          // headerLeft: HeaderLeft,
         }}
         component={MainScreen}
       />
