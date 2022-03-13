@@ -49,14 +49,18 @@ const ArticleCreateScreen = () => {
 
   const contentInputRef = useRef<TextInput>(null);
 
-  const saveArticle = useMutation(async ({ article }: { article: ArticleDto }) => {
-    const response = await articleStore.api.articleCreate(article);
-    if (response.status === 200) {
-      uiStore.closeModal();
-    } else {
-      Alert.alert('저장에 실패했습니다.');
-    }
-  });
+  const saveArticle = useMutation(
+    async ({ article }: { article: ArticleDto }) => {
+      const response = await articleStore.api.articleCreate(article);
+      return response;
+    },
+    {
+      onSuccess: () => {
+        Alert.alert('글을 저장하였습니다.');
+        navigation.goBack();
+      },
+    },
+  );
 
   const handleRecord = async () => {
     if (isRecording) {
