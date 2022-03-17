@@ -49,6 +49,9 @@ const MainScreen = observer(() => {
         <ActivityIndicator style={{ flexGrow: 1 }} />
       ) : (
         <FlatList
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
           data={articles.data || []}
           renderItem={renderArticles}
           refreshing={refreshing}

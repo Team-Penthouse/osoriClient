@@ -21,6 +21,7 @@ const Stack = createStackNavigator<MainStackParamList>();
 const MainNavigation = observer(() => {
   const navigation = useNavigation<DrawerNavigationProp<any>>();
   const { authStore } = useStore();
+
   const HeaderLeft = useCallback(
     () => (
       <TouchableOpacity style={{ padding: 15 }} onPress={navigation.openDrawer}>
