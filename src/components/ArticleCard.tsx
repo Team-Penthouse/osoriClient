@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
-import { View } from 'react-native';
 import styled from 'styled-components/native';
 import { useQuery } from 'react-query';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { ArticleDto, UserDto } from '../services/data-contracts';
 import { useStore } from '../stores/RootStore';
 import ProfileComponent from './ProfileComponent';
-import { DEVICE_WIDTH } from '../layout/CustomStyles';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../layout/CustomStyles';
 import Text from './Text';
 import { MainStackParamList } from '../types/NavigationTypes';
 
@@ -32,24 +33,25 @@ const ArticleCard = observer(({ article }: ArticleCardProps) => {
   return (
     <Container activeOpacity={1} onPress={handleGoDetail}>
       <HeaderContainer>
-        <ArticleTitle>{article.title}</ArticleTitle>
+        <TitleContainer>
+          <CalendarIcon icon={faCalendar} size={20} />
+          <ArticleTitle>{article.title}</ArticleTitle>
+        </TitleContainer>
         <ProfileComponent
           containerStyle={{ alignSelf: 'flex-end', width: 120 }}
           userInfo={creator}
         />
       </HeaderContainer>
       <ArticleContainer>
-        <ArticleContent>
-          {article.contents.substr(0, 200)}
-          {article.contents.length > 200 ? '...' : ''}
-        </ArticleContent>
+        <ArticleContent>{article.contents}</ArticleContent>
       </ArticleContainer>
     </Container>
   );
 });
 
 const Container = styled.TouchableOpacity`
-  width: 100%;
+  width: ${DEVICE_WIDTH}px;
+  height: ${DEVICE_HEIGHT}px;
   border-top-width: 1px;
   border-color: #eee;
 `;
@@ -63,17 +65,26 @@ const HeaderContainer = styled.View`
   border-color: #eee;
 `;
 
+const TitleContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+const CalendarIcon = styled(FontAwesomeIcon)`
+  margin: 0 8px 0 0;
+`;
+
 const ArticleTitle = styled(Text)`
   font-size: 14px;
 `;
 
-const ArticleContainer = styled.View`
+const ArticleContainer = styled.ScrollView`
   padding: 10px 15px 10px 15px;
 `;
 
 const ArticleContent = styled(Text)`
   color: #2b2b2b;
-  line-height: 20px;
+  line-height: 25px;
 `;
 
 export default ArticleCard;
