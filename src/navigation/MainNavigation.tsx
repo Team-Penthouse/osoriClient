@@ -8,9 +8,12 @@ import ArticleViewScreen from 'screens/ArticleViewScreen';
 import FeedScreen from 'screens/FeedScreen';
 import MainScreen from 'screens/MainScreen';
 import { observer } from 'mobx-react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faAlignLeft, faFeatherPointed } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { useStore } from '../stores/RootStore';
 import ArticleCreateScreen from '../screens/ArticleCreateScreen';
 import Theme from '../styles/Theme';
@@ -25,7 +28,7 @@ const MainNavigation = observer(() => {
   const HeaderLeft = useCallback(
     () => (
       <TouchableOpacity style={{ padding: 15 }} onPress={navigation.openDrawer}>
-        <Text>{`<`}</Text>
+        <FontAwesomeIcon icon={faAlignLeft as IconProp} color={'#aaa'} />
       </TouchableOpacity>
     ),
     [authStore.me],
@@ -36,7 +39,14 @@ const MainNavigation = observer(() => {
       initialRouteName={'MainScreen'}
       screenOptions={{
         headerShown: true,
-        headerTitle: 'Osori',
+        headerTitle: () => (
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ letterSpacing: 2, color: Theme.colors.dark1, marginRight: 10 }}>
+              Osori
+            </Text>
+            <FontAwesomeIcon icon={faFeatherPointed as IconProp} color={'#aaa'} />
+          </View>
+        ),
         headerTitleAlign: 'center',
         headerTitleStyle: { letterSpacing: 2, color: Theme.colors.dark1 },
         headerStyle: { borderWidth: 1, borderColor: '#eee' },
