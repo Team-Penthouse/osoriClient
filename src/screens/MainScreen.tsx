@@ -40,7 +40,6 @@ const MainScreen = observer(() => {
     <View
       style={{
         flex: 1,
-        paddingTop: isIphoneX() ? 40 : 0,
         paddingBottom: 70,
         backgroundColor: Theme.colors.white2,
       }}
