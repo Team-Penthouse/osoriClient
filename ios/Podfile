@@ -5,6 +5,9 @@ platform :ios, '12.0'
 
 target 'osoriClient' do
   config = use_native_modules!
+  
+  # Firebase
+  pod 'Firebase/Analytics'
 
   use_react_native!(
     :path => config[:reactNativePath],
