@@ -9,11 +9,18 @@
  * ---------------------------------------------------------------
  */
 
-export interface UserDto {
+export interface LoginBody {
   id?: number;
-  loginType: 'NONE' | 'KAKAO' | 'GOOGLE' | 'APPLE';
-  externalId?: string;
-  nickname: string;
+  externalId?: number;
+  loginType: string;
+}
+
+export interface UserDto {
+  /** @format int64 */
+  id?: number;
+  loginType?: string;
+  externalId?: number;
+  nickname?: string;
   gender?: string;
   email?: string;
   name?: string;
@@ -21,28 +28,36 @@ export interface UserDto {
   profileImage?: string;
   ageRange?: string;
   birthday?: string;
-
-  /** @format date */
+  followerCount?: number;
+  followingCount?: number;
   createDate?: string;
-
-  /** @format date */
   modifyDate?: string;
 }
 
 export interface ArticleDto {
   id?: number;
-  creatorId: number;
+  creatorId?: number;
+  creator?: UserDto;
   categoryId?: number;
-  title: string;
+  title?: string;
   viewCount?: number;
   likeCount?: number;
   tags?: string;
-  contents: string;
+  contents?: string;
   isPublished?: boolean;
-
-  /** @format date */
   createDate?: string;
-
-  /** @format date */
   modifyDate?: string;
+}
+
+export interface FollowDto {
+  id?: number;
+  follower?: number;
+  followee?: number;
+  createDate?: string;
+}
+
+export interface ScrapDto {
+  id?: number;
+  userId?: number;
+  articleId?: number;
 }

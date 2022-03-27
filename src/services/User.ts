@@ -9,89 +9,108 @@
  * ---------------------------------------------------------------
  */
 
+import { ArticleDto, LoginBody, UserDto } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
-import { UserDto } from './data-contracts';
 
 export class User<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
-   * No description
-   *
-   * @tags User
-   * @name UsersList
-   * @request GET:/users
-   */
-  usersList = (params: RequestParams = {}) =>
-    this.request<void, void>({
-      path: `/users`,
-      method: 'GET',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags User
-   * @name UserCreate
-   * @request POST:/user
-   */
-  userCreate = (data: { nickname?: string; loginType?: string }, params: RequestParams = {}) =>
-    this.request<void, void>({
-      path: `/user`,
-      method: 'POST',
-      body: data,
-      ...params,
-    });
-  /**
-   * No description
+   * @description test
    *
    * @tags User
    * @name UserDetail
    * @request GET:/user/{userId}
+   * @secure
    */
-  userDetail = (userId: number, params: RequestParams = {}) =>
-    this.request<UserDto, void>({
+  userDetail = (userId: string, params: RequestParams = {}) =>
+    this.request<UserDto, any>({
       path: `/user/${userId}`,
       method: 'GET',
+      secure: true,
+      format: 'json',
       ...params,
     });
   /**
-   * No description
+   * @description test
    *
    * @tags User
-   * @name UpdateUser
-   * @request UPDATE:/user/{userId}
+   * @name UserUpdate
+   * @request PUT:/user/{userId}
+   * @secure
    */
-  updateUser = (userId: string, params: RequestParams = {}) =>
-    this.request<void, void>({
+  userUpdate = (userId: string, user: UserDto, params: RequestParams = {}) =>
+    this.request<UserDto, any>({
       path: `/user/${userId}`,
-      method: 'UPDATE',
+      method: 'PUT',
+      body: user,
+      secure: true,
+      format: 'json',
       ...params,
     });
   /**
-   * No description
+   * @description test
    *
    * @tags User
    * @name UserDelete
    * @request DELETE:/user/{userId}
+   * @secure
    */
-  userDelete = (userId: number, params: RequestParams = {}) =>
-    this.request<void, void>({
+  userDelete = (userId: string, params: RequestParams = {}) =>
+    this.request<ArticleDto, any>({
       path: `/user/${userId}`,
       method: 'DELETE',
+      secure: true,
+      format: 'json',
       ...params,
     });
   /**
-   * No description
+   * @description test
+   *
+   * @tags User
+   * @name UsersList
+   * @request GET:/users
+   * @secure
+   */
+  usersList = (params: RequestParams = {}) =>
+    this.request<UserDto[], any>({
+      path: `/users`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description test
+   *
+   * @tags User
+   * @name UserCreate
+   * @request POST:/user
+   * @secure
+   */
+  userCreate = (user: UserDto, params: RequestParams = {}) =>
+    this.request<UserDto, any>({
+      path: `/user`,
+      method: 'POST',
+      body: user,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description test
    *
    * @tags User
    * @name LoginCreate
    * @request POST:/user/login
+   * @secure
    */
-  loginCreate = (data: UserDto, params: RequestParams = {}) =>
-    this.request<void, void>({
+  loginCreate = (user: LoginBody, params: RequestParams = {}) =>
+    this.request<UserDto, any>({
       path: `/user/login`,
       method: 'POST',
-      body: data,
+      body: user,
+      secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
 }
