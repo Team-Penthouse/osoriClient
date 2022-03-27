@@ -1,11 +1,11 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Button, Spinner } from '@ui-kitten/components';
-import { Alert, BackHandler, Keyboard, Platform, TextInput } from 'react-native';
+import { Alert, Platform, TextInput } from 'react-native';
 import AudioRecorderPlayer, {
   PlayBackType,
   RecordBackType,
 } from 'react-native-audio-recorder-player';
-import { DEVICE_HEIGHT, DEVICE_WIDTH, Fonts } from 'layout/CustomStyles';
+import { DEVICE_WIDTH, Fonts } from 'layout/CustomStyles';
 import RNFetchBlob from 'rn-fetch-blob';
 import Text from 'components/Text';
 import moment from 'moment';
@@ -18,9 +18,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { ArticleDto } from '../services/data-contracts';
-import Theme from '../styles/Theme';
-import { MainStackParamList } from '../types/NavigationTypes';
+import { ArticleDto } from 'services/data-contracts';
+import { MainStackParamList } from 'types/NavigationTypes';
+import { isIphoneX, getBottomSpace } from 'react-native-iphone-x-helper';
+import Theme from 'styles/Theme';
 
 const recorder = new AudioRecorderPlayer();
 
@@ -237,7 +238,11 @@ const ArticleCreateScreen = () => {
   return (
     <ScrollView
       scrollEnabled={false}
-      contentContainerStyle={{ flex: 1, paddingBottom: 50 }}
+      contentContainerStyle={{
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingBottom: isIphoneX() ? getBottomSpace() : 0,
+      }}
       keyboardDismissMode={'on-drag'}
       keyboardShouldPersistTaps={'always'}
     >
@@ -323,7 +328,7 @@ const ArticleCreateScreen = () => {
   );
 };
 
-const Background = styled.View`
+const Background = styled.SafeAreaView`
   flex: 1;
   background-color: ${(props) => props.theme.colors.dark1};
   padding: 0 15px 0 15px;
@@ -366,8 +371,6 @@ const ContentInput = styled.TextInput`
 const ControllerContainer = styled.View<{ height: number }>`
   width: ${DEVICE_WIDTH}px;
   height: ${(props) => props.height || 100}px;
-  position: absolute;
-  bottom: 0;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
