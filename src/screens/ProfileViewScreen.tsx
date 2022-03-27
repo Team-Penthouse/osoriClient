@@ -10,9 +10,10 @@ import moment from 'moment';
 import Text from 'components/Text';
 import { observer } from 'mobx-react';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { isIphoneX, getBottomSpace } from 'react-native-iphone-x-helper';
 import { useQuery } from 'react-query';
-import { ArticleDto, UserDto } from '../services/data-contracts';
-import { useStore } from '../stores/RootStore';
+import { ArticleDto, UserDto } from 'services/data-contracts';
+import { useStore } from 'stores/RootStore';
 
 const ProfileViewScreen = observer(() => {
   const { userStore, articleStore, authStore } = useStore();
@@ -101,6 +102,10 @@ const ProfileViewScreen = observer(() => {
     // <View style={{ flex: 1, backgroundColor: 'white' }}>
     //     <View style={[CustomStyles.divider, { marginVertical: 20 }]} />
     <Tabs.Container
+      containerStyle={{
+        backgroundColor: '#fff',
+        paddingBottom: isIphoneX() ? getBottomSpace() : 0,
+      }}
       renderHeader={() => (
         <View
           style={[
