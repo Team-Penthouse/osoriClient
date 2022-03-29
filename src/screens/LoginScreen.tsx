@@ -10,6 +10,7 @@ import { DEVICE_HEIGHT, DEVICE_WIDTH } from 'layout/CustomStyles';
 import { useStore } from 'stores/RootStore';
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import jwtDecode from 'jwt-decode';
+import messaging from '@react-native-firebase/messaging';
 import { loginByKakao } from '../services/Kakao';
 import { loginByGoogle } from '../services/Google';
 import { TokenType } from '../types/CommonTypes';
@@ -53,7 +54,8 @@ const LoginScreen = observer(() => {
           profileImage: user?.photo,
         };
       }
-      return await userStore.api.loginCreate(body);
+      const pushToken = await messaging().getToken();
+      return await userStore.api.loginCreate(body, { pushToken });
     },
     {
       onSuccess: async (result) => {
