@@ -8,12 +8,15 @@ import 'moment/locale/ko';
 import { MobxProvider } from 'stores/RootStore';
 import { ThemeProvider } from 'styled-components';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import messaging from '@react-native-firebase/messaging';
 import Theme from './src/styles/Theme';
 
 /** react query 클라이언트를 생성한다. */
 const queryClient = new QueryClient();
 
 const App = () => {
+  messaging().setBackgroundMessageHandler(async (message) => {});
+
   // Hermes
   // @ts-ignore
   const isHermes = () => !!global.HermesInternal;
@@ -33,6 +36,14 @@ const App = () => {
       console.warn(e);
     }
   }, []);
+
+  useEffect(() => {
+    const unSubscribe = messaging().onMessage(async (message) => {
+      console.log('FCM', JSON.stringify(message));
+    });
+
+    return unSubscribe;
+  });
 
   return (
     <MobxProvider>
