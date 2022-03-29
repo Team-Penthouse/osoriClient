@@ -10,7 +10,7 @@
  */
 
 import { ArticleDto } from './data-contracts';
-import { ContentType, HttpClient, RequestParams } from './http-client';
+import { HttpClient, RequestParams } from './http-client';
 
 export class Article<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
   /**
@@ -43,7 +43,6 @@ export class Article<SecurityDataType = unknown> extends HttpClient<SecurityData
       method: 'PUT',
       body: article,
       secure: true,
-      type: ContentType.Json,
       format: 'json',
       ...params,
     });
@@ -97,6 +96,23 @@ export class Article<SecurityDataType = unknown> extends HttpClient<SecurityData
       path: `/articles/${userId}`,
       method: 'GET',
       query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description test
+   *
+   * @tags Article
+   * @name ArticleCreate
+   * @request POST:/article
+   * @secure
+   */
+  articleCreate = (article: ArticleDto, params: RequestParams = {}) =>
+    this.request<ArticleDto, any>({
+      path: `/article`,
+      method: 'POST',
+      body: article,
       secure: true,
       format: 'json',
       ...params,

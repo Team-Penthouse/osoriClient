@@ -103,10 +103,11 @@ export class User<SecurityDataType = unknown> extends HttpClient<SecurityDataTyp
    * @request POST:/user/login
    * @secure
    */
-  loginCreate = (user: LoginBody, params: RequestParams = {}) =>
+  loginCreate = (user: LoginBody, query?: { pushToken?: string }, params: RequestParams = {}) =>
     this.request<UserDto, any>({
       path: `/user/login`,
       method: 'POST',
+      query: query,
       body: user,
       secure: true,
       type: ContentType.Json,
