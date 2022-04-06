@@ -1,21 +1,19 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { isIphoneX } from 'react-native-iphone-x-helper';
-import { ActivityIndicator, Button, FlatList, View } from 'react-native';
+import { ActivityIndicator, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import CustomBottomTab from 'components/CustomBottomTab';
 import { observer } from 'mobx-react';
 import { useQuery } from 'react-query';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { useStore } from '../stores/RootStore';
-import { ArticleDto } from '../services/data-contracts';
-import Theme from '../styles/Theme';
-import { MainStackParamList } from '../types/NavigationTypes';
-import ArticleCard from '../components/ArticleCard';
+import { useStore } from 'stores/RootStore';
+import { ArticleDto } from 'services/data-contracts';
+import { MainStackParamList } from 'types/NavigationTypes';
+import ArticleCard from 'components/ArticleCard';
+import styled from 'styled-components/native';
 
 const MainScreen = observer(() => {
   const { articleStore } = useStore();
-  const navigation = useNavigation<DrawerNavigationProp<MainStackParamList>>();
-
+  const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const articles = useQuery<ArticleDto[]>('getArticles', () =>
@@ -37,13 +35,7 @@ const MainScreen = observer(() => {
   });
 
   return (
-    <View
-      style={{
-        flex: 1,
-        paddingBottom: 70,
-        backgroundColor: Theme.colors.white2,
-      }}
-    >
+    <Container>
       {articles.isFetching ? (
         <ActivityIndicator style={{ flexGrow: 1 }} />
       ) : (
@@ -58,8 +50,14 @@ const MainScreen = observer(() => {
         />
       )}
       <CustomBottomTab />
-    </View>
+    </Container>
   );
 });
+
+const Container = styled.View`
+  flex: 1;
+  padding: 0 0 70px 0;
+  background-color: ${(props) => props.theme.colors.white2};
+`;
 
 export default MainScreen;
