@@ -1,21 +1,18 @@
-import React, { useEffect } from 'react';
-import { KakaoAccessTokenInfo, KakaoOAuthToken } from '@react-native-seoul/kakao-login';
-import { NavigationContainer } from '@react-navigation/native';
-import * as Kakao from '@react-native-seoul/kakao-login';
 import AsyncStorage from '@react-native-community/async-storage';
-import MainNavigation from 'navigation/MainNavigation';
-import AuthNavigation from 'navigation/AuthNavigation';
-import { useStore } from 'stores/RootStore';
+import { NavigationContainer } from '@react-navigation/native';
 import CustomModal from 'components/CustomModal';
-import { observer } from 'mobx-react';
 import jwtDecode from 'jwt-decode';
 import { runInAction } from 'mobx';
-import { TokenType } from '../types/CommonTypes';
-import { UserDto } from '../services/data-contracts';
-import DrawerNavigation from './DrawerNavigation';
+import { observer } from 'mobx-react';
+import AuthNavigation from 'navigation/AuthNavigation';
+import React, { useEffect } from 'react';
+import { UserDto } from 'services/data-contracts';
+import { useStore } from 'stores/RootStore';
+import { TokenType } from 'types/CommonTypes';
+import MainNavigation from 'navigation/MainNavigation';
 
 const NavController = observer(() => {
-  const { userStore, authStore } = useStore();
+  const { authStore } = useStore();
 
   const checkInvalidToken = async () => {
     await AsyncStorage.getItem('user-token').then(async (tokenString) => {
@@ -39,7 +36,7 @@ const NavController = observer(() => {
   return (
     <NavigationContainer>
       <CustomModal />
-      {authStore.isLoggedIn ? <DrawerNavigation /> : <AuthNavigation />}
+      {authStore.isLoggedIn ? <MainNavigation /> : <AuthNavigation />}
     </NavigationContainer>
   );
 });

@@ -1,33 +1,34 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faAlignLeft, faFeatherPointed } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { useNavigation } from '@react-navigation/native';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+  StackNavigationProp,
+} from '@react-navigation/stack';
+import { observer } from 'mobx-react';
 import React, { useCallback } from 'react';
-import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
-import { MainStackParamList } from 'types/NavigationTypes';
-import { Fonts } from 'layout/CustomStyles';
-import ProfileComponent from 'components/ProfileComponent';
-import ProfileViewScreen from 'screens/ProfileViewScreen';
+import { TouchableOpacity, View } from 'react-native';
 import ArticleViewScreen from 'screens/ArticleViewScreen';
 import FeedScreen from 'screens/FeedScreen';
 import MainScreen from 'screens/MainScreen';
-import { observer } from 'mobx-react';
-import { TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faAlignLeft, faFeatherPointed } from '@fortawesome/free-solid-svg-icons';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { useStore } from '../stores/RootStore';
-import ArticleCreateScreen from '../screens/ArticleCreateScreen';
-import Theme from '../styles/Theme';
+import ProfileViewScreen from 'screens/ProfileViewScreen';
+import { MainStackParamList } from 'types/NavigationTypes';
 import Text from '../components/Text';
+import ArticleCreateScreen from '../screens/ArticleCreateScreen';
+import { useStore } from '../stores/RootStore';
+import Theme from '../styles/Theme';
 
 const Stack = createStackNavigator<MainStackParamList>();
 
 const MainNavigation = observer(() => {
-  const navigation = useNavigation<DrawerNavigationProp<any>>();
+  const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   const { authStore } = useStore();
 
   const HeaderLeft = useCallback(
     () => (
-      <TouchableOpacity style={{ padding: 15 }} onPress={navigation.openDrawer}>
+      <TouchableOpacity style={{ padding: 15 }} onPress={() => {}}>
         <FontAwesomeIcon icon={faAlignLeft as IconProp} color={'#aaa'} />
       </TouchableOpacity>
     ),

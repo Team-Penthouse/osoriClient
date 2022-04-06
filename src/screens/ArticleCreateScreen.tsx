@@ -17,7 +17,6 @@ import styled from 'styled-components/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { ArticleDto } from 'services/data-contracts';
 import { MainStackParamList } from 'types/NavigationTypes';
 import { isIphoneX, getBottomSpace } from 'react-native-iphone-x-helper';
@@ -27,7 +26,6 @@ const recorder = new AudioRecorderPlayer();
 
 const ArticleCreateScreen = () => {
   const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
-  const drawer = useNavigation<DrawerNavigationProp<any>>();
   const { audioStore, uiStore, authStore, articleStore } = useStore();
 
   const RECORDING_FILE_PATH =
@@ -229,11 +227,7 @@ const ArticleCreateScreen = () => {
     }, 200);
   }, []);
 
-  useLayoutEffect(() => {
-    drawer.setOptions({
-      headerShown: false,
-    });
-  }, []);
+  useLayoutEffect(() => {}, []);
 
   return (
     <ScrollView
