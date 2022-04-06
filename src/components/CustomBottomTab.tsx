@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import { isIphoneX } from 'react-native-iphone-x-helper';
-import { Layout } from '@ui-kitten/components';
-import { Alert, Dimensions, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Layout } from '@ui-kitten/components';
 import { observer } from 'mobx-react';
-import Text from './Text';
+import React, { useState } from 'react';
+import { Dimensions, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
+import { isIphoneX } from 'react-native-iphone-x-helper';
 import { useStore } from '../stores/RootStore';
-import ArticleCreateScreen from '../screens/ArticleCreateScreen';
 import { MainStackParamList } from '../types/NavigationTypes';
+import Text from './Text';
 
 const CustomBottomTab = observer((): React.ReactElement => {
   const { uiStore } = useStore();
   const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
-
   const [isVisible, setIsVisible] = useState(false);
 
   const handlePressAdd = () => {
@@ -22,7 +20,7 @@ const CustomBottomTab = observer((): React.ReactElement => {
   };
 
   const handleGoMyProfile = () => {
-    navigation.push('ProfileViewScreen');
+    navigation.navigate('ProfileViewScreen');
   };
 
   return (
