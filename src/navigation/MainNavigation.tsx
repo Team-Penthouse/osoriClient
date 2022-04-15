@@ -9,75 +9,71 @@ import {
 } from '@react-navigation/stack';
 import { observer } from 'mobx-react';
 import React, { useCallback } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Image, TouchableOpacity, View } from 'react-native';
 import ArticleViewScreen from 'screens/ArticleViewScreen';
 import FeedScreen from 'screens/FeedScreen';
 import MainScreen from 'screens/MainScreen';
 import ProfileViewScreen from 'screens/ProfileViewScreen';
 import { MainStackParamList } from 'types/NavigationTypes';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomNavigationProps } from '@ui-kitten/components';
 import Text from '../components/Text';
 import ArticleCreateScreen from '../screens/ArticleCreateScreen';
 import { useStore } from '../stores/RootStore';
 import Theme from '../styles/Theme';
 
-const Stack = createStackNavigator<MainStackParamList>();
+const Tab = createBottomTabNavigator();
 
 const MainNavigation = observer(() => {
-  const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
-  const { authStore } = useStore();
-
-  const HeaderLeft = useCallback(
-    () => (
-      <TouchableOpacity style={{ padding: 15 }} onPress={() => {}}>
-        <FontAwesomeIcon icon={faAlignLeft as IconProp} color={'#aaa'} />
-      </TouchableOpacity>
-    ),
-    [authStore.me],
-  );
+  const navigation = useNavigation<BottomNavigationProps>();
 
   return (
-    <Stack.Navigator
-      initialRouteName={'MainScreen'}
+    <Tab.Navigator
       screenOptions={{
-        headerShown: true,
-        headerTitle: () => (
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{ letterSpacing: 2, color: Theme.colors.dark1, marginRight: 10 }}>
-              Osori
-            </Text>
-            <FontAwesomeIcon icon={faFeatherPointed as IconProp} color={'#aaa'} />
-          </View>
-        ),
-        headerTitleAlign: 'center',
-        headerTitleStyle: { letterSpacing: 2, color: Theme.colors.dark1 },
-        headerStyle: { borderWidth: 1, borderColor: '#eee' },
-        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        headerBackgroundContainerStyle: { borderWidth: 0, elevation: 0 },
+        tabBarStyle: { borderWidth: 0, elevation: 0, height: 70 },
       }}
     >
-      <Stack.Screen
-        name="MainScreen"
+      <Tab.Screen
         options={{
-          headerLeft: HeaderLeft,
+          tabBarShowLabel: false,
+          tabBarIcon: () => (
+            <Image
+              style={{ width: 30, height: 30 }}
+              source={require('assets/images/icons/tab/check.png')}
+            />
+          ),
         }}
+        name="main"
         component={MainScreen}
       />
-      <Stack.Screen
-        name="ProfileViewScreen"
-        options={{ headerTitle: '', headerTransparent: false }}
+      <Tab.Screen
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: () => (
+            <Image
+              style={{ width: 30, height: 30 }}
+              source={require('assets/images/icons/tab/write.png')}
+            />
+          ),
+        }}
+        name="record"
+        component={ArticleCreateScreen}
+      />
+      <Tab.Screen
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: () => (
+            <Image
+              style={{ width: 30, height: 30 }}
+              source={require('assets/images/icons/tab/user.png')}
+            />
+          ),
+        }}
+        name="profile"
         component={ProfileViewScreen}
       />
-      <Stack.Screen
-        name="ArticleViewScreen"
-        options={{ headerShown: false }}
-        component={ArticleViewScreen}
-      />
-      <Stack.Screen name="FeedScreen" component={FeedScreen} />
-      <Stack.Screen
-        name={'ArticleCreateScreen'}
-        component={ArticleCreateScreen}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
+    </Tab.Navigator>
   );
 });
 
