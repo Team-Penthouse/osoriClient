@@ -2,7 +2,6 @@ import React, { useLayoutEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import CustomBottomTab from 'components/CustomBottomTab';
 import { observer } from 'mobx-react';
 import { useQuery } from 'react-query';
 import { useStore } from 'stores/RootStore';
@@ -15,7 +14,7 @@ import Text from '../components/Text';
 import Theme from '../styles/Theme';
 
 const MainScreen = observer(() => {
-  const { articleStore } = useStore();
+  const { articleStore, uiStore } = useStore();
   const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
@@ -72,15 +71,19 @@ const MainScreen = observer(() => {
           rightComponent={renderRightHeader}
         />
       ),
-      tabBarShown: false,
     });
 
-    const focus = navigation.addListener('focus', () => {
+    const onFocus = navigation.addListener('focus', () => {
+      uiStore.setTabBarVisible(true);
       articles.refetch();
+    });
+    const onBlur = navigation.addListener('blur', () => {
+      uiStore.setTabBarVisible(false);
     });
 
     return () => {
-      focus();
+      onFocus();
+      onBlur();
     };
   }, []);
 
