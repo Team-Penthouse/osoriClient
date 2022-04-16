@@ -188,7 +188,7 @@ PODS:
     - AppAuth/Core (~> 1.4)
     - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher/Core (1.7.0)
-  - kakao-login (3.4.3):
+  - kakao-login (3.4.2):
     - KakaoSDK (~> 2.4.0)
     - KakaoSDKAuth (~> 2.4.0)
     - KakaoSDKCommon (~> 2.4.0)
@@ -439,9 +439,9 @@ PODS:
   - React-jsinspector (0.65.1)
   - react-native-flipper (0.138.0):
     - React-Core
-  - react-native-pager-view (5.4.15):
+  - react-native-pager-view (5.4.9):
     - React-Core
-  - react-native-safe-area-context (3.4.1):
+  - react-native-safe-area-context (3.3.2):
     - React-Core
   - react-native-splash-screen (3.3.0):
     - React-Core
@@ -528,14 +528,14 @@ PODS:
     - Firebase/Messaging (= 8.12.1)
     - React-Core
     - RNFBApp
-  - RNFS (2.19.0):
-    - React-Core
+  - RNFS (2.18.0):
+    - React
   - RNGestureHandler (2.1.1):
     - React-Core
-  - RNGoogleSignin (7.2.1):
+  - RNGoogleSignin (7.1.0):
     - GoogleSignIn (~> 6.1.0)
     - React-Core
-  - RNReanimated (2.4.1):
+  - RNReanimated (2.3.1):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -563,17 +563,17 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.13.1):
+  - RNScreens (3.10.1):
     - React-Core
     - React-RCTImage
-  - RNSound (0.11.2):
+  - RNSound (0.11.1):
     - React-Core
-    - RNSound/Core (= 0.11.2)
-  - RNSound/Core (0.11.2):
+    - RNSound/Core (= 0.11.1)
+  - RNSound/Core (0.11.1):
     - React-Core
   - RNSVG (12.3.0):
     - React-Core
-  - RNVectorIcons (9.1.0):
+  - RNVectorIcons (9.0.0):
     - React-Core
   - SocketRocket (0.6.0)
   - Yoga (1.14.0)
@@ -835,7 +835,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
-  kakao-login: f5633a612ae8af34edacf4f9d8bed87964a18117
+  kakao-login: c3a28605d3d2576625781c7643d5e3350e02e719
   KakaoSDK: 1e80d6877c0eac6a310f93c73fb15ca56c05f2bd
   KakaoSDKAuth: fcba1c9ede431683f5bdd84c835a96981cb115a5
   KakaoSDKCommon: 0912aa0c7db051ae8dc07a35395cf644f7728f95
@@ -863,8 +863,8 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 43f2542aed3c26e42175b339f8d37fe3dd683765
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
   react-native-flipper: 51a1b8f34ce185e028f8158382c3882d6ea3cccf
-  react-native-pager-view: b1914469643f40042e65d78cbf3d3dfebd6fb0d9
-  react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
+  react-native-pager-view: 3ee7d4c7697fb3ef788346e834a60cca97ed8540
+  react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   React-perflogger: fd28ee1f2b5b150b00043f0301d96bd417fdc339
   React-RCTActionSheet: 7f3fa0855c346aa5d7c60f9ced16e067db6d29fa
@@ -885,14 +885,14 @@ SPEC CHECKSUMS:
   RNFBApp: 5bae3002117e55f3c9aa0fb38175dd16c8046c90
   RNFBAuth: ed314ff1732011c23041570ac4a98bc6070f9f4d
   RNFBMessaging: f181f9396582b64909483912aa2ab89ed5bb1207
-  RNFS: fc610f78fdf8bfc89a9e5cc2f898519f4dba1002
+  RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
   RNGestureHandler: e1ad51d31a580755079d5124d3ab66f0fcaa8311
-  RNGoogleSignin: 824ef4924ecb709477fc9f39d6557baeded867c4
-  RNReanimated: f1b73ebfdd510dc56b8970bf19444cb0d5acd35a
-  RNScreens: 40a2cb40a02a609938137a1e0acfbf8fc9eebf19
-  RNSound: 6c156f925295bdc83e8e422e7d8b38d33bc71852
+  RNGoogleSignin: 233fdfa02522216c19bf02a1e6c60b60a75ffb4c
+  RNReanimated: 629fedd82e9f6b9138421caa342f0a5ebd711cbe
+  RNScreens: 522705f2e5c9d27efb17f24aceb2bf8335bc7b8e
+  RNSound: 27e8268bdb0a1f191f219a33267f7e0445e8d62f
   RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8
-  RNVectorIcons: 7923e585eaeb139b9f4531d25a125a1500162a0b
+  RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
