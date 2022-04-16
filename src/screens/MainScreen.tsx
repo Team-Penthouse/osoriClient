@@ -106,7 +106,6 @@ const MainScreen = observer(() => {
 
 const Container = styled.View`
   flex: 1;
-  padding: 0 0 70px 0;
   background-color: ${(props) => props.theme.colors.white2};
 `;
 

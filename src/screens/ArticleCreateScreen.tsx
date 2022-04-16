@@ -388,6 +388,9 @@ const ArticleCreateScreen = observer(() => {
       {isRecording && (
         <DimmingContainer>
           <Text style={{ color: 'white' }}>듣고 있어요</Text>
+          <Text style={{ color: 'white' }}>
+            {millisToSeconds(recordBack?.currentPosition)} / 50
+          </Text>
         </DimmingContainer>
       )}
       {loading && (
