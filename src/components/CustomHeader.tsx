@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
+import { isIphoneX } from 'react-native-iphone-x-helper';
 import Text from './Text';
 import { DEVICE_WIDTH } from '../layout/CustomStyles';
 
@@ -17,11 +18,13 @@ const CustomHeader = observer(
   ({ color, title, leftComponent, rightComponent, titleComponent }: CustomHeaderProps) => {
     return (
       <Container color={color}>
-        {leftComponent && leftComponent()}
-        <TitleContainer>
-          {titleComponent ? titleComponent() : <Title>{title ?? ''}</Title>}
-        </TitleContainer>
-        {rightComponent && rightComponent()}
+        <HeaderContainer>
+          {leftComponent && leftComponent()}
+          <TitleContainer>
+            {titleComponent ? titleComponent() : <Title>{title ?? ''}</Title>}
+          </TitleContainer>
+          {rightComponent && rightComponent()}
+        </HeaderContainer>
       </Container>
     );
   },
@@ -29,10 +32,16 @@ const CustomHeader = observer(
 
 const Container = styled.View<{ color?: string }>`
   flex-direction: row;
+  height: ${isIphoneX() ? 86 : 56}px;
+  background-color: ${(props) => props.color ?? props.theme.colors.primary1};
+`;
+const HeaderContainer = styled.View`
+  width: 100%;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   height: 56px;
-  background-color: ${(props) => props.color ?? props.theme.colors.primary1};
+  align-self: flex-end;
   padding: 0 25px 0 25px;
 `;
 
@@ -42,6 +51,7 @@ const TitleContainer = styled.View`
   align-items: center;
   justify-content: center;
   width: ${DEVICE_WIDTH}px;
+  z-index: -1;
 `;
 
 const Title = styled(Text)`

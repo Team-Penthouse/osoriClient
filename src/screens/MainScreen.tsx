@@ -12,6 +12,7 @@ import ArticleCard from 'components/ArticleCard';
 import styled from 'styled-components/native';
 import CustomHeader from '../components/CustomHeader';
 import Text from '../components/Text';
+import Theme from '../styles/Theme';
 
 const MainScreen = observer(() => {
   const { articleStore } = useStore();
@@ -71,6 +72,7 @@ const MainScreen = observer(() => {
           rightComponent={renderRightHeader}
         />
       ),
+      tabBarShown: false,
     });
 
     const focus = navigation.addListener('focus', () => {
@@ -88,7 +90,7 @@ const MainScreen = observer(() => {
         <ActivityIndicator style={{ flexGrow: 1 }} />
       ) : (
         <FlatList
-          style={{ flex: 1 }}
+          style={{ flex: 1, backgroundColor: Theme.colors.primary1 }}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}

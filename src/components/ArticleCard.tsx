@@ -161,6 +161,7 @@ const CalendarIcon = styled(FontAwesomeIcon)`
 const ContentContainer = styled.View`
   flex: 1;
   flex-direction: row;
+  padding: 0 16px 0 16px;
 `;
 
 const ArticleTitle = styled(Text)`
@@ -174,7 +175,7 @@ const ArticleHeader = styled.View`
 `;
 
 const ArticleContainer = styled.ScrollView`
-  padding: 15px 30px 10px 30px;
+  padding: 15px 16px 10px 0;
 `;
 
 const ArticleFirstLetter = styled(Text)`
@@ -245,10 +246,7 @@ const Label = styled(Text)`
   font-size: 10px;
 `;
 
-const MediaContainer = styled.View`
-  margin: 0 30px 0 0;
-  width: 80px;
-`;
+const MediaContainer = styled.View``;
 
 const MediaButton = styled.TouchableOpacity`
   align-items: center;

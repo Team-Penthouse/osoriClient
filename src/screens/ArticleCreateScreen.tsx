@@ -1,11 +1,19 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Button, Spinner } from '@ui-kitten/components';
-import { Alert, Platform, TextInput } from 'react-native';
+import { BottomNavigationProps, Button, Spinner } from '@ui-kitten/components';
+import {
+  Alert,
+  ImageBackground,
+  Platform,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import AudioRecorderPlayer, {
   PlayBackType,
   RecordBackType,
 } from 'react-native-audio-recorder-player';
-import { DEVICE_WIDTH, Fonts } from 'layout/CustomStyles';
+import { DEVICE_HEIGHT, DEVICE_WIDTH, Fonts } from 'layout/CustomStyles';
 import RNFetchBlob from 'rn-fetch-blob';
 import Text from 'components/Text';
 import moment from 'moment';
@@ -21,17 +29,21 @@ import { ArticleDto } from 'services/data-contracts';
 import { MainStackParamList } from 'types/NavigationTypes';
 import { isIphoneX, getBottomSpace } from 'react-native-iphone-x-helper';
 import Theme from 'styles/Theme';
+import { observer } from 'mobx-react';
+import CustomHeader from '../components/CustomHeader';
 
 const recorder = new AudioRecorderPlayer();
 
-const ArticleCreateScreen = () => {
-  const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
+const ArticleCreateScreen = observer(() => {
+  const navigation = useNavigation<
+    StackNavigationProp<MainStackParamList> & BottomNavigationProps
+  >();
   const { audioStore, uiStore, authStore, articleStore } = useStore();
 
   const RECORDING_FILE_PATH =
     Platform.select({
       ios: 'article_recording.m4a',
-      android: `${RNFetchBlob.fs.dirs.CacheDir}/article_recording.mp3`,
+      android: `${RNFetchBlob.fs.dirs.CacheDir}/article_recording_1.mp3`,
     }) || '';
   const RECORDING_FILE_NAME =
     Platform.select({
@@ -47,6 +59,7 @@ const ArticleCreateScreen = () => {
   const [recordBack, setRecordBack] = useState<RecordBackType>({ currentPosition: 0 });
   const [playBack, setPlayBack] = useState<PlayBackType>({ currentPosition: 0, duration: 0 });
   const [title, setTitle] = useState<string>(`${moment().format('YYYY-MM-DD')}`);
+  const [isRequesting, setIsRequesting] = useState<boolean>(false);
 
   const contentInputRef = useRef<TextInput>(null);
 
@@ -57,6 +70,8 @@ const ArticleCreateScreen = () => {
     },
     {
       onSuccess: () => {
+        setReceivedText('');
+        setTitle(`${moment().format('YYYY-MM-DD')}`);
         Alert.alert('글을 저장하였습니다.');
         navigation.goBack();
       },
@@ -76,6 +91,8 @@ const ArticleCreateScreen = () => {
 
       // 녹음 레코드백 기록 삭제
       await recorder.removeRecordBackListener();
+
+      requestToClovaSpeech();
     } else {
       setRecordLength(0);
       // 녹음 중이 아닐 시 (녹음 대기중일 시)
@@ -179,7 +196,11 @@ const ArticleCreateScreen = () => {
       {
         text: '예',
         style: 'destructive',
-        onPress: () => navigation.goBack(),
+        onPress: () => {
+          setReceivedText('');
+          setTitle(`${moment().format('YYYY-MM-DD')}`);
+          navigation.goBack();
+        },
       },
       {
         text: '아니오',
@@ -220,6 +241,33 @@ const ArticleCreateScreen = () => {
     return Math.round(Number(secondsText) / 1000);
   };
 
+  const renderHeaderLeft = () => {
+    return (
+      <Button
+        size="small"
+        style={{ marginRight: 10 }}
+        status="danger"
+        disabled={isRecording || isPlaying || loading}
+        onPress={handleClose}
+      >
+        닫기
+      </Button>
+    );
+  };
+
+  const renderHeaderRight = () => {
+    return (
+      <Button
+        status="info"
+        size="small"
+        disabled={isRecording || isPlaying || loading}
+        onPress={handleSave}
+      >
+        저장
+      </Button>
+    );
+  };
+
   useEffect(() => {
     audioStore.requestRecordPermission();
     setTimeout(() => {
@@ -227,7 +275,34 @@ const ArticleCreateScreen = () => {
     }, 200);
   }, []);
 
-  useLayoutEffect(() => {}, []);
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => (
+        <CustomHeader
+          title={'글 쓰기'}
+          leftComponent={renderHeaderLeft}
+          rightComponent={renderHeaderRight}
+        />
+      ),
+    });
+  }, [loading, isPlaying, isRecording, receivedText, title]);
+
+  useLayoutEffect(() => {
+    const onFocus = navigation.addListener('focus', () => {
+      console.log('focus');
+      uiStore.setTabBarVisible(false);
+    });
+    const onBlur = navigation.addListener('blur', () => {
+      uiStore.setTabBarVisible(true);
+    });
+
+    return () => {
+      onFocus();
+      onBlur();
+      setReceivedText('');
+      setTitle(`${moment().format('YYYY-MM-DD')}`);
+    };
+  }, []);
 
   return (
     <ScrollView
@@ -240,35 +315,8 @@ const ArticleCreateScreen = () => {
       keyboardDismissMode={'on-drag'}
       keyboardShouldPersistTaps={'always'}
     >
-      <Background>
-        <HeaderContainer>
-          <ButtonContainer>
-            <Button
-              size="small"
-              style={{ marginRight: 10 }}
-              status="danger"
-              disabled={isRecording || isPlaying || loading}
-              onPress={handleClose}
-            >
-              닫기
-            </Button>
-            <Button
-              style={{ marginRight: 10 }}
-              status="info"
-              size="small"
-              disabled={isRecording || isPlaying || loading}
-              onPress={handleSave}
-            >
-              저장
-            </Button>
-          </ButtonContainer>
-          <TitleInput
-            maxLength={30}
-            defaultValue="Untitled"
-            value={title}
-            onChangeText={setTitle}
-          />
-        </HeaderContainer>
+      <ContentContainer>
+        <TitleInput style={{ borderBottomWidth: 1, borderColor: '#ccc' }} defaultValue={title} />
         <ContentInput
           ref={contentInputRef}
           showSoftInputOnFocus
@@ -276,56 +324,84 @@ const ArticleCreateScreen = () => {
           placeholder={'글을 직접 입력하거나\n아래 녹음 버튼을 이용해 작성해보세요'}
           maxLength={500}
           multiline
+          // value={receivedText}
           value={receivedText}
           onChangeText={(text) => setReceivedText(text)}
         />
-      </Background>
-      <ControllerContainer height={50}>
-        <TextWithColor color={Theme.colors.dark1}>
-          {' '}
-          {millisToSeconds(recordBack?.currentPosition)} / 50
-        </TextWithColor>
-        <ControlButton
-          onPress={handleRecord}
-          color={Theme.colors.primaryDark1}
-          disabled={loading || isPlaying}
-        >
-          {isRecording ? (
-            <ControlSpinner status="danger" />
-          ) : (
-            <TextWithColor color={Theme.colors.primaryDark1}>
-              {isRecording ? '녹음중' : '녹음'}
-            </TextWithColor>
-          )}
-        </ControlButton>
-        <ControlButton
-          onPress={handlePlay}
-          color={Theme.colors.secondary1}
-          disabled={recordLength === 0 || loading || isRecording || isPlaying}
-        >
-          <TextWithColor color={Theme.colors.secondary1}>
-            들어보기{' '}
-            {playBack.currentPosition !== 0 ? millisToSeconds(playBack.currentPosition) : 0} /{' '}
-            {millisToSeconds(recordLength)}
-          </TextWithColor>
-          {isPlaying && <ControlSpinner status={'info'} />}
-        </ControlButton>
-        <ControlButton color={Theme.colors.secondary4} onPress={requestToClovaSpeech}>
-          {loading ? (
-            <ControlSpinner status="warning" />
-          ) : (
-            <TextWithColor color={Theme.colors.secondary4}>변환</TextWithColor>
-          )}
-        </ControlButton>
-      </ControllerContainer>
+      </ContentContainer>
+      {/* <ControllerContainer height={50}> */}
+      {/*  <TextWithColor color={Theme.colors.dark1}> */}
+      {/*    {' '} */}
+      {/*    {millisToSeconds(recordBack?.currentPosition)} / 50 */}
+      {/*  </TextWithColor> */}
+      {/*  <ControlButton */}
+      {/*    onPress={handleRecord} */}
+      {/*    color={Theme.colors.primaryDark1} */}
+      {/*    disabled={loading || isPlaying} */}
+      {/*  > */}
+      {/*    {isRecording ? ( */}
+      {/*      <ControlSpinner status="danger" /> */}
+      {/*    ) : ( */}
+      {/*      <TextWithColor color={Theme.colors.primaryDark1}> */}
+      {/*        {isRecording ? '녹음중' : '녹음'} */}
+      {/*      </TextWithColor> */}
+      {/*    )} */}
+      {/*  </ControlButton> */}
+      {/*  <ControlButton */}
+      {/*    onPress={handlePlay} */}
+      {/*    color={Theme.colors.secondary1} */}
+      {/*    disabled={recordLength === 0 || loading || isRecording || isPlaying} */}
+      {/*  > */}
+      {/*    <TextWithColor color={Theme.colors.secondary1}> */}
+      {/*      들어보기{' '} */}
+      {/*      {playBack.currentPosition !== 0 ? millisToSeconds(playBack.currentPosition) : 0} /{' '} */}
+      {/*      {millisToSeconds(recordLength)} */}
+      {/*    </TextWithColor> */}
+      {/*    {isPlaying && <ControlSpinner status={'info'} />} */}
+      {/*  </ControlButton> */}
+      {/*  <ControlButton color={Theme.colors.secondary4} onPress={requestToClovaSpeech}> */}
+      {/*    {loading ? ( */}
+      {/*      <ControlSpinner status="warning" /> */}
+      {/*    ) : ( */}
+      {/*      <TextWithColor color={Theme.colors.secondary4}>변환</TextWithColor> */}
+      {/*    )} */}
+      {/*  </ControlButton> */}
+      {/* </ControllerContainer> */}
+      {!loading && (
+        <View style={{ alignItems: 'center', justifyContent: 'center', paddingBottom: 20 }}>
+          <TouchableWithoutFeedback
+            onLongPress={handleRecord}
+            onPressOut={() => {
+              if (isRecording) {
+                handleRecord();
+              }
+            }}
+          >
+            <ImageBackground
+              style={{ width: 70, height: 70 }}
+              imageStyle={{ borderRadius: 100 }}
+              source={require('assets/images/article_add_button.png')}
+            />
+          </TouchableWithoutFeedback>
+        </View>
+      )}
+      {isRecording && (
+        <DimmingContainer>
+          <Text style={{ color: 'white' }}>듣고 있어요</Text>
+        </DimmingContainer>
+      )}
+      {loading && (
+        <DimmingContainer>
+          <Text style={{ color: 'white' }}>글로 바꿔올게요!</Text>
+        </DimmingContainer>
+      )}
     </ScrollView>
   );
-};
+});
 
-const Background = styled.SafeAreaView`
+const ContentContainer = styled.View`
   flex: 1;
-  background-color: ${(props) => props.theme.colors.dark1};
-  padding: 0 15px 0 15px;
+  padding: 0 16px 0 16px;
 `;
 
 const HeaderContainer = styled.View`
@@ -333,13 +409,13 @@ const HeaderContainer = styled.View`
 `;
 
 const TitleInput = styled.TextInput`
-  width: ${DEVICE_WIDTH - 30}px;
+  width: 100%;
   font-family: ${Fonts.NANUM_SQUARE_LIGHT};
   font-size: 30px;
-  background-color: rgba(238, 238, 238, 0.42);
   border-radius: 8px;
   padding: 5px 10px 5px 10px;
   align-self: flex-start;
+  margin: 20px 0 0 0;
 `;
 
 const ButtonContainer = styled.View`
@@ -353,7 +429,6 @@ const ButtonContainer = styled.View`
 
 const ContentInput = styled.TextInput`
   flex: 1;
-  background-color: white;
   border-radius: 8px;
   margin: 10px 0 10px 0;
   text-align-vertical: top;
@@ -394,6 +469,16 @@ const ControlSpinner = styled(Spinner)`
 const TextWithColor = styled(Text)<{ color?: string }>`
   color: ${(props) => props?.color || 'black'};
   margin: 0 10px 0 10px;
+`;
+
+const DimmingContainer = styled.View`
+  position: absolute;
+  background-color: rgba(74, 74, 74, 0.85);
+  width: ${DEVICE_WIDTH}px;
+  height: ${DEVICE_HEIGHT}px;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default ArticleCreateScreen;

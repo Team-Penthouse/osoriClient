@@ -7,9 +7,15 @@ export default class UIStore {
     makeAutoObservable(this);
   }
 
+  tabBarVisible = true;
+
   isModalVisible = false;
 
   modalOptions: ModalInterface = {} as ModalInterface;
+
+  setTabBarVisible = (visible: boolean) => {
+    this.tabBarVisible = visible;
+  };
 
   showModal = (options: ModalInterface) => {
     this.modalOptions = options;

@@ -26,12 +26,13 @@ const Tab = createBottomTabNavigator();
 
 const MainNavigation = observer(() => {
   const navigation = useNavigation<BottomNavigationProps>();
+  const { uiStore } = useStore();
 
   return (
     <Tab.Navigator
       screenOptions={{
+        tabBarStyle: uiStore.tabBarVisible ? undefined : { display: 'none' },
         headerBackgroundContainerStyle: { borderWidth: 0, elevation: 0 },
-        tabBarStyle: { borderWidth: 0, elevation: 0, height: 70 },
       }}
     >
       <Tab.Screen
