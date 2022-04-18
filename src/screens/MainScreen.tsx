@@ -7,11 +7,12 @@ import { useQuery } from 'react-query';
 import { useStore } from 'stores/RootStore';
 import { ArticleDto } from 'services/data-contracts';
 import { MainStackParamList } from 'types/NavigationTypes';
+import SkeletonMainScreen from 'skeleton/SkeletonMainScreen';
 import ArticleCard from 'components/ArticleCard';
 import styled from 'styled-components/native';
-import CustomHeader from '../components/CustomHeader';
-import Text from '../components/Text';
-import Theme from '../styles/Theme';
+import CustomHeader from 'components/CustomHeader';
+import Text from 'components/Text';
+import Theme from 'styles/Theme';
 
 const MainScreen = observer(() => {
   const { articleStore, uiStore } = useStore();
@@ -90,7 +91,7 @@ const MainScreen = observer(() => {
   return (
     <Container>
       {articles.isFetching ? (
-        <ActivityIndicator style={{ flexGrow: 1 }} />
+        <SkeletonMainScreen />
       ) : (
         <FlatList
           style={{ flex: 1, backgroundColor: Theme.colors.primary1 }}

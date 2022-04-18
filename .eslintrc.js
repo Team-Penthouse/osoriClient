@@ -59,5 +59,6 @@ module.exports = {
     'no-return-await': 'off',
     'no-redeclare': 'off',
     'react/jsx-props-no-spreading': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
 };
