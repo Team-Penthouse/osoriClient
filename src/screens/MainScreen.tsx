@@ -3,7 +3,7 @@ import { ActivityIndicator, FlatList, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { observer } from 'mobx-react';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 import { useStore } from 'stores/RootStore';
 import { ArticleDto } from 'services/data-contracts';
 import { MainStackParamList } from 'types/NavigationTypes';
@@ -12,18 +12,37 @@ import styled from 'styled-components/native';
 import CustomHeader from '../components/CustomHeader';
 import Text from '../components/Text';
 import Theme from '../styles/Theme';
+import ArticleRow from '../components/ArticleRow';
+import { RequestParams } from '../services/http-client';
 
 const MainScreen = observer(() => {
   const { articleStore, uiStore } = useStore();
   const navigation = useNavigation<StackNavigationProp<MainStackParamList>>();
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [viewMode, setViewMode] = useState<'horizontal' | 'row'>('horizontal');
+  const [currentPagination, setCurrentPagination] = useState<any>({});
 
-  const articles = useQuery<ArticleDto[]>('getArticles', () =>
-    articleStore.api.articlesList().then((result) => result.data),
+  const articles = useQuery(
+    'getArticles',
+    ({ pageParam = 0 }) => {
+      const parameter = { page: pageParam } as any;
+      return articleStore.api.articlesList(parameter).then((result) => {
+        const pagination = result.headers['x-pagination'];
+        setCurrentPagination(pagination);
+        return result.data;
+      });
+    },
+    {
+      // getNextPageParam: (lastPage, allPages) => lastPage.nextCursor,
+    },
   );
 
   const renderArticles = (item: { item: ArticleDto; index: number }) => {
     return <ArticleCard article={item.item} />;
+  };
+
+  const renderArticleRows = (item: { item: ArticleDto; index: number }) => {
+    return <ArticleRow article={item.item} />;
   };
 
   const renderTitle = () => {
@@ -38,9 +57,17 @@ const MainScreen = observer(() => {
     );
   };
 
+  const handleChangeViewMode = () => {
+    if (viewMode === 'horizontal') {
+      setViewMode('row');
+    } else {
+      setViewMode('horizontal');
+    }
+  };
+
   const renderLeftHeader = () => {
     return (
-      <IconButton>
+      <IconButton onPress={handleChangeViewMode}>
         <Icon source={require('assets/images/icons/menu.png')} />
       </IconButton>
     );
@@ -72,10 +99,11 @@ const MainScreen = observer(() => {
         />
       ),
     });
+  }, [viewMode]);
 
+  useLayoutEffect(() => {
     const onFocus = navigation.addListener('focus', () => {
       uiStore.setTabBarVisible(true);
-      articles.refetch();
     });
     const onBlur = navigation.addListener('blur', () => {
       uiStore.setTabBarVisible(false);
@@ -91,16 +119,27 @@ const MainScreen = observer(() => {
     <Container>
       {articles.isFetching ? (
         <ActivityIndicator style={{ flexGrow: 1 }} />
-      ) : (
+      ) : viewMode === 'horizontal' ? (
         <FlatList
           style={{ flex: 1, backgroundColor: Theme.colors.primary1 }}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
-          data={articles.data || []}
+          data={articles.data}
           renderItem={renderArticles}
           refreshing={refreshing}
           onRefresh={articles.refetch}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      ) : (
+        <FlatList
+          contentContainerStyle={{ paddingVertical: 20, paddingHorizontal: 16 }}
+          data={articles.data || []}
+          renderItem={renderArticleRows}
+          ItemSeparatorComponent={() => <View style={{ marginVertical: 10 }} />}
+          refreshing={refreshing}
+          onRefresh={articles.refetch}
+          keyExtractor={(item, index) => index.toString()}
         />
       )}
     </Container>
